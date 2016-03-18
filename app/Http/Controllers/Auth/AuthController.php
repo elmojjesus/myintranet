@@ -7,6 +7,10 @@ use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
+use Illuminate\Http\Request;
+use App\Http\Requests;
+use Auth;
+
 
 class AuthController extends Controller
 {
@@ -63,7 +67,14 @@ class AuthController extends Controller
         ]);
     }
 
-    public function getLogin(){
+    public function getLogin () {
+        return view('auth.login');
+    }
+
+    public function postLogin (Request $request) {
+        if (Auth::attempt(['email' => $request['email'], 'password' => $request['password']])) {
+            return redirect('/');
+        }
         return view('auth.login');
     }
 }
