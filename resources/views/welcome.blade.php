@@ -1,3 +1,6 @@
+{{ dd('Falta validação Profissão e usuário, fora os edits de todos.... :D') }}
+
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -8,6 +11,12 @@
         <style>
             html, body {
                 height: 100%;
+            }
+
+            a {
+                color:black;
+                text-decoration: none;
+                font-size: 30px;
             }
 
             body {
@@ -39,6 +48,10 @@
         <div class="container">
             <div class="content">
                 <div class="title">Laravel 5</div>
+                <a href="/deficiency">Deficiência</a> ||||
+                <a href="/education">Educação</a> ||||
+                <a href="/profession">Profissão</a> ||||
+                <a href="/user">Usuários</a>
             </div>
         </div>
     </body>

@@ -3,9 +3,9 @@
         <li>{{ $error }}</li>
     @endforeach
 </ul>
-<form action="/deficiency/store" method="POST">
+<form action="/education/store" method="POST">
 	{{ csrf_field() }}
-	<label>Nome da deficiência:</label>
+	<label>Nome educação:</label>
 	<input type="text" name="name" />
 	<input type="submit" class="btn btn-primary" value="Salvar" />
 </form>

@@ -6,9 +6,8 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\DeficiencyRequest;
 
-class DeficiencyController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,8 +16,8 @@ class DeficiencyController extends Controller
      */
     public function index()
     {
-        $deficiencies = \App\Deficiency::all();
-        return view('deficiency.index', compact('deficiencies'));
+        $users = \App\User::orderBy('name')->paginate(20);
+        return view('user.index', compact('users'));
     }
 
     /**
@@ -28,21 +27,25 @@ class DeficiencyController extends Controller
      */
     public function create()
     {
-        return view('deficiency.create');
+        $deficiencies = \App\Deficiency::all();
+        $educations = \App\Education::all();
+        $professions = \App\Profession::all();
+        return view('user.create', compact('deficiencies', 'educations', 'professions'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  DeficiencyRequest  $request
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(DeficiencyRequest $request)
+    public function store(Request $request)
     {
         $data = $request->all();
         unset($data['_token']);
-        \App\Deficiency::insert($data);
-        return redirect('deficiency');
+        $data['password'] = bcrypt($data['password']);
+        \App\User::insert($data);
+        return redirect('user');
     }
 
     /**
@@ -64,8 +67,11 @@ class DeficiencyController extends Controller
      */
     public function edit($id)
     {
-        $deficiency = \App\Deficiency::find($id);
-        return view('deficiency.edit', compact('deficiency'));
+        $user = \App\User::find($id);
+        $deficiencies = \App\Deficiency::all();
+        $educations = \App\Education::all();
+        $professions = \App\Profession::all();
+        return view('user.edit', compact('user', 'deficiencies', 'educations', 'professions'));
     }
 
     /**
@@ -79,8 +85,13 @@ class DeficiencyController extends Controller
     {
         $data = $request->all();
         unset($data['_token']);
-        \App\Deficiency::where('id', $id)->update($data);
-        return redirect('deficiency');
+        if ($data['password'] == '') {
+            unset($data['password']);
+        } else {
+            $data['password'] = bcrypt($data['password']);
+        }
+        \App\User::where('id', $id)->update($data);
+        return redirect('user');
     }
 
     /**
@@ -91,8 +102,8 @@ class DeficiencyController extends Controller
      */
     public function delete($id)
     {
-        $deficiency = \App\Deficiency::find($id);
-        return view('deficiency.delete', compact('deficiency'));
+        $user = \App\User::find($id);
+        return view('user.delete', compact('user'));
     }
 
     /**
@@ -103,7 +114,7 @@ class DeficiencyController extends Controller
      */
     public function destroy($id)
     {
-        \App\Deficiency::find($id)->delete();
-        return redirect('deficiency');
+        \App\User::find($id)->delete();
+        return redirect('user');
     }
 }

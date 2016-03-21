@@ -15,6 +15,7 @@ class CreateEducationsTable extends Migration
         Schema::create('educations', function(Blueprint $table) {
             $table->increments('id');
             $table->string('name', 40);
+            $table->timestamps();
             $table->softDeletes();
         });
     }

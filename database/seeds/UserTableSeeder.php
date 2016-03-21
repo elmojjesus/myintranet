@@ -16,16 +16,31 @@ class UserTableSeeder extends Seeder
         DB::statement('SET FOREIGN_KEY_CHECKS = 0');
         \App\User::truncate();
         $users = [];
+        $deficiencies = \App\Deficiency::all();
+        $educations = \App\Education::all();
+        $professions = \App\Profession::all();
         $users[] = [
             'email' => 'ueslei.lima@movasoft.com.br',
             'password' => bcrypt('123456'),
-            'name' => 'Ueslei Lima'
+            'name' => 'Ueslei Lima',
+            'deficiency_id' => $deficiencies->random(1)->id,
+            'education_id' => $educations->random(1)->id,
+            'profession_id' => $professions->random(1)->id,
+            'mother' => $faker->firstNameFemale, 
+            'father' => $faker->firstNameMale,
+            'voluntary' => $faker->boolean(50),
         ];
         foreach (range(0, 30) as $number) {
             $users[] = [
                 'email' => $faker->email,
                 'password' => bcrypt('123456'),
-                'name' => $faker->name
+                'name' => $faker->name,
+                'deficiency_id' => $deficiencies->random(1)->id,
+                'education_id' => $educations->random(1)->id,
+                'profession_id' => $professions->random(1)->id,
+                'mother' => $faker->firstNameFemale, 
+                'father' => $faker->firstNameMale,
+                'voluntary' => $faker->boolean(50),
             ];
         }
         

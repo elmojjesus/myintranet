@@ -6,9 +6,8 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\DeficiencyRequest;
 
-class DeficiencyController extends Controller
+class ProfessionController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,8 +16,8 @@ class DeficiencyController extends Controller
      */
     public function index()
     {
-        $deficiencies = \App\Deficiency::all();
-        return view('deficiency.index', compact('deficiencies'));
+        $professions = \App\Profession::all();
+        return view('profession.index', compact('professions'));
     }
 
     /**
@@ -28,21 +27,22 @@ class DeficiencyController extends Controller
      */
     public function create()
     {
-        return view('deficiency.create');
+        return view('profession.create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  DeficiencyRequest  $request
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(DeficiencyRequest $request)
+    public function store(Request $request)
     {
         $data = $request->all();
         unset($data['_token']);
-        \App\Deficiency::insert($data);
-        return redirect('deficiency');
+        \App\Profession::insert($data);
+        return redirect('profession');
+
     }
 
     /**
@@ -64,8 +64,8 @@ class DeficiencyController extends Controller
      */
     public function edit($id)
     {
-        $deficiency = \App\Deficiency::find($id);
-        return view('deficiency.edit', compact('deficiency'));
+        $profession = \App\Profession::find($id);
+        return view('profession.edit', compact('profession'));
     }
 
     /**
@@ -79,8 +79,8 @@ class DeficiencyController extends Controller
     {
         $data = $request->all();
         unset($data['_token']);
-        \App\Deficiency::where('id', $id)->update($data);
-        return redirect('deficiency');
+        \App\Profession::where('id', $id)->update($data);
+        return redirect('profession');
     }
 
     /**
@@ -91,8 +91,8 @@ class DeficiencyController extends Controller
      */
     public function delete($id)
     {
-        $deficiency = \App\Deficiency::find($id);
-        return view('deficiency.delete', compact('deficiency'));
+        $profession = \App\Profession::find($id);
+        return view('profession.delete', compact('profession'));
     }
 
     /**
@@ -103,7 +103,7 @@ class DeficiencyController extends Controller
      */
     public function destroy($id)
     {
-        \App\Deficiency::find($id)->delete();
-        return redirect('deficiency');
+        \App\Profession::find($id)->delete();
+        return redirect('profession');
     }
 }

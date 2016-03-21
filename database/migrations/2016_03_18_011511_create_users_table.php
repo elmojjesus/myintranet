@@ -24,10 +24,10 @@ class CreateUsersTable extends Migration
             $table->string('nationality', 25)->nullable();
             $table->string('mother')->nullable();
             $table->string('father')->nullable();
-            $table->integer('education')->unsigned()->nullable();
-            $table->foreign('education')->references('id')->on('educations')->onDelete('cascade');
-            $table->integer('profession')->unsigned()->nullable();
-            $table->foreign('profession')->references('id')->on('professions')->onDelete('cascade');
+            $table->integer('education_id')->unsigned()->nullable();
+            $table->foreign('education_id')->references('id')->on('educations')->onDelete('cascade');
+            $table->integer('profession_id')->unsigned()->nullable();
+            $table->foreign('profession_id')->references('id')->on('professions')->onDelete('cascade');
             $table->integer('status');
             $table->boolean('voluntary');
             $table->softDeletes();
