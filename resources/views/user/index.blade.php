@@ -1,3 +1,16 @@
+<form>
+	<label>Nome:</label>
+	<input type="text" name="name" >
+	<label>Deficiência:</label>
+	<select name="deficiency_id">
+		<option value="">Selecione uma deficiência</option>
+		@foreach($deficiencies as $deficiency)
+			<option value="{{ $deficiency->id }}">{{ $deficiency->name }}</option>
+		@endforeach
+	</select>
+	<input type="submit" value="Buscar">
+</form>
+<br>
 @if($users->count() > 0)
 	<table>
 		<thead>

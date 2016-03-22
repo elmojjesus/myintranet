@@ -1,3 +1,8 @@
+<ul>
+    @foreach($errors->all() as $error)
+        <li>{{ $error }}</li>
+    @endforeach
+</ul>
 <form action="/user/store" method="POST">
 	{{ csrf_field() }}
 	<label>Nome:</label>
@@ -8,6 +13,9 @@
 	<br>
 	<label>Senha:</label>
 	<input type="password" name="password" />
+	<br>
+	<label>Confirmar Senha:</label>
+	<input type="password" name="password_confirm" />
 	<br>
 	<label>Deficiência:</label>
 	<select name="deficiency_id">

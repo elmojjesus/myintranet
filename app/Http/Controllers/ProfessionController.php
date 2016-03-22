@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ProfessionRequest;
 
 class ProfessionController extends Controller
 {
@@ -33,10 +34,10 @@ class ProfessionController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  ProfessionRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ProfessionRequest $request)
     {
         $data = $request->all();
         unset($data['_token']);
@@ -75,7 +76,7 @@ class ProfessionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ProfessionRequest $request, $id)
     {
         $data = $request->all();
         unset($data['_token']);

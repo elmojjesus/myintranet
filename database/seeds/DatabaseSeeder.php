@@ -14,6 +14,8 @@ class DatabaseSeeder extends Seeder
     {
         Model::unguard();
 
+        $this->call('StatusSeeder');
+
         $this->call('DeficiencySeeder');
 
         $this->call('EducationSeeder');
@@ -22,7 +24,11 @@ class DatabaseSeeder extends Seeder
 
         $this->call('UserTableSeeder');
 
-        //$this->call('AthleteSeeder');
+        $this->call('AthleteSeeder');
+
+        $this->call('SportSeeder');  
+
+        $this->call('AthleteSportSeeder');      
 
         Model::reguard();
     }

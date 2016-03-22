@@ -1,4 +1,3 @@
-{{ dd('Falta validação Profissão e usuário, fora os edits de todos.... :D') }}
 
 
 <!DOCTYPE html>

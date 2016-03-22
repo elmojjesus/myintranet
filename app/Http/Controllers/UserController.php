@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UserRequest;
 
 class UserController extends Controller
 {
@@ -14,10 +15,24 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $users = \App\User::orderBy('name')->paginate(20);
-        return view('user.index', compact('users'));
+        $users = $this->getUsersByQuery($request->all());
+        $deficiencies = \App\Deficiency::all();
+        return view('user.index', compact('users', 'deficiencies'));
+    }
+
+    public function getUsersByQuery($request) {
+        return \App\User::where(function($query) use($request) {
+            if (isset($request['name']) && $request['name'] != '') {
+                $query->where('name', 'LIKE', '%'.$request['name'] .'%');
+            }
+
+            if (isset($request['deficiency_id']) && $request['deficiency_id'] != '') {
+                $query->where('deficiency_id', $request['deficiency_id']);
+            }
+        })->orderBy('name')->paginate(20);
+
     }
 
     /**
@@ -36,10 +51,10 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  UserRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(UserRequest $request)
     {
         $data = $request->all();
         unset($data['_token']);
@@ -77,11 +92,11 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  UserRequest  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UserRequest $request, $id)
     {
         $data = $request->all();
         unset($data['_token']);
@@ -90,6 +105,7 @@ class UserController extends Controller
         } else {
             $data['password'] = bcrypt($data['password']);
         }
+        unset($data['edit']);
         \App\User::where('id', $id)->update($data);
         return redirect('user');
     }

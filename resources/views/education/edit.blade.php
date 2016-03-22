@@ -1,3 +1,8 @@
+<ul>
+    @foreach($errors->all() as $error)
+        <li>{{ $error }}</li>
+    @endforeach
+</ul>
 <form action="/education/update/{{ $education->id }}" method="POST">
 	{{ csrf_field() }}
 	<label>Nome da deficiência:</label>

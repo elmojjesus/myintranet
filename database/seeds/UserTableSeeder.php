@@ -19,6 +19,7 @@ class UserTableSeeder extends Seeder
         $deficiencies = \App\Deficiency::all();
         $educations = \App\Education::all();
         $professions = \App\Profession::all();
+        $status = \App\Status::all();
         $users[] = [
             'email' => 'ueslei.lima@movasoft.com.br',
             'password' => bcrypt('123456'),
@@ -29,6 +30,7 @@ class UserTableSeeder extends Seeder
             'mother' => $faker->firstNameFemale, 
             'father' => $faker->firstNameMale,
             'voluntary' => $faker->boolean(50),
+            'status_id' => 1,
         ];
         foreach (range(0, 30) as $number) {
             $users[] = [
@@ -41,6 +43,7 @@ class UserTableSeeder extends Seeder
                 'mother' => $faker->firstNameFemale, 
                 'father' => $faker->firstNameMale,
                 'voluntary' => $faker->boolean(50),
+                'status_id' => $status->random(1)->id,
             ];
         }
         

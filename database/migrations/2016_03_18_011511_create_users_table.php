@@ -15,6 +15,7 @@ class CreateUsersTable extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
+            $table->string('custom_code', 5);
             $table->string('email')->unique();
             $table->string('password', 60);
             $table->integer('deficiency_id')->unsigned()->nullable()->default(NULL);
@@ -28,7 +29,8 @@ class CreateUsersTable extends Migration
             $table->foreign('education_id')->references('id')->on('educations')->onDelete('cascade');
             $table->integer('profession_id')->unsigned()->nullable();
             $table->foreign('profession_id')->references('id')->on('professions')->onDelete('cascade');
-            $table->integer('status');
+            $table->integer('status_id')->unsigned();
+            $table->foreign('status_id')->references('id')->on('status')->onDelete('cascade');
             $table->boolean('voluntary');
             $table->softDeletes();
             $table->rememberToken();

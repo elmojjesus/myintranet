@@ -71,11 +71,11 @@ class DeficiencyController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  DeficiencyRequest  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(DeficiencyRequest $request, $id)
     {
         $data = $request->all();
         unset($data['_token']);

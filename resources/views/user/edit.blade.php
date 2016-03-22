@@ -1,4 +1,10 @@
+<ul>
+    @foreach($errors->all() as $error)
+        <li>{{ $error }}</li>
+    @endforeach
+</ul>
 <form action="/user/update/{{ $user->id }}" method="POST">
+	<input type="hidden" name="edit" value="xumbalacatualua" >
 	{{ csrf_field() }}
 	<label>Nome:</label>
 	<input type="text" name="name" value="{{ $user->name }}" />

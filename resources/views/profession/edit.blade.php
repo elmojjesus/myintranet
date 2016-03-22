@@ -1,3 +1,8 @@
+<ul>
+    @foreach($errors->all() as $error)
+        <li>{{ $error }}</li>
+    @endforeach
+</ul>
 <form action="/profession/update/{{ $profession->id }}" method="POST">
 	{{ csrf_field() }}
 	<label>Nome da profissão:</label>
