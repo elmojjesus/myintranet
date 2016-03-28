@@ -1,8 +1,4 @@
-<ul>
-    @foreach($errors->all() as $error)
-        <li>{{ $error }}</li>
-    @endforeach
-</ul>
+@extends('layouts.layout')
 <form action="/user/store" method="POST">
 	{{ csrf_field() }}
 	<label>Nome:</label>
@@ -18,7 +14,7 @@
 	<input type="password" name="password_confirm" />
 	<br>
 	<label>Deficiência:</label>
-	<select name="deficiency_id">
+	<select name="deficiency_id">	
 		@foreach($deficiencies as $deficiency)
 			<option value="{{ $deficiency->id }}">{{ $deficiency->name }}</option>
 		@endforeach
@@ -56,6 +52,13 @@
 	<br>
 	<label>Voluntário:</label>
 	<input type="checkbox" name="voluntary">
+	<br>
+	<label>Voluntário:</label>
+	<select name="status_id">
+		@foreach($status as $s)
+			<option value="{{ $s->id }}">{{ $s->name }}</option>
+		@endforeach
+	</select>
 	<p></p>
 	<input type="submit" class="btn btn-primary" value="Salvar" />
 </form>

@@ -1,3 +1,4 @@
+@extends('layouts.layout')
 @if($professions->count() > 0)
 	<table>
 		<thead>

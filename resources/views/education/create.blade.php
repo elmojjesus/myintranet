@@ -1,8 +1,4 @@
-<ul>
-    @foreach($errors->all() as $error)
-        <li>{{ $error }}</li>
-    @endforeach
-</ul>
+@extends('layouts.layout')
 <form action="/education/store" method="POST">
 	{{ csrf_field() }}
 	<label>Nome educação:</label>
