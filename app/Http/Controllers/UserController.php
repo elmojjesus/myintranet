@@ -23,7 +23,7 @@ class UserController extends Controller
         return view('user.index', compact('users', 'deficiencies'));
     }
 
-    public function getUsersByQuery($request) {
+    private function getUsersByQuery($request) {
         return \App\User::where(function($query) use($request) {
             if (isset($request['name']) && $request['name'] != '') {
                 $query->where('name', 'LIKE', '%'.$request['name'] .'%');
