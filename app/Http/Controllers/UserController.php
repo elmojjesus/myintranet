@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserRequest;
+use Flash;
 
 class UserController extends Controller
 {
@@ -45,6 +46,7 @@ class UserController extends Controller
         $deficiencies = \App\Deficiency::all();
         $educations = \App\Education::all();
         $professions = \App\Profession::all();
+        $status = \App\Status::all();
         return view('user.create', compact('deficiencies', 'educations', 'professions'));
     }
 
@@ -58,8 +60,10 @@ class UserController extends Controller
     {
         $data = $request->all();
         unset($data['_token']);
+        unset($data['password_confirm']);
         $data['password'] = bcrypt($data['password']);
         \App\User::insert($data);
+        Flash::success('Usuário salvo com sucesso!');
         return redirect('user');
     }
 

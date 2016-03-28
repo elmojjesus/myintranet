@@ -1,8 +1,4 @@
-<ul>
-    @foreach($errors->all() as $error)
-        <li>{{ $error }}</li>
-    @endforeach
-</ul>
+@extends('layouts.layout')
 <form action="/user/update/{{ $user->id }}" method="POST">
 	<input type="hidden" name="edit" value="xumbalacatualua" >
 	{{ csrf_field() }}

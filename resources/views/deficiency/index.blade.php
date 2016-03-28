@@ -1,3 +1,4 @@
+@extends('layouts.layout')
 @if($deficiencies->count() > 0)
 	<table>
 		<thead>

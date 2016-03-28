@@ -1,3 +1,4 @@
+@extends('layouts.layout')
 @if($educations->count() > 0)
 	<table>
 		<thead>
