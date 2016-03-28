@@ -21,9 +21,9 @@ class UserTableSeeder extends Seeder
         $professions = \App\Profession::all();
         $status = \App\Status::all();
         $users[] = [
-            'email' => 'ueslei.lima@movasoft.com.br',
+            'email' => 'elmo@mail.com',
             'password' => bcrypt('123456'),
-            'name' => 'Ueslei Lima',
+            'name' => 'Elmo',
             'deficiency_id' => $deficiencies->random(1)->id,
             'education_id' => $educations->random(1)->id,
             'profession_id' => $professions->random(1)->id,
