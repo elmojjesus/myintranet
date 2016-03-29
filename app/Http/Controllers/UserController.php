@@ -47,7 +47,7 @@ class UserController extends Controller
         $educations = \App\Education::all();
         $professions = \App\Profession::all();
         $status = \App\Status::all();
-        return view('user.create', compact('deficiencies', 'educations', 'professions'));
+        return view('user.create', compact('deficiencies', 'educations', 'professions', 'status'));
     }
 
     /**
