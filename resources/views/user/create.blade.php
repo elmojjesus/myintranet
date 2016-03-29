@@ -1,4 +1,5 @@
 @extends('layouts.layout')
+
 <form action="/user/store" method="POST">
 	{{ csrf_field() }}
 	<label>Nome:</label>
