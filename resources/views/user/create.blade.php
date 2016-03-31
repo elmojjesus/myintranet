@@ -53,7 +53,7 @@
 	<label>Voluntário:</label>
 	<input type="checkbox" name="voluntary">
 	<br>
-	<label>Voluntário:</label>
+	<label>Status:</label>
 	<select name="status_id">
 		@foreach($status as $s)
 			<option value="{{ $s->id }}">{{ $s->name }}</option>

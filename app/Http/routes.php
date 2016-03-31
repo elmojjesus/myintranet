@@ -50,6 +50,32 @@ Route::group(['middleware' => 'auth'], function() {
 	Route::post('user/update/{id}', 'UserController@update');
 	Route::get('user/delete/{id}', 'UserController@delete');
 	Route::post('user/destroy/{id}', 'UserController@destroy');
+
+	//Route Documents
+	Route::get('document/create/{id}', 'DocumentController@create');
+	Route::post('document/store', 'DocumentController@store');
+
+	//Route Departaments
+	Route::get('departament', 'DepartamentController@index');
+	Route::get('departament/create', 'DepartamentController@create');
+	Route::post('departament/store', 'DepartamentController@store');
+	Route::get('departament/edit/{id}', 'DepartamentController@edit');
+	Route::post('departament/update/{id}', 'DepartamentController@update');
+	Route::get('departament/delete/{id}', 'DepartamentController@delete');
+	Route::post('departament/destroy/{id}', 'DepartamentController@destroy');
+
+	//Route Employees
+	Route::get('employee', 'EmployeeController@index');
+	Route::get('employee/create', 'EmployeeController@create');
+	Route::post('employee/store', 'EmployeeController@store');
+	Route::get('employee/edit/{id}', 'EmployeeController@edit');
+	Route::post('employee/update/{id}', 'EmployeeController@update');
+	Route::get('employee/delete/{id}', 'EmployeeController@delete');
+	Route::post('employee/destroy/{id}', 'EmployeeController@destroy');
+
+	//Image Upload
+	Route::get('user/image/upload/{id}', 'ImageController@userUpload');
+	Route::post('user/image/store', 'ImageController@userStore');
 });
 
 // Authentication routes...

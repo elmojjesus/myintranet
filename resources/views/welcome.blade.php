@@ -48,7 +48,9 @@
                 <a href="/deficiency">Deficiência</a> ||||
                 <a href="/education">Educação</a> ||||
                 <a href="/profession">Profissão</a> ||||
-                <a href="/user">Usuários</a>
+                <a href="/user">Usuários</a> ||||
+                <a href="/departament">Departamento</a> ||||
+                <a href="/employee">Funcionário</a> ||||
             </div>
         </div>
     </body>

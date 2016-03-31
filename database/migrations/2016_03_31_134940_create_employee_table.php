@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateDocumentsTable extends Migration
+class CreateEmployeeTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,13 +12,12 @@ class CreateDocumentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('documents', function(Blueprint $table) {
+        Schema::create('employees', function(Blueprint $table) {
             $table->increments('id');
-            $table->string('cpf', 11)->nullable();
-            $table->string('rg', 9)->nullable();
-            $table->string('passport', 20)->nullable();
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users');
+            $table->integer('departament_id')->unsigned();
+            $table->foreign('departament_id')->references('id')->on('departaments');
             $table->softDeletes();
         });
     }
@@ -30,6 +29,6 @@ class CreateDocumentsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('documents');
+        Schema::dropIfExists('employees');
     }
 }

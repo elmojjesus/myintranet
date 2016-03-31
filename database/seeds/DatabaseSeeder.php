@@ -24,11 +24,17 @@ class DatabaseSeeder extends Seeder
 
         $this->call('UserTableSeeder');
 
+        $this->call('DocumentSeeder');
+
         $this->call('AthleteSeeder');
 
         $this->call('SportSeeder');  
 
-        $this->call('AthleteSportSeeder');      
+        $this->call('AthleteSportSeeder');    
+
+        $this->call('DepartamentSeeder');  
+
+        $this->call('EmployeeSeeder');
 
         Model::reguard();
     }
