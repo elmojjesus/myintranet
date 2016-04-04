@@ -50,6 +50,18 @@ Route::group(['middleware' => 'auth'], function() {
 	Route::post('user/update/{id}', 'UserController@update');
 	Route::get('user/delete/{id}', 'UserController@delete');
 	Route::post('user/destroy/{id}', 'UserController@destroy');
+
+	//Sports routes
+	Route::get('sport/index', 'SportController@index');
+	Route::post('sport/index', 'SportController@store');
+	Route::get('sport/edit/{id}', 'SportController@edit');
+	Route::post('/sport/update/{id}', 'SportController@update');
+
+	#Route::put('user/update/{id}', ['as' => 'sport/update', 'uses' => 'SportController@update']);
+
+	//Athlete routes
+	Route::get('athlete/index', 'Athlete@index');
+	Route::post('athlete/index', 'Athlete@create');
 });
 
 // Authentication routes...
