@@ -18,6 +18,7 @@ class CreateUsersTable extends Migration
             $table->string('custom_code', 5);
             $table->string('email')->unique();
             $table->string('password', 60);
+            $table->string('image', 100)->nullable()->default(NULL);
             $table->integer('deficiency_id')->unsigned()->nullable()->default(NULL);
             $table->foreign('deficiency_id')->references('id')->on('deficiencies')->onDelete('cascade');
             $table->date('birthDate');

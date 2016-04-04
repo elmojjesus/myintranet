@@ -63,8 +63,9 @@ class UserController extends Controller
         unset($data['password_confirm']);
         $data['password'] = bcrypt($data['password']);
         \App\User::insert($data);
-        Flash::success('Usuário salvo com sucesso!');
-        return redirect('user');
+        $user = \App\User::where('email', $data['email'])->first();
+        Flash::success('Primeira etapa do usuário completa!');
+        return redirect('document/create/' . $user->id);
     }
 
     /**

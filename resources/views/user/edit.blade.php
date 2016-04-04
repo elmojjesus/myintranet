@@ -1,5 +1,7 @@
 @extends('layouts.layout')
 <form action="/user/update/{{ $user->id }}" method="POST">
+	<a href="/user/image/upload/{{ $user->id }}">Alterar foto de perfil</a>
+	<br>
 	<input type="hidden" name="edit" value="xumbalacatualua" >
 	{{ csrf_field() }}
 	<label>Nome:</label>

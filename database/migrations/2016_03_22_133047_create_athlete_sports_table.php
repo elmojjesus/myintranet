@@ -27,6 +27,7 @@ class CreateAthleteSportsTable extends Migration
             $table->foreign('status_id')->references('id')->on('status')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
+            $table->softDeletes();
         });
     }
 

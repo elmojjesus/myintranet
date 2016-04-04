@@ -23,6 +23,7 @@
 	<table>
 		<thead>
 			<tr>
+				<th></th>
 				<th>Nome</th>
 				<th>Deficiência</th>
 				<th>Educação</th>
@@ -33,6 +34,7 @@
 		<tbody>
 			@foreach($users as $user)
 				<tr>
+					<td><img src="{{ '/images/profile/' . $user->image }}" height="40" width="40"></td>
 					<td>{{ $user->name }}</td>
 					<td>{{ $user->deficiency->name }}</td>
 					<td>{{ $user->education->name }}</td>
@@ -44,6 +46,7 @@
 		</tbody>
 		<tfoot>
 			<tr>
+			<th></th>
 				<th>Nome</th>
 				<th>Deficiência</th>
 				<th>Educação</th>
