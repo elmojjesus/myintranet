@@ -1,4 +1,5 @@
 @extends('layouts.layout')
+@section('content')
 @if (Session::has('flash_notification.message'))
     <div class="alert alert-{{ Session::get('flash_notification.level') }}">
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -20,12 +21,13 @@
 </form>
 <br>
 @if($users->count() > 0)
-	<table>
+	<table class="table table-hover table-bordered">
 		<thead>
 			<tr>
 				<th></th>
 				<th>Nome</th>
 				<th>Deficiência</th>
+				<th>Esporte</th>
 				<th>Educação</th>
 				<th>Profissão</th>
 				<th>Ações</th>
@@ -37,6 +39,20 @@
 					<td><img src="{{ '/images/profile/' . $user->image }}" height="40" width="40"></td>
 					<td>{{ $user->name }}</td>
 					<td>{{ $user->deficiency->name }}</td>
+					<td>
+						@if(!is_null($user->athlete))
+							@if(!is_null($user->athlete->athleteSport))
+								<ul>
+									@foreach ($user->athlete->athleteSport as $athleteSport)
+										@if(  !is_null($athleteSport->sport) )
+											<li>{{ $athleteSport->sport->name }} </li>
+										@endif
+									@endforeach
+								</ul>
+							@endif
+						@endif
+						<a href="/athlete/create/{{ $user->id }}"> Definir esporte </a>
+					</td>
 					<td>{{ $user->education->name }}</td>
 					<td>{{ $user->profession->name }}</td>
 					<td><a href="user/edit/{{ $user->id }}">Editar</a>
@@ -49,6 +65,7 @@
 			<th></th>
 				<th>Nome</th>
 				<th>Deficiência</th>
+				<th>Esporte</th>
 				<th>Educação</th>
 				<th>Profissão</th>
 				<th>Ações</th>
@@ -61,3 +78,4 @@
 @endif
 
 <a href="/user/create">Adicionar novo usuário</a>
+@endsection

@@ -34,4 +34,8 @@ class Athlete extends Model
     public function athleteSport() {
     	return $this->hasMany('\App\AthleteSport');
     }
+
+    public function user(){
+        return $this->belongsTo('\App\User');
+    }
 }

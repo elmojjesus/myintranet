@@ -53,16 +53,17 @@ Route::group(['middleware' => 'auth'], function() {
 
 
 	//Sports routes
-	Route::get('sport/index', 'SportController@index');
-	Route::post('sport/index', 'SportController@store');
+	Route::get('sport', 'SportController@index');
+	Route::post('sport', 'SportController@store');
 	Route::get('sport/edit/{id}', 'SportController@edit');
-	Route::post('/sport/update/{id}', 'SportController@update');
+	Route::post('sport/update/{id}', 'SportController@update');
 
 	#Route::put('user/update/{id}', ['as' => 'sport/update', 'uses' => 'SportController@update']);
 
 	//Athlete routes
-	Route::get('athlete/index', 'Athlete@index');
-	Route::post('athlete/index', 'Athlete@create');
+	Route::get('athlete/index', 'AthleteController@index');
+	Route::get('athlete/create/{id}', 'AthleteController@create');
+	Route::post('athlete/store/{id}', 'AthleteController@store');
 
 	//Route Documents
 	Route::get('document/create/{id}', 'DocumentController@create');
