@@ -13,6 +13,7 @@ class SportSeeder extends Seeder
     {
         $faker = Faker\Factory::create();
         DB::statement('SET FOREIGN_KEY_CHECKS = 0');
+        \App\Sport::truncate();
        	$sports = [
        		[
        			'name' => 'Basquete',
