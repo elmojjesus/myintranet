@@ -2,21 +2,6 @@
 
 [Modal-ajax geral](#modal-ajax)
 
-# Modal-ajax geral
-A documentação do magnific popup está aqui:
-[Magnific Popup Documentation](http://dimsemenov.com/plugins/magnific-popup/documentation.html)
-
-Foi criado um script que abstrai algumas coisas para tornar mais fácil usar modais por ajax.
-
-Para usar os dois, é necessário adicionar na página:
-
-```php
-<?php
-$this->headLink()->prependStylesheet($this->basePath() . '/libs/css/magnific-popup.css');
-$this->headScript()
-        ->appendFile($this->basePath() . '/libs/js/jquery.magnific-popup.min.js')
-        ->appendFile($this->basePath() . '/js/modal-ajax-link.js');
-```
 
 Para usar o plugin e o script, você tem que ter uma rota que será acessada por ajax.
 
