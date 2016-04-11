@@ -1,4 +1,9 @@
 @extends('layouts.layout')
+
+@section('title')
+	 Usuários da ADFP <small> Buscar / Listar </small>
+@stop
+
 @section('content')
 @if (Session::has('flash_notification.message'))
     <div class="alert alert-{{ Session::get('flash_notification.level') }}">
@@ -7,75 +12,184 @@
         {{ Session::get('flash_notification.message') }}
     </div>
 @endif
-<form>
-	<label>Nome:</label>
-	<input type="text" name="name" >
-	<label>Deficiência:</label>
-	<select name="deficiency_id">
-		<option value="">Selecione uma deficiência</option>
-		@foreach($deficiencies as $deficiency)
-			<option value="{{ $deficiency->id }}">{{ $deficiency->name }}</option>
-		@endforeach
-	</select>
-	<input type="submit" value="Buscar">
-</form>
-<br>
-@if($users->count() > 0)
-	<table class="table table-hover table-bordered">
-		<thead>
-			<tr>
-				<th></th>
-				<th>Nome</th>
-				<th>Deficiência</th>
-				<th>Esporte</th>
-				<th>Educação</th>
-				<th>Profissão</th>
-				<th>Ações</th>
-			</tr>
-		</thead>
-		<tbody>
-			@foreach($users as $user)
-				<tr>
-					<td><img src="{{ '/images/profile/' . $user->image }}" height="40" width="40"></td>
-					<td>{{ $user->name }}</td>
-					<td>{{ $user->deficiency->name }}</td>
-					<td>
-						@if(!is_null($user->athlete))
-							@if(!is_null($user->athlete->athleteSport))
-								<ul>
-									@foreach ($user->athlete->athleteSport as $athleteSport)
-										@if(  !is_null($athleteSport->sport) )
-											<li>{{ $athleteSport->sport->name }} </li>
-										@endif
-									@endforeach
-								</ul>
-							@endif
-						@endif
-						<a href="/athlete/create/{{ $user->id }}"> Definir esporte </a>
-					</td>
-					<td>{{ $user->education->name }}</td>
-					<td>{{ $user->profession->name }}</td>
-					<td><a href="user/edit/{{ $user->id }}">Editar</a>
-					<a href="user/delete/{{ $user->id }}">Excluir</a></td>
-				</tr>
-			@endforeach
-		</tbody>
-		<tfoot>
-			<tr>
-			<th></th>
-				<th>Nome</th>
-				<th>Deficiência</th>
-				<th>Esporte</th>
-				<th>Educação</th>
-				<th>Profissão</th>
-				<th>Ações</th>
-			</tr>
-		</tfoot>
-	</table>
-	{!! $users->render() !!}
-@else
-	<h1>Não há nenhum usuário cadastrado</h1>
-@endif
 
-<a href="/user/create">Adicionar novo usuário</a>
+<!-- FILTROS -->
+<div class="row">
+	<div clas="col-md-12">
+		<div class="panel panel-default">
+			<div class="panel-heading">Filtros de busca</div>
+			<div class="panel-body">
+				<form>
+					<div class="row">
+						<div class="col-sm-4">
+							<div id="dataTables-example_length" class="dataTables_length">
+								
+								<label>ID:</label>
+								<input type="text" name="id" class="form-control">
+
+							</div>
+						</div>
+							
+						<div class="col-sm-4">
+							<div id="dataTables-example_length" class="dataTables_length">
+								
+								<label>CPF:</label>
+								<input type="text" name="cpf" class="form-control">
+								
+							</div>
+						</div>
+
+						<div class="col-sm-4">
+							<div id="dataTables-example_length" class="dataTables_length">
+								
+								<label>Nome:</label>
+								<input type="text" name="nome" class="form-control">
+								
+							</div>
+						</div>
+
+					</div>
+
+					<br>
+
+					<div class="row">
+						<div class="col-sm-6">
+							<div id="dataTables-example_length" class="dataTables_length">
+								<label>Status:</label>
+								<select name="deficiency_id" class="form-control input-sm">
+									<option value="">Selecione o status na associação</option>
+										<!-- inserir options -->
+								</select>
+							</div>
+						</div>
+
+						<div class="col-sm-6">
+							<div id="dataTables-example_length" class="dataTables_length">
+								<label>Deficiência:</label>
+								<select name="deficiency_id" class="form-control input-sm">
+									<option value="">Selecione uma deficiência</option>
+									@foreach($deficiencies as $deficiency)
+										<option value="{{ $deficiency->id }}">{{ $deficiency->name }}</option>
+									@endforeach
+								</select>
+							</div>
+						</div>
+
+					</div>
+
+					<br>
+
+					<div class="row">
+						<div class="col-lg-12">
+							<div id="dataTables-example_length" class="dataTables_length">
+								<input type="submit" class="btn btn-primary" value="Buscar">
+							</div>
+						</div>
+					</div>
+
+				</form>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- TABELA -->
+<div class="row">
+	<div clas="col-lg-12">
+		<div class="panel panel-default">
+			<div class="panel-heading">Listagem de usuários</div>
+			<div class="panel-body">
+
+				<div style="overflow-x:auto;">
+
+						@if($users->count() > 0)
+
+							<table class="table table-hover">
+								<thead>
+									<tr>
+										<th>ID</th>
+										<th>Nome</th>
+										<th>Deficiência</th>
+										<th>Esporte</th>
+										<th>RH</th>
+										<th>Reabilitação</th>
+										<th>Associação</th>
+										<th>Voluntariado</th>
+										<th></th>
+										<th></th>
+									</tr>
+								</thead>
+								<tbody>
+									@foreach($users as $user)
+										<tr>
+											<td> {{ $user->id }} </td>
+											<td> 
+												<a class="modal-ajax-link" data-mfp-src="user/show/{{ $user->id }}"> 
+													{{ $user->name }} 
+												</a>
+											</td>
+											<td>{{ $user->deficiency->name }}</td>
+											<td>
+												<center>
+													@if(!is_null($user->athlete))
+														<i class="fa fa-check" style="color: green"></i>
+													@else
+														<i class="fa fa-times" style="color: red"></i>
+													@endif
+												</center>
+											</td>
+											<td> --- </td>
+											<td> --- </td>
+											<td> --- </td>
+											<td> --- </td>
+											<td>
+												<a class="modal-ajax-link" data-mfp-src="/user/edit/{{ $user->id }}">
+													<i class="fa fa-pencil"></i>
+												</a>
+											</td>
+											<td>
+												<a class="modal-ajax-link" data-mfp-src="/user/delete/{{ $user->id }}">
+													<i class="fa fa-trash-o"></i>
+												</a>
+											</td>
+										</tr>
+									@endforeach
+								</tbody>
+								<tfoot>
+									<tr>
+										<th>ID</th>
+										<th>Nome</th>
+										<th>Deficiência</th>
+										<th>Esporte</th>
+										<th>RH</th>
+										<th>Reabilitação</th>
+										<th>Associação</th>
+										<th>Voluntariado</th>
+										<th></th>
+										<th></th>
+									</tr>
+								</tfoot>
+							</table>
+							<div class="row">
+								<div class="col-sm-6">
+									<div aria-relevant="all" aria-live="polite" role="alert" id="dataTables-example_info" class="dataTables_info">Showing 1 to 10 of 57 entries</div>
+								</div>
+
+								<div class="col-sm-6">
+									<div id="dataTables-example_paginate" class="dataTables_paginate paging_simple_numbers">{!! $users->render() !!}</div>
+								</div>
+							</div>
+							
+						@else
+							<h1>Não há nenhum usuário cadastrado</h1>
+						@endif
+
+			</div>
+
+			</div>
+		</div>
+	</div>
+</div>
+		
 @endsection

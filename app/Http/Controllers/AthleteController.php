@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+
 class AthleteController extends Controller
 {
     /**
@@ -14,9 +15,11 @@ class AthleteController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('athlete.index')->with('athletetList', \App\Athlete::all());
+        $userCon = new UserController();
+        $users = $userCon->getCommonUsers($request);
+        return view('athlete.index', compact('users'));
     }
 
     /**
@@ -24,12 +27,16 @@ class AthleteController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request, $id)
+    public function create($id)
     {
-        
+        /*
         $sports = \App\Sport::all();
+        $users = \App\User::all();
+        return view('athlete.create', compact('sports', 'users'));
+        */
         $user = \App\User::findorFail($id);
-        return view('athlete.create', compact('sports', 'user'));
+        $sports = \App\Sport::all();
+        return view('athlete.create', compact('user', 'sports'));
     }
 
     /**
@@ -50,7 +57,7 @@ class AthleteController extends Controller
         }
         $data['athlete_id'] = $athlete->id;
         \App\AthleteSport::insert($data);
-        return redirect('user');
+        return redirect('athlete');
     }
 
     /**

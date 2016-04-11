@@ -53,30 +53,44 @@
             <div class="sidebar-collapse">
                 <ul class="nav" id="main-menu">
                     <li>
-                        <a href="index.html"><i class=""></i> Dashboard</a>
+                        <a href="index.html"><i class="fa fa-bar-chart-o"></i>
+ Dashboard</a>
                     </li>
                     <li>
-                        <a href="#"><i class=""></i> Usuários<span class="fa arrow"></span></a>
+                        <a href="#"><i class="fa fa-users"></i>
+ Usuários<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
-                                <a href="#">Cadastrar</a>
+                                <a href="/user/create">Cadastrar</a>
                             </li>
                             <li>
-                                <a href="#">Listar</a>
+                                <a href="/user">Buscar / Listar</a>
                             </li>
                         </ul>
                     </li>
                     <li>
-                        <a href="ui-elements.html"><i class=""></i> Esporte</a>
+                        <a href="#"><i class="fa fa-trophy"></i>
+ Atlétas<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="/athlete">Cadastrar</a>
+                            </li>
+                            <li>
+                                <a href="/athlete">Buscar / Listar</a>
+                            </li>
+                        </ul>
                     </li>
                     <li>
-                        <a href="chart.html"><i class=""></i> RH</a>
+                        <a href="chart.html"><i class="fa fa-star"></i>
+ Funcionários</a>
                     </li>
                     <li>
-                        <a href="tab-panel.html"><i class=""></i> Voluntáriado</a>
+                        <a href="tab-panel.html"><i class="fa fa-heart"></i>
+ Voluntários</a>
                     </li>
                     <li>
-                        <a href="table.html"><i class=""></i> Terapia</a>
+                        <a href="table.html"><i class="fa fa-wheelchair"></i>
+ Pacientes</a>
                     </li>
                 </ul>
             </div>
@@ -96,9 +110,9 @@
                             @endforeach
                         </ul>
 
-                        <h2 class="page-header">
+                        <h1 class="page-header">
                             @yield('title')
-                        </h2>
+                        </h1>
 
                         @yield('content')
 

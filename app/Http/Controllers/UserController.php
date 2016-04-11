@@ -8,6 +8,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserRequest;
 use Flash;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
@@ -23,8 +24,12 @@ class UserController extends Controller
         return view('user.index', compact('users', 'deficiencies'));
     }
 
-    private function getUsersByQuery($request) {
+    public function getUsersByQuery($request) {
         return \App\User::where(function($query) use($request) {
+            if (isset($request['id']) && $request['id'] != '') {
+                $query->where('id', 'LIKE', $request['id']);
+            }
+
             if (isset($request['name']) && $request['name'] != '') {
                 $query->where('name', 'LIKE', '%'.$request['name'] .'%');
             }
@@ -32,7 +37,31 @@ class UserController extends Controller
             if (isset($request['deficiency_id']) && $request['deficiency_id'] != '') {
                 $query->where('deficiency_id', $request['deficiency_id']);
             }
-        })->orderBy('name')->paginate(20);
+        })->orderBy('name')->paginate(10);
+
+    }
+
+    public function getCommonUsers($request){
+        
+        return $users = DB::table('users')
+                ->leftJoin('athletes', function ($join) {
+                    $join->on('users.id', '=', 'athletes.user_id');
+                         /*->where('athletes.id', '=', null);*/
+                         
+                })
+                ->select('users.*')
+                ->whereNull('athletes.id')
+                ->where(function($query) use($request){
+                    if (isset($request['id']) && $request['id'] != '') {
+                        $query->where('users.id', '=', $request['id']);
+                    }
+
+                    if (isset($request['name']) && $request['name'] != '') {
+                       $query->where('users.name', 'LIKE', '%'.$request['name'].'%');
+                    } 
+                })
+                ->orderBy('users.name')
+                ->paginate(10);
 
     }
 
@@ -76,7 +105,8 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        $user = \App\User::find($id);
+        return view('user.show', compact('user'));
     }
 
     /**
