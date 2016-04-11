@@ -1,3 +1,5 @@
+## Estes exemplos foram feitos pelo Zend Framework e deverão ser adaptados para o Laravel. Thanks ;D ##
+
 [Modal-inline](#modal-inline)
 
 [Modal-ajax geral](#modal-ajax)
