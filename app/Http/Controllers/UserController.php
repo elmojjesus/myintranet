@@ -21,7 +21,8 @@ class UserController extends Controller
     {
         $users = $this->getUsersByQuery($request->all());
         $deficiencies = \App\Deficiency::all();
-        return view('user.index', compact('users', 'deficiencies'));
+        $status = \App\Status::all();
+        return view('user.index', compact('users', 'deficiencies', 'status'));
     }
 
     public function getUsersByQuery($request) {
@@ -37,7 +38,11 @@ class UserController extends Controller
             if (isset($request['deficiency_id']) && $request['deficiency_id'] != '') {
                 $query->where('deficiency_id', $request['deficiency_id']);
             }
-        })->orderBy('name')->paginate(10);
+
+            if (isset($request['status_id']) && $request['status_id'] != '') {
+                $query->where('status_id', $request['status_id']);
+            }
+        })->orderBy('name')->paginate(15);
 
     }
 

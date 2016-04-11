@@ -12,7 +12,7 @@ class TerapiesSeeder extends Seeder
     public function run()
     {
         DB::statement('SET FOREIGN_KEY_CHECKS = 0');
-        \App\Terapy::truncate();
+        \App\Therapy::truncate();
         $data = [
         	[
         		'name' => 'Musicoterapia'
@@ -28,7 +28,7 @@ class TerapiesSeeder extends Seeder
         	],
         ];
 
-        \App\Terapy::insert($data);
+        \App\Therapy::insert($data);
 
         DB::statement('SET FOREIGN_KEY_CHECKS = 1');
     }

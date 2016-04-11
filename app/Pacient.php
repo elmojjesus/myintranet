@@ -14,7 +14,7 @@ class Pacient extends Model
      *
      * @var string
      */
-    protected $table = 'tarapies';
+    protected $table = 'pacients';
 
     /**
      * The attributes that are mass assignable.
