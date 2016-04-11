@@ -49,4 +49,20 @@ class User extends Model implements AuthenticatableContract,
     public function profession() {
         return $this->belongsTo('\App\Profession');
     }
+
+    public function athlete(){
+        return $this->hasOne('\App\Athlete');
+    }
+
+    public function document(){
+        return $this->hasOne('\App\Document');
+    }
+
+    public function address(){
+        return $this->hasOne('\App\Address');
+    }
+
+    public function contact(){
+        return $this->hasOne('\App\Contact');
+    }
 }

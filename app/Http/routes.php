@@ -50,6 +50,7 @@ Route::group(['middleware' => 'auth'], function() {
 	Route::post('user/update/{id}', 'UserController@update');
 	Route::get('user/delete/{id}', 'UserController@delete');
 	Route::post('user/destroy/{id}', 'UserController@destroy');
+	Route::get('user/show/{id}', 'UserController@show');
 
 
 	//Sports routes
@@ -61,6 +62,18 @@ Route::group(['middleware' => 'auth'], function() {
 	//Athlete routes
 	Route::get('athlete', 'Athlete@index');
 	Route::post('athlete/index', 'Athlete@create');
+	Route::post('sport', 'SportController@store');
+	Route::get('sport/edit/{id}', 'SportController@edit');
+	Route::post('sport/update/{id}', 'SportController@update');
+
+	#Route::put('user/update/{id}', ['as' => 'sport/update', 'uses' => 'SportController@update']);
+
+	//Athlete routes
+	Route::get('athlete', 'AthleteController@index');
+	Route::post('athlete', 'AthleteController@index');
+	Route::get('athlete/create/{id}', 'AthleteController@create');
+	Route::post('athlete/store/{id}', 'AthleteController@store');
+	Route::post('athlete/show', 'AthleteController@show');
 
 	//Route Documents
 	Route::get('document/create/{id}', 'DocumentController@create');

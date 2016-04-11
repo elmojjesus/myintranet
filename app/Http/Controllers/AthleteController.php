@@ -7,16 +7,19 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-class Athlete extends Controller
+
+class AthleteController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('athlete.index')->with('athletetList', \App\Athlete::all());
+        $userCon = new UserController();
+        $users = $userCon->getCommonUsers($request);
+        return view('athlete.index', compact('users'));
     }
 
     /**
@@ -24,30 +27,16 @@ class Athlete extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request)
+    public function create($id)
     {
-        $athlete = new \App\Athlete();
-        $id = $request->input('id');
-        $athlete->id = $id;
-        
-        #echo $athlete->pivot->sport_id;
-        
-        if($athlete->save()){
-            $array['athlete_id'] = $id;
-            $array['sport_id'] = $request->input('sport');
-            $array['status'] = $request->input('status');
-            #$athlete->pivot->athlete_id = $id;
-            #$sport = \App\Sport::find($request->input('sport'));
-            #$athlete->pivot->sport_id = 12;
-            #$athlete->pivot->status = $request->input('status');
-            #echo $athlete->pivot->status;
-            \App\AthleteSport::insert($array);
-            return \App\Athlete::all();
-        } else {
-            return "Não salvou.";
-        }
-        #return view('athlete.index');
-        #return "teste";
+        /*
+        $sports = \App\Sport::all();
+        $users = \App\User::all();
+        return view('athlete.create', compact('sports', 'users'));
+        */
+        $user = \App\User::findorFail($id);
+        $sports = \App\Sport::all();
+        return view('athlete.create', compact('user', 'sports'));
     }
 
     /**
@@ -56,9 +45,19 @@ class Athlete extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $id)
     {
-        //
+        $data = $request->all();
+        unset($data['_token']);
+        #$athlete = \App\User::findorFail($id);
+        $athlete = \App\Athlete::where('user_id', $id)->first();
+        if (is_null($athlete)) {
+            \App\Athlete::insert(['user_id' => $id]);
+            $athlete = \App\Athlete::where('user_id', $id)->first();
+        }
+        $data['athlete_id'] = $athlete->id;
+        \App\AthleteSport::insert($data);
+        return redirect('athlete');
     }
 
     /**

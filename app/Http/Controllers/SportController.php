@@ -81,20 +81,11 @@ class SportController extends Controller
      */
     public function update(Request $request, $id)
     {
-        #echo "chamou";
-        #$sport = \App\Sport::find($id);
         $sport = \App\Sport::findOrFail($id);
         $sport->name = $request->input('name');
         $sport->save();
 
         return redirect('sport');
-
-        #return "chamou update";
-
-        #$data = $request->all();
-        #unset($data['_token']);
-        #\App\Sport::where('id', $id)->update($data);
-        #return redirect('sport/index');
     }
 
     /**

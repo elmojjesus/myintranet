@@ -1,4 +1,4 @@
-@extends('layouts.layout')
+
 <form action="/user/update/{{ $user->id }}" method="POST">
 	<a href="/user/image/upload/{{ $user->id }}">Alterar foto de perfil</a>
 	<br>

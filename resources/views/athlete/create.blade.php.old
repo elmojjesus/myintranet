@@ -1,10 +1,9 @@
 
-<h1> Torando o usuário um atléta </h1>
-
+<h1> Esporte </h1>
 
 {!! Form::open(array('method' => 'post', 'action' => array('AthleteController@store', $user->id))) !!}
     
-    <h3> Escolha um esporte para {{ $user->name }}</h3>
+    <h3> Escolha um esporte para {{ $user->name }} </h3>
     Esporte: 
     <select name="sport_id">
         <option value=''></option>
@@ -20,11 +19,3 @@
     {!!Form::submit('Cadastrar') !!}
 {!! Form::close() !!}
 
-@if ( isset($user) )
-    @if ( isset($athlete) ) 
-        Esportes que já faz:
-        @foreach($athlete->sport as $sport)
-            {{ $sport->name }}
-        @endforeach
-    @endif
-@endif

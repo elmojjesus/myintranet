@@ -11,15 +11,19 @@
 </div>
 -->
 
-  <div class="modal-header">
-    <h3>Editar esporte</h3>
-  </div>
+<!--
+    <form method="POST" action="/sport/update/{{ $sport->id }}">
+      {{ csrf_field() }}
+      Esporte:
+      <input type="text" name="name" value="{{ $sport->name }}">
+      <br>
+      <input type="submit" class="btn btn-primary" value="Salvar">
+    </form>
+-->
 
-  <div class="modal-body">
-    {!! Form::open(array('method' => 'put',  'action' => array('SportController@update', $sport->id) )) !!}
-      Esporte: {!! Form::text('name', $sport->name, $attributes = array('class' => 'form-control')) !!}
-  </div>
-  <div class="modal-footer">
-      {!! Form::submit('Editar', $attributes = array('class' => 'btn btn-primary')) !!}   
-  </div>
-    {!! Form::close() !!}
+{!! Form::open(array('method' => 'post', 'action' => array('SportController@update', $sport->id))) !!}
+<lablel>Editar esporte:</lablel>
+  {!! Form::text('name', $sport->name, $attributes = array('class' => 'form-control')) !!}
+    <br>
+  {!! Form::submit('Salvar', $attributes = array('class' => 'btn btn-primary')) !!}    
+{!! Form::close() !!}

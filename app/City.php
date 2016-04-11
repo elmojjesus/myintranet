@@ -3,17 +3,15 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Athlete extends Model
+class City extends Model
 {
-    use SoftDeletes;
-        /**
+	/**
      * The database table used by the model.
      *
      * @var string
      */
-    protected $table = 'athletes';
+    protected $table = 'cities';
 
     /**
      * The attributes that are mass assignable.
@@ -28,14 +26,13 @@ class Athlete extends Model
      * @var array
      */
     protected $hidden = [];
+    
+	public function state(){
+		return $this->belongsTo('\App\State');
+	}
 
-    protected $dates = ['deleted_at'];
+	public function address(){
+		return $this->hasMany('\App\Address');
+	}
 
-    public function athleteSport() {
-    	return $this->hasMany('\App\AthleteSport');
-    }
-
-    public function user(){
-        return $this->belongsTo('\App\User');
-    }
 }

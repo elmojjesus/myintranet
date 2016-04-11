@@ -21,25 +21,32 @@
     {!!Form::submit('Cadastrar') !!}
 {!! Form::close() !!}
 
+Buscar Usuários
 <br>
-<h2>Campos de busca</h2>
+    {!! Form::open(array('method' => 'post', 'action' => array('AthleteController@index'))) !!}
+        Id: {!! Form::text('id', '', $attributes = array()) !!}
+        Nome: {!! Form::text('name', '', $attributes = array()) !!}
+        {!!Form::submit('Buscar') !!}
+    {!! Form::close() !!}
+<br>
 
-ID | CPF | Nome | Status(combobox) | Deficiência (combobox) 
-
-<h2> Altetas </h2>
+Usuários Comuns
+<br>
+<br>
 
 <table>
-    <tr>
-        <th>ID Usuário</th>
-        <th>| Nome</th>
-        <th>| Esporte</th>
-        <th>| Deficiência</th>
-    </tr>
-    <tr>
-        @foreach($athletetList as $athlete)
-            <td> {{ $athlete->id   }} </td>
-            <td> {{ $athlete->name }} </td>
-        @endforeach
-    </tr>
+    @foreach($users as $user)
+        <tr>
+            <td> {{ $user->id }} </td>
+            <td> {{ $user->name }} </td> 
+            <td>
+                <a href="/athlete/create/{{ $user->id }}"> Torna-lo(a) atléta </a>   
+            </td>
+        </tr>
+    @endforeach
 </table>
 @endsection
+
+<div id="dataTables-example_paginate" class="dataTables_paginate paging_simple_numbers">
+    {!! $users->render() !!}
+</div>
