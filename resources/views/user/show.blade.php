@@ -1,3 +1,13 @@
+@extends('layouts.layout')
+
+@section('title')
+	<a class="btn btn-primary" href="http://google.com" type="button"> 
+		<font class="myMiddle"> teste </font>
+	</a>
+	Informações gerais 
+@stop
+
+@section('content')
 <div class="row">
 	<div clas="col-lg-12">
 		<div class="panel panel-default">
@@ -148,3 +158,4 @@
 		</div>
 	</div>
 </div>
+@stop

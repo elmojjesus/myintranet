@@ -67,7 +67,7 @@ class UserController extends Controller
                 })
                 ->orderBy('users.name')
                 ->paginate(10);
-
+ 
     }
 
     /**
