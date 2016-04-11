@@ -53,15 +53,13 @@ Route::group(['middleware' => 'auth'], function() {
 
 
 	//Sports routes
-	Route::get('sport/index', 'SportController@index');
+	Route::get('sport', 'SportController@index');
 	Route::post('sport/index', 'SportController@store');
 	Route::get('sport/edit/{id}', 'SportController@edit');
-	Route::post('/sport/update/{id}', 'SportController@update');
-
-	#Route::put('user/update/{id}', ['as' => 'sport/update', 'uses' => 'SportController@update']);
+	Route::post('sport/update/{id}', 'SportController@update');
 
 	//Athlete routes
-	Route::get('athlete/index', 'Athlete@index');
+	Route::get('athlete', 'Athlete@index');
 	Route::post('athlete/index', 'Athlete@create');
 
 	//Route Documents
@@ -85,6 +83,15 @@ Route::group(['middleware' => 'auth'], function() {
 	Route::post('employee/update/{id}', 'EmployeeController@update');
 	Route::get('employee/delete/{id}', 'EmployeeController@delete');
 	Route::post('employee/destroy/{id}', 'EmployeeController@destroy');
+
+	//Route Therapies
+	Route::get('therapy', 'TherapyController@index');
+	Route::get('therapy/create', 'TherapyController@create');
+	Route::post('therapy/store', 'TherapyController@store');
+	Route::get('therapy/edit/{id}', 'TherapyController@edit');
+	Route::post('therapy/update/{id}', 'TherapyController@update');
+	Route::get('therapy/delete/{id}', 'TherapyController@delete');
+	Route::post('therapy/destroy/{id}', 'TherapyController@destroy');
 
 	//Image Upload
 	Route::get('user/image/upload/{id}', 'ImageController@userUpload');

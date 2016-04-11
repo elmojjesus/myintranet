@@ -6,21 +6,19 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Flash;
 
-class SportController extends Controller
+class TherapyController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-
-
     public function index()
     {
-        
-        $sports = \App\Sport::all();
-        return view('sport.index', compact('sports'));
+        $therapies = \App\Therapy::all();
+        return view('therapy.index', compact('therapies'));
     }
 
     /**
@@ -28,10 +26,9 @@ class SportController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request)
+    public function create()
     {
-        $sports = \App\Sport::all();
-        return view('sport.index', compact('sports')); 
+        return view('therapy.create');
     }
 
     /**
@@ -44,8 +41,9 @@ class SportController extends Controller
     {
         $data = $request->all();
         unset($data['_token']);
-        \App\Sport::insert($data);
-        return redirect('sport');
+        \App\Therapy::insert($data);
+        Flash::success('Terapia cadastrada com sucesso!');
+        return redirect('therapy');
     }
 
     /**
@@ -67,9 +65,8 @@ class SportController extends Controller
      */
     public function edit($id)
     {
-        $sport = \App\Sport::find($id);
-        #print_r($sport);
-        return view('sport.edit', compact('sport'));
+        $therapy = \App\Terapy::find($id);
+        return view('therapy.edit', compact('therapy'));
     }
 
     /**
@@ -81,20 +78,10 @@ class SportController extends Controller
      */
     public function update(Request $request, $id)
     {
-        #echo "chamou";
-        #$sport = \App\Sport::find($id);
-        $sport = \App\Sport::findOrFail($id);
-        $sport->name = $request->input('name');
-        $sport->save();
-
-        return redirect('sport');
-
-        #return "chamou update";
-
-        #$data = $request->all();
-        #unset($data['_token']);
-        #\App\Sport::where('id', $id)->update($data);
-        #return redirect('sport/index');
+        $data = $request->all();
+        unset($data['_token']);
+        \App\Therapy::where('id', $id)->update($data);
+        return redirect('therapy');
     }
 
     /**

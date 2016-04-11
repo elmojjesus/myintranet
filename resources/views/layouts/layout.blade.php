@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -10,8 +12,6 @@
     <link href="{{ URL::asset('assets/css/font-awesome.css') }}" rel="stylesheet" />
         <!-- Custom Styles-->
     <link href="{{ URL::asset('assets/css/custom-styles.css') }}" rel="stylesheet" />
-     <!-- Google Fonts-->
-   <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
 
    <link rel="stylesheet" type="text/css" href="{{ URL::asset('assets/magnific-popup/magnific-popup.css') }}">
 </head>
@@ -25,13 +25,14 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <span class="navbar-brand" href="index.html"><img src="{{asset('assets/img/logo.png')}}" id="logo"></span>
+                <a class="navbar-brand" href="/"><img src="{{asset('assets/img/logo.png')}}" id="logo"></a>
             </div>
 
             <ul class="nav navbar-top-links navbar-right">
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
-                        <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
+                        <img src="{{ '/images/profile/' . Auth::user()->image }}" width="20" height="20">
+                        <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
                         <li>

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\EmployeeRequest;
 use Flash;
 
 class EmployeeController extends Controller
@@ -18,7 +19,7 @@ class EmployeeController extends Controller
     public function index()
     {
         $employees = \App\Employee::all();
-        return view('employee.index');
+        return view('employee.index', compact('employees'));
 
     }
 
@@ -29,16 +30,18 @@ class EmployeeController extends Controller
      */
     public function create()
     {
-        return view('employee.create');
+        $users = \App\User::orderBy('name')->get();
+        $departaments = \App\Departament::orderBy('name')->get();
+        return view('employee.create', compact('users', 'departaments'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  EmployeeRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(EmployeeRequest $request)
     {
         $data = $request->all();
         unset($data['_token']);
@@ -66,19 +69,31 @@ class EmployeeController extends Controller
      */
     public function edit($id)
     {
-        //
+        $employee = \App\Employee::find($id);
+        $users = \App\User::orderBy('name')->get();
+        $departaments = \App\Departament::orderBy('name')->get();
+        return view('employee.edit', compact('employee', 'users', 'departaments'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  EmployeeRequest  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(EmployeeRequest $request, $id)
     {
-        //
+        $data = $request->all();
+        unset($data['_token']);
+        \App\Employee::where('id', $id)->update($data);
+        Flash::success('Alterações realizadas com sucesso.');
+        return redirect('employee');
+    }
+
+    public function delete($id) {
+        $employee = \App\Employee::find($id);
+        return view('employee.delete', compact('employee'));
     }
 
     /**
@@ -89,6 +104,8 @@ class EmployeeController extends Controller
      */
     public function destroy($id)
     {
-        //
+        \App\Employee::where('id', $id)->delete();
+        Flash::success('Funcionário deletado com sucesso.');
+        return redirect('employee');
     }
 }

@@ -36,6 +36,10 @@ class DatabaseSeeder extends Seeder
 
         $this->call('EmployeeSeeder');
 
+        $this->call('TerapiesSeeder');
+
+        $this->call('PacientSeeder');
+
         Model::reguard();
     }
 }

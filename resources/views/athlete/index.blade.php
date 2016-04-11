@@ -1,3 +1,5 @@
+@extends('layouts.layout')
+@section('content')
 <h1> Esporte </h1>
 <h2> Cadastre um atleta </h2>
 
@@ -40,3 +42,4 @@ ID | CPF | Nome | Status(combobox) | Deficiência (combobox)
         @endforeach
     </tr>
 </table>
+@endsection
