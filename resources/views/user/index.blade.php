@@ -125,7 +125,7 @@
 										<tr>
 											<td> {{ $user->id }} </td>
 											<td> 
-												<a class="modal-ajax-link" data-mfp-src="user/show/{{ $user->id }}"> 
+												<a href="user/show/{{ $user->id }}"> 
 													{{ $user->name }} 
 												</a>
 											</td>
