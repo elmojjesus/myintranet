@@ -19,9 +19,7 @@ class CreateContactsTable extends Migration
             $table->string('toMessageNumber', 15)->nullable();
             $table->string('email');
             $table->integer('user_id')->unsigned();
-            $table->foreign('user_id')->references('id')->on('users')
-                ->onDelete('cascade')
-                ->onUpdate('cascade');
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 

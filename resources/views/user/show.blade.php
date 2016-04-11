@@ -24,7 +24,7 @@
 						</thead>
 						<!-- Dados gerais -->
 						<tr>
-							<td> <center> <img src="#"> </center> </td>
+							<td> <center> <img src="{{ '/images/profile/' . $user->image }}" width="80" height="80"> </center> </td>
 							<td> <h3> {{ $user->name }} </h3> </td>
 						</tr>
 						<tr>
@@ -50,49 +50,53 @@
 					</table>
 
 						<!-- Documentos -->
-						<table class="table table-bordered table-hover">
-							<thead class="thead-default">
-								<tr>
-										<th colspan="2"> <center> <h4> Documentos </h4> </center> </th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td> CPF: {{ $user->document->cpf }} </td>
-									<td> RG: {{ $user->document->rg }} </td>
-								</tr>
-								<tr>
-									<td colspan="2"> Passaporte: {{ $user->document->passaport }} </td>
-								</tr>
-							</tbody>
-						</table>
+						@if(!is_null($user->document))
+							<table class="table table-bordered table-hover">
+								<thead class="thead-default">
+									<tr>
+											<th colspan="2"> <center> <h4> Documentos </h4> </center> </th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td> CPF: {{ $user->document->cpf }} </td>
+										<td> RG: {{ $user->document->rg }} </td>
+									</tr>
+									<tr>
+										<td colspan="2"> Passaporte: {{ $user->document->passaport }} </td>
+									</tr>
+								</tbody>
+							</table>
+						@endif
 
 						<!-- Endereço -->
-						<table class="table table-bordered table-hover">
-							<thead class="thead-default">
-								<tr>
-									<th colspan="2"> <center> <h4> Endereço </h4> </center> </th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td> Cidade: {{ $user->address->city->name }} </td>
-									<td> Estado: -ver- </td>
-								</tr>
-								<tr>
-									<td> Rua: {{ $user->address->street }} </td>
-									<td> Numero: {{ $user->address->number }} </td>
-								</tr>
-								<tr>
-									<td> Complemento: {{ $user->address->complement}} </td>
-									<td> CEP: {{ $user->address->zip_code }} </td>
-								</tr>
-								<tr>
-									<td> Bairro: {{ $user->address->neighborhood }} </td>
-									<td> Regional? {{ $user->address->regional }} </td>
-								</tr>
-							</tbody>
-						</table>
+						@if(!is_null($user->address))
+							<table class="table table-bordered table-hover">
+								<thead class="thead-default">
+									<tr>
+										<th colspan="2"> <center> <h4> Endereço </h4> </center> </th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td> Cidade: {{ $user->address->city->name }} </td>
+										<td> Estado: -ver- </td>
+									</tr>
+									<tr>
+										<td> Rua: {{ $user->address->street }} </td>
+										<td> Numero: {{ $user->address->number }} </td>
+									</tr>
+									<tr>
+										<td> Complemento: {{ $user->address->complement}} </td>
+										<td> CEP: {{ $user->address->zip_code }} </td>
+									</tr>
+									<tr>
+										<td> Bairro: {{ $user->address->neighborhood }} </td>
+										<td> Regional? {{ $user->address->regional }} </td>
+									</tr>
+								</tbody>
+							</table>
+						@endif
 
 						<!-- Contato -->
 						@if(!is_null($user->contact))
@@ -118,38 +122,36 @@
 						@endif
 
 						<!-- Atendimentos -->
-						<table class="table table-bordered table-hover">
-							<thead class="thead-default">
-								<tr>
-									<td colspan="5"> <center> <h4> Atendimentos </h4> </center> </td>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<th> Esporte </th>
-									<th> RH </th>
-									<th> Reabilitação </th>
-									<th> Associação </th>
-									<th> Voluntariádo </th>
-								</tr>
-								<tr>
-									<td>
-										<center>
-											@if(!is_null($user->athlete))
+						@if(!is_null($user->athlete))
+							<table class="table table-bordered table-hover">
+								<thead class="thead-default">
+									<tr>
+										<td colspan="5"> <center> <h4> Atendimentos </h4> </center> </td>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<th> Esporte </th>
+										<th> RH </th>
+										<th> Reabilitação </th>
+										<th> Associação </th>
+										<th> Voluntariádo </th>
+									</tr>
+									<tr>
+										<td>
+											<center>
 												<i class="fa fa-check" style="color: green"></i>
-											@else
 												<i class="fa fa-times" style="color: red"></i>
-											@endif
-										</center>
-									</td>
-									<td> --- </td>
-									<td> --- </td>
-									<td> --- </td>
-									<td> --- </td>
-								</tr>
-							</tbody>
-						</table>
-
+											</center>
+										</td>
+										<td> --- </td>
+										<td> --- </td>
+										<td> --- </td>
+										<td> --- </td>
+									</tr>
+								</tbody>
+							</table>
+						@endif
 				</div>
 
 			</div>

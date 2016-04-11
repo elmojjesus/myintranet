@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAthleteSportsTable extends Migration
+class CreateTarepiesPacientsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,13 +12,12 @@ class CreateAthleteSportsTable extends Migration
      */
     public function up()
     {
-        Schema::create('athlete_sports', function(Blueprint $table) {
-            $table->integer('athlete_id')->unsigned();
-            $table->foreign('athlete_id')->references('id')->on('athletes');
-
-            $table->integer('sport_id')->unsigned();
-            $table->foreign('sport_id')->references('id')->on('sports');
-                
+        Schema::create('terapies_pacients', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('terapy_id')->unsigned();
+            $table->foreign('terapy_id')->references('id')->on('terapies');
+            $table->integer('pacient_id')->unsigned();
+            $table->foreign('pacient_id')->references('id')->on('pacients');
             $table->integer('status_id')->unsigned();
             $table->foreign('status_id')->references('id')->on('status');
             $table->softDeletes();
@@ -32,6 +31,6 @@ class CreateAthleteSportsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('athlete_sports');
+        Schema::dropIfExists('terapies_pacients');
     }
 }

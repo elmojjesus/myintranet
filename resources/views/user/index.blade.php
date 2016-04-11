@@ -30,20 +30,20 @@
 							</div>
 						</div>
 							
-						<div class="col-sm-4">
+						<!-- <div class="col-sm-4">
 							<div id="dataTables-example_length" class="dataTables_length">
 								
 								<label>CPF:</label>
 								<input type="text" name="cpf" class="form-control">
 								
 							</div>
-						</div>
+						</div>  -->
 
 						<div class="col-sm-4">
 							<div id="dataTables-example_length" class="dataTables_length">
 								
 								<label>Nome:</label>
-								<input type="text" name="nome" class="form-control">
+								<input type="text" name="name" class="form-control">
 								
 							</div>
 						</div>
@@ -56,9 +56,11 @@
 						<div class="col-sm-6">
 							<div id="dataTables-example_length" class="dataTables_length">
 								<label>Status:</label>
-								<select name="deficiency_id" class="form-control input-sm">
+								<select name="status_id" class="form-control input-sm">
 									<option value="">Selecione o status na associação</option>
-										<!-- inserir options -->
+									@foreach($status as $s)
+										<option value="{{ $s->id }}">{{ $s->name }}</option>
+									@endforeach
 								</select>
 							</div>
 						</div>

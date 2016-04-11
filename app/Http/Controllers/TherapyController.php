@@ -6,10 +6,9 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\EmployeeRequest;
 use Flash;
 
-class EmployeeController extends Controller
+class TherapyController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,9 +17,8 @@ class EmployeeController extends Controller
      */
     public function index()
     {
-        $employees = \App\Employee::all();
-        return view('employee.index', compact('employees'));
-
+        $therapies = \App\Therapy::all();
+        return view('therapy.index', compact('therapies'));
     }
 
     /**
@@ -30,24 +28,22 @@ class EmployeeController extends Controller
      */
     public function create()
     {
-        $users = \App\User::orderBy('name')->get();
-        $departaments = \App\Departament::orderBy('name')->get();
-        return view('employee.create', compact('users', 'departaments'));
+        return view('therapy.create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  EmployeeRequest  $request
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(EmployeeRequest $request)
+    public function store(Request $request)
     {
         $data = $request->all();
         unset($data['_token']);
-        \App\Employee::insert($data);
-        Flash::success('Salvo com sucesso.');
-        return redirect('employee');
+        \App\Therapy::insert($data);
+        Flash::success('Terapia cadastrada com sucesso!');
+        return redirect('therapy');
     }
 
     /**
@@ -69,31 +65,23 @@ class EmployeeController extends Controller
      */
     public function edit($id)
     {
-        $employee = \App\Employee::find($id);
-        $users = \App\User::orderBy('name')->get();
-        $departaments = \App\Departament::orderBy('name')->get();
-        return view('employee.edit', compact('employee', 'users', 'departaments'));
+        $therapy = \App\Terapy::find($id);
+        return view('therapy.edit', compact('therapy'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  EmployeeRequest  $request
+     * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(EmployeeRequest $request, $id)
+    public function update(Request $request, $id)
     {
         $data = $request->all();
         unset($data['_token']);
-        \App\Employee::where('id', $id)->update($data);
-        Flash::success('Alterações realizadas com sucesso.');
-        return redirect('employee');
-    }
-
-    public function delete($id) {
-        $employee = \App\Employee::find($id);
-        return view('employee.delete', compact('employee'));
+        \App\Therapy::where('id', $id)->update($data);
+        return redirect('therapy');
     }
 
     /**
@@ -104,8 +92,6 @@ class EmployeeController extends Controller
      */
     public function destroy($id)
     {
-        \App\Employee::where('id', $id)->delete();
-        Flash::success('Funcionário deletado com sucesso.');
-        return redirect('employee');
+        //
     }
 }

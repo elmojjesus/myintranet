@@ -1,4 +1,5 @@
 @extends('layouts.layout')
+@section('content')
 <h2>Cadastrando imagem para perfil</h2>
 <form method="POST" action="/user/image/store" enctype="multipart/form-data">
 	{{ csrf_field() }}
@@ -11,3 +12,4 @@
 	</div>
 	<input class="btn btn-primary" type="submit" value="Salvar">
 </form>
+@endsection

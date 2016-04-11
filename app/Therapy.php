@@ -5,15 +5,16 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Employee extends Model
+class Therapy extends Model
 {
     use SoftDeletes;
+
         /**
      * The database table used by the model.
      *
      * @var string
      */
-    protected $table = 'employees';
+    protected $table = 'terapies';
 
     /**
      * The attributes that are mass assignable.
@@ -30,12 +31,4 @@ class Employee extends Model
     protected $hidden = [];
 
     protected $dates = ['deleted_at'];
-
-    public function user() {
-        return $this->belongsTo('\App\User');
-    }
-
-    public function departament() {
-        return $this->belongsTo('\App\Departament');
-    }
 }
