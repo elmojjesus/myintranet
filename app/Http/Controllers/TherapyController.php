@@ -39,6 +39,7 @@ class TherapyController extends Controller
      */
     public function store(Request $request)
     {
+        var_dump($data);die;
         $data = $request->all();
         unset($data['_token']);
         \App\Therapy::insert($data);
@@ -65,7 +66,7 @@ class TherapyController extends Controller
      */
     public function edit($id)
     {
-        $therapy = \App\Terapy::find($id);
+        $therapy = \App\Therapy::find($id);
         return view('therapy.edit', compact('therapy'));
     }
 

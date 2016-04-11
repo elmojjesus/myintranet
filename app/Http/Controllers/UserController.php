@@ -19,10 +19,11 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
+        $query = $request->all();
         $users = $this->getUsersByQuery($request->all());
         $deficiencies = \App\Deficiency::all();
         $status = \App\Status::all();
-        return view('user.index', compact('users', 'deficiencies', 'status'));
+        return view('user.index', compact('users', 'deficiencies', 'status', 'query'));
     }
 
     public function getUsersByQuery($request) {

@@ -5,10 +5,10 @@
 @stop
 
 @section('content')
+
 @if (Session::has('flash_notification.message'))
     <div class="alert alert-{{ Session::get('flash_notification.level') }}">
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-
         {{ Session::get('flash_notification.message') }}
     </div>
 @endif
@@ -25,7 +25,7 @@
 							<div id="dataTables-example_length" class="dataTables_length">
 								
 								<label>ID:</label>
-								<input type="text" name="id" class="form-control">
+								<input type="text" name="id" value="{{ isset($query['id']) ? $query['id'] : '' }}" class="form-control">
 
 							</div>
 						</div>
@@ -43,7 +43,7 @@
 							<div id="dataTables-example_length" class="dataTables_length">
 								
 								<label>Nome:</label>
-								<input type="text" name="name" class="form-control">
+								<input type="text" name="name" value="{{ isset($query['name']) ? $query['name'] : '' }}" class="form-control">
 								
 							</div>
 						</div>
@@ -59,7 +59,7 @@
 								<select name="status_id" class="form-control input-sm">
 									<option value="">Selecione o status na associação</option>
 									@foreach($status as $s)
-										<option value="{{ $s->id }}">{{ $s->name }}</option>
+										<option {{ isset($query['status_id']) && $query['status_id'] == $s->id ? 'selected="selected"' : '' }} value="{{ $s->id }}">{{ $s->name }}</option>
 									@endforeach
 								</select>
 							</div>
@@ -71,7 +71,7 @@
 								<select name="deficiency_id" class="form-control input-sm">
 									<option value="">Selecione uma deficiência</option>
 									@foreach($deficiencies as $deficiency)
-										<option value="{{ $deficiency->id }}">{{ $deficiency->name }}</option>
+										<option {{ isset($query['deficiency_id']) && $query['deficiency_id'] == $deficiency->id ? 'selected="selected"' : '' }} value="{{ $deficiency->id }}">{{ $deficiency->name }}</option>
 									@endforeach
 								</select>
 							</div>
@@ -84,6 +84,7 @@
 					<div class="row">
 						<div class="col-lg-12">
 							<div id="dataTables-example_length" class="dataTables_length">
+								<a class="btn btn-default" href="/user"><i class="fa fa-search"></i>Limpar busca</a>
 								<input type="submit" class="btn btn-primary" value="Buscar">
 							</div>
 						</div>
@@ -179,7 +180,7 @@
 								</div>
 
 								<div class="col-sm-6">
-									<div id="dataTables-example_paginate" class="dataTables_paginate paging_simple_numbers">{!! $users->render() !!}</div>
+									<div id="dataTables-example_paginate" class="dataTables_paginate paging_simple_numbers">{!! $users->appends($query)->render() !!}</div>
 								</div>
 							</div>
 							
