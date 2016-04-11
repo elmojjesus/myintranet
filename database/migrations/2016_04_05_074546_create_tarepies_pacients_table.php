@@ -31,6 +31,7 @@ class CreateTarepiesPacientsTable extends Migration
      */
     public function down()
     {
+        DB::statement('SET FOREIGN_KEY_CHECKS = 0');
         Schema::dropIfExists('terapies_pacients');
     }
 }
