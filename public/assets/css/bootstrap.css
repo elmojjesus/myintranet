@@ -13,6 +13,14 @@ html {
 body {
   margin: 0;
 }
+.hidden {
+  display: none;
+}
+
+.danger {
+    border-style: solid !important;
+    border-color: #ff0000 !important;
+    }
 article,
 aside,
 details,
@@ -5778,4 +5786,6 @@ button.close {
     display: none !important;
   }
 }
+
+
 /*# sourceMappingURL=bootstrap.css.map */
