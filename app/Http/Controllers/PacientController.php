@@ -8,7 +8,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Flash;
 
-class TherapyController extends Controller
+class PacientController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,8 +17,8 @@ class TherapyController extends Controller
      */
     public function index()
     {
-        $therapies = \App\Therapy::all();
-        return view('therapy.index', compact('therapies'));
+        $pacients = \App\Pacient::all();
+        return view('pacient.index', compact('pacients'));
     }
 
     /**
@@ -28,7 +28,9 @@ class TherapyController extends Controller
      */
     public function create()
     {
-        return view('therapy.create');
+        $users = \App\User::notPacients();
+        $status = \App\Status::all();
+        return view('pacient.create', compact('users', 'status'));
     }
 
     /**
@@ -41,9 +43,9 @@ class TherapyController extends Controller
     {
         $data = $request->all();
         unset($data['_token']);
-        \App\Therapy::insert($data);
-        Flash::success('Terapia cadastrada com sucesso!');
-        return redirect('therapy');
+        \App\Pacient::insert($data);
+        Flash::success('Cadastrado com sucesso.');
+        return redirect('pacient');
     }
 
     /**
@@ -65,8 +67,10 @@ class TherapyController extends Controller
      */
     public function edit($id)
     {
-        $therapy = \App\Therapy::find($id);
-        return view('therapy.edit', compact('therapy'));
+        $pacient = \App\Pacient::find($id);
+        $status = \App\Status::all();
+        return view('pacient.edit', compact('pacient', 'status'));
+
     }
 
     /**
@@ -80,13 +84,14 @@ class TherapyController extends Controller
     {
         $data = $request->all();
         unset($data['_token']);
-        \App\Therapy::where('id', $id)->update($data);
-        return redirect('therapy');
+        \App\Pacient::where('id', $id)->update($data);
+        Flash::success('Paciente editado com sucesso.');
+        return redirect('pacient');
     }
 
     public function delete($id) {
-        $therapy = \App\Therapy::find($id);
-        return view('therapy.delete', compact('therapy'));
+        $pacient = \App\Pacient::find($id);
+        return view('pacient.delete', compact('pacient'));
     }
 
     /**
@@ -97,7 +102,7 @@ class TherapyController extends Controller
      */
     public function destroy($id)
     {
-        \App\Therapy::find($id)->delete();
-        return redirect('therapies');
+        \App\Pacient::where('id', $id)->delete();
+        return redirect('pacient');
     }
 }

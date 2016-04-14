@@ -90,8 +90,11 @@
 	</div>
 	<div class="col-md-6">
 		<div class="form-group">
-		<label>Voluntário:</label>
-		<input type="checkbox" class="form-control" name="voluntary">
+			<label>Voluntário:</label>
+			<br>
+			<label class="checkbox-inline">
+	  			Sim <input type="checkbox" name="voluntary"> 
+			</label>	
 		</div>
 	</div>
 	<div class="col-md-6">
@@ -102,6 +105,24 @@
 				<option value="{{ $s->id }}">{{ $s->name }}</option>
 			@endforeach
 		</select>
+		</div>
+	</div>
+	<div class="col-md-6">
+		<div class="form-group">
+			<label>RG</label>
+			<input type="text" name="rg" class="form-control" />
+		</div>
+	</div>
+	<div class="col-md-6">
+		<div class="form-group">
+			<label>CPF</label>
+			<input type="text" name="cpf" class="form-control" />
+		</div>
+	</div>
+	<div class="col-md-6">
+		<div class="form-group">
+			<label>Passaporte</label>
+			<input type="text" name="passport" class="form-control" />
 		</div>
 	</div>
 	<div class="clearfix"></div>
