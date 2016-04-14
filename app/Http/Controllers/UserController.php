@@ -19,10 +19,11 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
+        $query = $request->all();
         $users = $this->getUsersByQuery($request->all());
         $deficiencies = \App\Deficiency::all();
         $status = \App\Status::all();
-        return view('user.index', compact('users', 'deficiencies', 'status'));
+        return view('user.index', compact('users', 'deficiencies', 'status', 'query'));
     }
 
     public function getUsersByQuery($request) {
@@ -96,10 +97,20 @@ class UserController extends Controller
         unset($data['_token']);
         unset($data['password_confirm']);
         $data['password'] = bcrypt($data['password']);
+        if (isset($data['rg'])) {
+            $document = [
+                'rg' => $data['rg'],
+                'cpf' => $data['cpf'],
+                'passport' => $data['passport']
+            ];
+            unset($data['rg'], $data['cpf'], $data['passport']);
+        }
         \App\User::insert($data);
         $user = \App\User::where('email', $data['email'])->first();
+        $document['user_id'] = $user->id;
+        \App\Document::insert($document);
         Flash::success('Primeira etapa do usuário completa!');
-        return redirect('document/create/' . $user->id);
+        return redirect('user/image/upload/' . $user->id);
     }
 
     /**
@@ -146,7 +157,18 @@ class UserController extends Controller
             $data['password'] = bcrypt($data['password']);
         }
         unset($data['edit']);
+        if (isset($data['rg'])) {
+            $document = [
+                'rg' => $data['rg'],
+                'cpf' => $data['cpf'],
+                'passport' => $data['passport'],
+                'user_id' => $id
+            ];
+            unset($data['rg'], $data['cpf'], $data['passport']);
+        }
         \App\User::where('id', $id)->update($data);
+        \App\Document::where('user_id', $id)->update($document);
+        Flash::success('Editado com sucesso.');
         return redirect('user');
     }
 

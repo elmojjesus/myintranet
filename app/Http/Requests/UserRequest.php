@@ -31,7 +31,9 @@ class UserRequest extends Request
                 'password' => 'min:4|max:12',
                 'birthDate' => 'required|date_format:d/m/Y',
                 'sex' => 'required',
-            ];    
+                'rg' => 'required|max:15',
+                'cpf' => 'required|max:9'
+            ];
         } else {
             return [
                 'name' => 'required|min:3',
@@ -40,6 +42,8 @@ class UserRequest extends Request
                 'password_confirm' => 'required|same:password',
                 'birthDate' => 'required|date_format:d/m/Y',
                 'sex' => 'required',
+                'rg' => 'required|max:15',
+                'cpf' => 'required|max:9'
             ];
         }
         

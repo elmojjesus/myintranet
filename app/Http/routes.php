@@ -108,6 +108,15 @@ Route::group(['middleware' => 'auth'], function() {
 	Route::get('therapy/delete/{id}', 'TherapyController@delete');
 	Route::post('therapy/destroy/{id}', 'TherapyController@destroy');
 
+	//Route Therapies
+	Route::get('pacient', 'PacientController@index');
+	Route::get('pacient/create', 'PacientController@create');
+	Route::post('pacient/store', 'PacientController@store');
+	Route::get('pacient/edit/{id}', 'PacientController@edit');
+	Route::post('pacient/update/{id}', 'PacientController@update');
+	Route::get('pacient/delete/{id}', 'PacientController@delete');
+	Route::post('pacient/destroy/{id}', 'PacientController@destroy');
+
 	//Image Upload
 	Route::get('user/image/upload/{id}', 'ImageController@userUpload');
 	Route::post('user/image/store', 'ImageController@userStore');

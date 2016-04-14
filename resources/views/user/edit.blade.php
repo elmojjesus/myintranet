@@ -53,5 +53,23 @@
 	<label>Voluntário:</label>
 	<input type="checkbox" name="voluntary" {{ $user->voluntary ? 'checked' : '' }}>
 	<p></p>
+	<div class="col-md-6">
+		<div class="form-group">
+			<label>RG</label>
+			<input type="text" name="rg" class="form-control" value="{{ $user->document->rg }}"/>
+		</div>
+	</div>
+	<div class="col-md-6">
+		<div class="form-group">
+			<label>CPF</label>
+			<input type="text" name="cpf" class="form-control" value="{{ $user->document->cpf }}" />
+		</div>
+	</div>
+	<div class="col-md-6">
+		<div class="form-group">
+			<label>Passaporte</label>
+			<input type="text" name="passport" class="form-control" value="{{ $user->document->passport }}" />
+		</div>
+	</div>
 	<input type="submit" class="btn btn-primary" value="Salvar" />
 </form>
