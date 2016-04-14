@@ -17,9 +17,7 @@ class AthleteController extends Controller
      */
     public function index(Request $request)
     {
-        $userCon = new UserController();
-        $users = $userCon->getCommonUsers($request);
-        return view('athlete.index', compact('users'));
+        
     }
 
     /**
@@ -27,15 +25,16 @@ class AthleteController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($id)
+    public function create(Request $request)
     {
-        /*
-        $sports = \App\Sport::all();
-        $users = \App\User::all();
-        return view('athlete.create', compact('sports', 'users'));
-        */
+        $userCon = new UserController();
+        $users = $userCon->getCommonUsers($request);
+        return view('athlete.index', compact('users'));        
+    }
+
+    public function createModal($id){
         $user = \App\User::findorFail($id);
-        $sports = \App\Sport::all();
+        $sports = \App\Sport::lists('name', 'id')->toArray();
         return view('athlete.create', compact('user', 'sports'));
     }
 

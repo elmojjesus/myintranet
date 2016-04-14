@@ -4,9 +4,43 @@ License: Commons Attribution 3.0
 http://creativecommons.org/licenses/by/3.0/
 ------------------------------------------------*/
 
-.myMiddle{
-    vertical-align: %10;
+
+/* --------------- for tables */
+.on-center{
+    text-align: center;
 }
+
+.on-center th{
+    text-align: center;
+}
+/* --- end for tables */
+
+
+/* --------------- for modals */
+.modal-ajax-link{
+    cursor: pointer;
+}
+
+.modal-header{
+    background-color: #08698A;
+    border-top-right-radius: 3px;
+    border-top-left-radius: 3px;
+    color: #FFFFFF;
+}
+/* --- end for modals */
+
+
+/* --------------- for title routes */
+h1 small{
+    display: inherit;
+    font-size: 17px;
+}
+
+.left-spacing{
+    margin-left: 50px;
+}
+/* --- end for routes */
+
 
 #logo{
     margin-left: 40px;
@@ -17,6 +51,8 @@ http://creativecommons.org/licenses/by/3.0/
 input[type='submit'] {
     float: right;
 }
+
+
 
 /*----------------------------------------------
     COMMON  STYLES    

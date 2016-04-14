@@ -1,10 +1,13 @@
 @extends('layouts.layout')
 
 @section('title')
-	<a class="btn btn-primary" href="http://google.com" type="button"> 
-		<font class="myMiddle"> teste </font>
+	<a class="btn btn-primary" href="/user" type="button"> 
+		<font class="myMiddle"> <i class="fa fa-arrow-left"></i>
+ </font>
 	</a>
 	Informações gerais 
+	<br>
+	<small class="left-spacing">  / Usuários / Buscar - Listar / Informações gerais </small>
 @stop
 
 @section('content')
@@ -80,7 +83,7 @@
 								<tbody>
 									<tr>
 										<td> Cidade: {{ $user->address->city->name }} </td>
-										<td> Estado: -ver- </td>
+										<td> Estado: {{ $user->address->state }} </td>
 									</tr>
 									<tr>
 										<td> Rua: {{ $user->address->street }} </td>
@@ -122,36 +125,35 @@
 						@endif
 
 						<!-- Atendimentos -->
-						@if(!is_null($user->athlete))
-							<table class="table table-bordered table-hover">
-								<thead class="thead-default">
-									<tr>
-										<td colspan="5"> <center> <h4> Atendimentos </h4> </center> </td>
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-										<th> Esporte </th>
-										<th> RH </th>
-										<th> Reabilitação </th>
-										<th> Associação </th>
-										<th> Voluntariádo </th>
-									</tr>
-									<tr>
-										<td>
-											<center>
-												<i class="fa fa-check" style="color: green"></i>
-												<i class="fa fa-times" style="color: red"></i>
-											</center>
-										</td>
-										<td> --- </td>
-										<td> --- </td>
-										<td> --- </td>
-										<td> --- </td>
-									</tr>
-								</tbody>
-							</table>
-						@endif
+						<table class="table table-bordered table-hover on-center">
+							<thead class="thead-default">
+								<tr>
+									<td colspan="5"> <center> <h4> Atendimentos </h4> </center> </td>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<th> Esporte </th>
+									<th> RH </th>
+									<th> Reabilitação </th>
+									<th> Associação </th>
+									<th> Voluntariádo </th>
+								</tr>
+								<tr>
+									<td>
+										@if(!is_null($user->athlete))
+											<i class="fa fa-check" style="color: green"></i>
+										@else
+											<i class="fa fa-times" style="color: red"></i>
+										@endif
+									</td>
+									<td> --- </td>
+									<td> --- </td>
+									<td> --- </td>
+									<td> --- </td>
+								</tr>
+							</tbody>
+						</table>
 				</div>
 
 			</div>

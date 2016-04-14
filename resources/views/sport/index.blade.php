@@ -1,7 +1,7 @@
 @extends('layouts.layout')
 
 @section('title')
-    Esporte
+    Esportes <small> / Atletas / Esportes </small>
 @stop
 
 @section('content')
@@ -40,7 +40,7 @@
                                 @foreach ($sports as $sport)
                                     <tr>
                                         <td> {!! $sport->name !!} </td>
-                                        <td> <a class="modal-ajax-link" data-mfp-src="/sport/edit/{{ $sport->id }}"> Alterar </a> </td>
+                                        <td> <a class="modal-ajax-link" data-mfp-src="/sport/edit/{{ $sport->id }}"> <i class="fa fa-pencil"></i> </a> </td>
                                     </tr>
                                 @endforeach  
                             @else

@@ -1,7 +1,7 @@
 @extends('layouts.layout')
 
 @section('title')
-	 Usuários da ADFP <small> Buscar / Listar </small>
+	 Usuários da ADFP <small> / Usuários / Buscar - Listar </small>
 @stop
 
 @section('content')
@@ -30,14 +30,14 @@
 							</div>
 						</div>
 							
-						<!-- <div class="col-sm-4">
+						<div class="col-sm-4">
 							<div id="dataTables-example_length" class="dataTables_length">
 								
 								<label>CPF:</label>
 								<input type="text" name="cpf" class="form-control">
 								
 							</div>
-						</div>  -->
+						</div>
 
 						<div class="col-sm-4">
 							<div id="dataTables-example_length" class="dataTables_length">

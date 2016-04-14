@@ -62,22 +62,25 @@
  Usuários<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
-                                <a href="/user/create">Cadastrar</a>
+                                <a href="/user/create"> Cadastrar </a>
                             </li>
                             <li>
-                                <a href="/user">Buscar / Listar</a>
+                                <a href="/user"> Buscar - Listar </a>
                             </li>
                         </ul>
                     </li>
                     <li>
                         <a href="#"><i class="fa fa-trophy"></i>
- Atlétas<span class="fa arrow"></span></a>
+ Atletas<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
-                                <a href="/athlete">Cadastrar</a>
+                                <a href="athlete/create"> Cadastrar </a>
                             </li>
                             <li>
-                                <a href="/athlete">Buscar / Listar</a>
+                                <a href="/athlete/"> Buscar - Listar </a>
+                            </li>
+                            <li>
+                                <a href="/sport"> Esportes </a>
                             </li>
                         </ul>
                     </li>
@@ -140,7 +143,8 @@
     <script src="{{ URL::asset('assets/js/jquery.metisMenu.js') }}"></script>
       <!-- Custom Js -->
     <script src="{{ URL::asset('assets/js/custom-scripts.js') }}"></script>
-
+      <!-- MyScript -->
+    <script src="{{ URL::asset('assets/js/myScript.js') }}"></script>
    
 </body>
 </html>
