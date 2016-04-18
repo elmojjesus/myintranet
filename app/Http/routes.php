@@ -59,9 +59,11 @@ Route::group(['middleware' => 'auth'], function() {
 	Route::get('sport/edit/{id}', 'SportController@edit');
 	Route::post('sport/update/{id}', 'SportController@update');
 
+
 	//Athlete routes
 	Route::get('athlete', 'Athlete@index');
-	Route::post('athlete/index', 'Athlete@create');
+	Route::get('athlete/create', 'AthleteController@create');
+	Route::get('athlete/create/modal', 'AthleteController@createModal');
 	Route::post('sport', 'SportController@store');
 	Route::get('sport/edit/{id}', 'SportController@edit');
 	Route::post('sport/update/{id}', 'SportController@update');
@@ -105,6 +107,15 @@ Route::group(['middleware' => 'auth'], function() {
 	Route::post('therapy/update/{id}', 'TherapyController@update');
 	Route::get('therapy/delete/{id}', 'TherapyController@delete');
 	Route::post('therapy/destroy/{id}', 'TherapyController@destroy');
+
+	//Route Therapies
+	Route::get('pacient', 'PacientController@index');
+	Route::get('pacient/create', 'PacientController@create');
+	Route::post('pacient/store', 'PacientController@store');
+	Route::get('pacient/edit/{id}', 'PacientController@edit');
+	Route::post('pacient/update/{id}', 'PacientController@update');
+	Route::get('pacient/delete/{id}', 'PacientController@delete');
+	Route::post('pacient/destroy/{id}', 'PacientController@destroy');
 
 	//Image Upload
 	Route::get('user/image/upload/{id}', 'ImageController@userUpload');

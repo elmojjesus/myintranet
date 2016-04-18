@@ -52,6 +52,7 @@
                 <a href="/departament">Departamento</a> ||||
                 <a href="/employee">Funcionário</a> ||||
                 <a href="/therapy">Terapias</a> ||||
+                <a href="/pacient">Pacientes</a> ||||
             </div>
         </div>
     </body>
