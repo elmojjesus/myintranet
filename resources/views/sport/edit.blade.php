@@ -21,9 +21,23 @@
     </form>
 -->
 
-{!! Form::open(array('method' => 'post', 'action' => array('SportController@update', $sport->id))) !!}
-<lablel>Editar esporte:</lablel>
-  {!! Form::text('name', $sport->name, $attributes = array('class' => 'form-control')) !!}
-    <br>
-  {!! Form::submit('Salvar', $attributes = array('class' => 'btn btn-primary')) !!}    
+<div class="data-title">
+    <h3> Editando um esporte <i class="fa fa-trophy"></i> </h3>
+</div>
+
+{!! Form::open(array('method' => 'post', 'action' => array('SportController@update', $sport->id), 'name' => 'updateSportForm' )) !!}
+
+  <div class="row">
+    <div class="col-lg-12">
+
+      Esporte:
+      {!! Form::text('name', $sport->name, $attributes = array('class' => 'form-control')) !!}
+
+    </div>
+  </div>
+  
+  <div class="data-footer">
+    <button class="btn btn-primary" onclick="formSubmit(updateSportForm)"> Salvar </button>
+  </div>  
+
 {!! Form::close() !!}
