@@ -1,30 +1,64 @@
 @extends('layouts.layout')
-@if($professions->count() > 0)
-	<table>
-		<thead>
-			<tr>
-				<th>Nome</th>
-				<th>Ações</th>
-			</tr>
-		</thead>
-		<tbody>
-			@foreach($professions as $profession)
-				<tr>
-					<td>{{ $profession->name }}</td>
-					<td><a href="profession/edit/{{ $profession->id }}">Editar</a></td>
-					<td><a href="profession/delete/{{ $profession->id }}">Excluir</a></td>
-				</tr>
-			@endforeach
-		</tbody>
-		<tfoot>
-			<tr>
-				<th>Nome</th>
-				<th>Ações</th>
-			</tr>
-		</tfoot>
-	</table>
-@else
-	<h1>Não há nenhuma profissão cadastrada</h1>
-@endif
 
-<a href="/profession/create">Adicionar nova profissão</a>
+@section('title')
+    Controle de profissão <small> / Usuário / Profissão </small>
+@stop
+
+@section('content')
+    
+    <div class="row">
+        
+        <div class="col-lg-6">
+            <div class="panel panel-default">
+                <div class="panel-heading"> Cadastre uma profissão </div>
+                <div class="panel-body">
+                        {!! Form::open(array('method' => 'post', 'action' => 'ProfessionController@store')) !!}
+                            <div class="form-group">
+                                <label> Profissão </label>
+                                {!! Form::text('name', '', $attributes = array('class' => 'form-control')) !!}
+                                <br>
+                                {!! Form::submit('Cadastrar profissão', $attributes = array('class' => 'btn btn-primary')) !!}    
+                            </div>
+                        {!! Form::close() !!}
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-lg-6">
+            <div class="panel panel-default">
+                <div class="panel-heading"> Profissões já registradas </div>
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        
+                        <table class="table table-striped table-bordered table-hover">
+                            <tr>
+                                <th width="60%">Profissão</th>
+                                <th width="20%">Editar</th>
+                                <th width="20%">Remover</th>
+                            </tr>
+
+                                    <tr>
+                                        <td> Auxiliar Administrativo</td>
+                                        <td style="text-align: center;"> 
+                                                 <a class="modal-ajax-link" > 
+                                                     <i class="fa fa-pencil"></i> 
+                                                 </a> 
+                                            </td>
+                                        <td style="text-align: center;">
+												<a class="modal-ajax-link">
+													<i class="fa fa-trash-o"></i>
+												</a>
+											</td>
+                                    </tr>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Fim linha -->
+    </div>
+        
+@stop

@@ -14,6 +14,7 @@
    <link rel="stylesheet" type="text/css" href="{{ URL::asset('assets/magnific-popup/magnific-popup.css') }}">
 </head>
 <body>
+
     <div id="wrapper">
         <nav class="navbar navbar-default top-navbar" role="navigation">
             <div class="navbar-header">
@@ -170,6 +171,9 @@
              <!-- /. PAGE INNER  -->
         </div>
         <!-- /. PAGE WRAPPER  -->
+        <div class="footer">
+        FOOTER
+    </div>
     </div>
      <!-- /. WRAPPER  -->
 
@@ -188,6 +192,40 @@
     <script src="{{ URL::asset('assets/js/custom-scripts.js') }}"></script>
       <!-- MyScript -->
     <script src="{{ URL::asset('assets/js/myScript.js') }}"></script>
+
    
 </body>
+<footer>
+<div class="row">
+    <div clas="col-md-12">
+
+     <div class="col-md-4">
+<a  href="http://www.webthemez.com"><font color="white">Designed by: webthemez.com</font></a>
+
+  </div>
+
+    <div  style="text-align: center;"class="col-md-4">
+<a  href="http://www.movasoft.com.br"><font color="white">MovaSoft © - All rights reserved</font></a>
+
+  </div>
+
+  <div style="text-align: right;" class="col-md-4">
+<font color="white">Versão 1.0</font>
+
+  </div>
+
+</div>
+  </div>
+</footer>
+
+<style type="text/css">
+footer {
+    position: fixed; 
+    bottom: 0px; 
+    width: 100%; 
+    height: 25x; 
+    background-color: #08698A;
+}
+</style>
+
 </html>

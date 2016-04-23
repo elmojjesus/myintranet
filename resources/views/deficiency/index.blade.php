@@ -1,30 +1,64 @@
 @extends('layouts.layout')
-@if($deficiencies->count() > 0)
-	<table>
-		<thead>
-			<tr>
-				<th>Nome</th>
-				<th>Ações</th>
-			</tr>
-		</thead>
-		<tbody>
-			@foreach($deficiencies as $deficiency)
-				<tr>
-					<td>{{ $deficiency->name }}</td>
-					<td><a href="deficiency/edit/{{ $deficiency->id }}">Editar</a></td>
-					<td><a href="deficiency/delete/{{ $deficiency->id }}">Excluir</a></td>
-				</tr>
-			@endforeach
-		</tbody>
-		<tfoot>
-			<tr>
-				<th>Nome</th>
-				<th>Ações</th>
-			</tr>
-		</tfoot>
-	</table>
-@else
-	<h1>Não há nenhuma deficiência cadastrada</h1>
-@endif
 
-<a href="/deficiency/create">Adicionar nova deficiência</a>
+@section('title')
+    Controle de deficiência <small> / Usuário / Deficiências </small>
+@stop
+
+@section('content')
+    
+    <div class="row">
+        
+        <div class="col-lg-6">
+            <div class="panel panel-default">
+                <div class="panel-heading"> Cadastre uma deficiência </div>
+                <div class="panel-body">
+                        {!! Form::open(array('method' => 'post', 'action' => 'DeficiencyController@store')) !!}
+                            <div class="form-group">
+                                <label> Nome da deficiência </label>
+                                {!! Form::text('name', '', $attributes = array('class' => 'form-control')) !!}
+                                <br>
+                                {!! Form::submit('Cadastrar deficiência', $attributes = array('class' => 'btn btn-primary')) !!}    
+                            </div>
+                        {!! Form::close() !!}
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-lg-6">
+            <div class="panel panel-default">
+                <div class="panel-heading"> Deficiências já registradas </div>
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        
+                        <table class="table table-striped table-bordered table-hover">
+                            <tr>
+                                <th width="60%">Deficiência</th>
+                                <th width="20%">Editar</th>
+                                <th width="20%">Remover</th>
+                            </tr>
+
+                                    <tr>
+                                        <td> Cadeirante</td>
+                                        <td style="text-align: center;"> 
+                                                 <a class="modal-ajax-link" > 
+                                                     <i class="fa fa-pencil"></i> 
+                                                 </a> 
+                                            </td>
+                                        <td style="text-align: center;">
+												<a class="modal-ajax-link">
+													<i class="fa fa-trash-o"></i>
+												</a>
+											</td>
+                                    </tr>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Fim linha -->
+    </div>
+        
+@stop
