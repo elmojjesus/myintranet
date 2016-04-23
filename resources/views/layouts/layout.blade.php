@@ -14,6 +14,7 @@
    <link rel="stylesheet" type="text/css" href="{{ URL::asset('assets/magnific-popup/magnific-popup.css') }}">
 </head>
 <body>
+
     <div id="wrapper">
         <nav class="navbar navbar-default top-navbar" role="navigation">
             <div class="navbar-header">
@@ -52,12 +53,19 @@
             <div class="sidebar-collapse">
                 <ul class="nav" id="main-menu">
                     <li>
-                        <a href="index.html"><i class="fa fa-bar-chart-o"></i>
- Dashboard</a>
+                        <a href="#"><i class="fa fa-bar-chart-o"></i>
+                            Dashboard<span class="fa arrow"></span>
+                        </a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                {!! HTML::link('dashboard', 'Ir para Dashboard', true) !!}   
+                            </li>
+                        </ul>
                     </li>
                     <li>
                         <a href="#"><i class="fa fa-users"></i>
- Usuários<span class="fa arrow"></span></a>
+                            Usuários<span class="fa arrow"></span>
+                        </a>
                         <ul class="nav nav-second-level">
                             <li>
                                 <a href="/user/create"> Cadastrar </a>
@@ -65,34 +73,72 @@
                             <li>
                                 <a href="/user"> Buscar - Listar </a>
                             </li>
+                            <li>
+                                {!! HTML::link('deficiency', 'Deficiências', true) !!}
+                            </li>
+                            <li>
+                                {!! HTML::link('education', 'Educação', true) !!}
+                            </li>
+                            <li>
+                                {!! HTML::link('profession', 'Profissões', true) !!}
+                            </li>
                         </ul>
                     </li>
                     <li>
                         <a href="#"><i class="fa fa-trophy"></i>
- Atletas<span class="fa arrow"></span></a>
+                            Atletas<span class="fa arrow"></span>
+                        </a>
                         <ul class="nav nav-second-level">
                             <li>
-                                <a href="athlete/create"> Cadastrar </a>
+                                <!-- <a href="athlete/create"> Cadastrar </a> -->
+                                {!! HTML::link('athlete/create', 'Cadastrar', true) !!}
                             </li>
                             <li>
-                                <a href="/athlete/"> Buscar - Listar </a>
+                                {!! HTML::link('athlete', 'Buscar - Listar', true) !!}
                             </li>
                             <li>
-                                <a href="/sport"> Esportes </a>
+                                {!! HTML::link('sport', 'Esportes', true) !!}
                             </li>
                         </ul>
                     </li>
                     <li>
                         <a href="chart.html"><i class="fa fa-star"></i>
- Funcionários</a>
+                            Funcionários<span class="fa arrow"></span>
+                        </a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <!-- <a href="athlete/create"> Cadastrar </a> -->
+                                {!! HTML::link('employee/create', 'Cadastrar', true) !!}
+                            </li>
+                            <li>
+                                {!! HTML::link('employee', 'Buscar - Listar', true) !!}
+                            </li>
+                            <li>
+                                {!! HTML::link('departament', 'Departamento', true) !!}
+                            </li>
+                        </ul>
                     </li>
                     <li>
                         <a href="tab-panel.html"><i class="fa fa-heart"></i>
- Voluntários</a>
+                            Voluntários
+                        </a>
                     </li>
                     <li>
                         <a href="table.html"><i class="fa fa-wheelchair"></i>
- Pacientes</a>
+                            Pacientes<span class="fa arrow"></span>
+                        </a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <!-- <a href="athlete/create"> Cadastrar </a> -->
+                                {!! HTML::link('pacient/create', 'Cadastrar', true) !!}
+                            </li>
+                            <li>
+                                {!! HTML::link('pacient', 'Buscar - Listar', true) !!}
+                            </li>
+                            <li>
+                                {!! HTML::link('therapy', 'Terapias', true) !!}
+                            </li>
+                        </ul>
                     </li>
                 </ul>
             </div>
@@ -125,6 +171,9 @@
              <!-- /. PAGE INNER  -->
         </div>
         <!-- /. PAGE WRAPPER  -->
+        <div class="footer">
+        FOOTER
+    </div>
     </div>
      <!-- /. WRAPPER  -->
 
@@ -143,6 +192,40 @@
     <script src="{{ URL::asset('assets/js/custom-scripts.js') }}"></script>
       <!-- MyScript -->
     <script src="{{ URL::asset('assets/js/myScript.js') }}"></script>
+
    
 </body>
+<footer>
+<div class="row">
+    <div clas="col-md-12">
+
+     <div class="col-md-4">
+<a  href="http://www.webthemez.com"><font color="white">Designed by: webthemez.com</font></a>
+
+  </div>
+
+    <div  style="text-align: center;"class="col-md-4">
+<a  href="http://www.movasoft.com.br"><font color="white">MovaSoft © - All rights reserved</font></a>
+
+  </div>
+
+  <div style="text-align: right;" class="col-md-4">
+<font color="white">Versão 1.0</font>
+
+  </div>
+
+</div>
+  </div>
+</footer>
+
+<style type="text/css">
+footer {
+    position: fixed; 
+    bottom: 0px; 
+    width: 100%; 
+    height: 25x; 
+    background-color: #08698A;
+}
+</style>
+
 </html>

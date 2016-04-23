@@ -1,50 +1,102 @@
+@extends('layouts.layout')
 
-<div class="data-title">
-    <h3> Torando o usuário um atleta <i class="fa fa-trophy"></i> </h3>
+@section('title')
+    Cadastre um atleta <small> / Atletas / Cadastrar </small>
+@stop
+
+@section('content')
+<div class="row">
+    <div clas="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">Buscar Usuários</div>
+            <div class="panel-body">
+                
+                {!! Form::open(array('method' => 'post', 'action' => array('AthleteController@create'))) !!}
+
+                <div class="row">
+                    
+                    <div class="col-sm-6">
+                        <div id="dataTables-example_length" class="dataTables_length">
+
+                            Id: {!! Form::text('id', '', $attributes = array('class' => 'form-control')) !!}
+
+                        </div>
+                    </div>
+                    
+                    <div class="col-sm-6">
+                        <div id="dataTables-example_length" class="dataTables_length">
+
+                            Nome: {!! Form::text('name', '', $attributes = array('class' => 'form-control')) !!}
+
+                        </div>
+                    </div>
+                
+                </div>
+
+                <br>
+
+                <div class="row">
+
+                    <div class="col-lg-12">
+                        <div id="dataTables-example_length" class="dataTables_length">
+                        
+                            {!!Form::submit('Buscar', $attributes = array('class' => 'btn btn-primary')) !!}
+
+                        </div>
+                    </div>
+                            
+                </div>
+
+                {!! Form::close() !!}
+              
+            </div>
+        </div>
+    </div>
 </div>
 
 
-{!! Form::open(array('method' => 'post', 'action' => array('AthleteController@store', $user->id), 'name' => 'tornarAtletaForm')) !!}
-    
-    Escolha o esporte e o respectivo status para <b>{{ $user->name }}</b>
+<div class="row">
+    <div clas="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">Usuários Comuns</div>
+            <div class="panel-body">
+                
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th> ID </th>
+                            <th> Nome </th>
+                            <th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($users as $user)
+                            <tr>
+                                <td> {{ $user->id }} </td>
+                                <td> {{ $user->name }} </td> 
+                                <td>
+                                    <a class="modal-ajax-link" data-mfp-src="create/modal/{{ $user->id }}"> 
+                                        Torná-lo(a) atleta  <i class="fa fa-trophy"></i>
+                                    </a>   
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th> ID </th>
+                            <th> Nome </th>
+                            <th>
+                        </tr>
+                    </tfoot>
+                </table>
 
-    <br>
-    <br>    
-    
-    <div class="row">
-        <div class="col-sm-6">
-            Esporte:
-                @if( isset($sports) )
-                    {!! Form::select('sport_id', 
-                                     array('' => '') + $sports,
-                                     '',
-                                     $attributes = array('class' => 'form-control')) !!}
-                @endif
+                <div id="dataTables-example_paginate" class="dataTables_paginate paging_simple_numbers">
+                    {!! $users->render() !!}
+                </div>
+
+            </div>
         </div>
-
-        <div class="col-sm-6">
-            Status: 
-            {!! Form::select('status_id', 
-                    array('' => '', '1' => 'Ativo', '2' => 'Inativo', '3' => 'Em espera', '4' => 'Pendente', '5' => 'Temporário'), 
-                    '', 
-                    $attributes = array('class' => 'form-control')) !!}
-        </div>
-
     </div>
-
-    <!-- ver favoritos salvo para resolver -->
-    <div class="data-footer"> 
-        <button class="btn btn-primary" onclick="formSubmit(tornarAtletaForm)">Cadastrar atleta</button>  
-    </div>
-
-{!! Form::close() !!}
-
-<!-- tirar essa parte e colcoar na listagem -->
-@if ( isset($user) )
-    @if ( isset($athlete) ) 
-        Esportes que já faz:
-        @foreach($athlete->sport as $sport)
-            {{ $sport->name }}
-        @endforeach
-    @endif
-@endif
+</div>
+@stop

@@ -38,4 +38,8 @@ class AthleteSport extends Model
     public function sport() {
     	return $this->belongsTo('\App\Sport');
     }
+
+    public function status() {
+        return $this->belongsTo('\App\Status');
+    }
 }

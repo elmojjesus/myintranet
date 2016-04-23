@@ -1,7 +1,7 @@
 @extends('layouts.layout')
 
 @section('title')
-    Esportes <small> / Atletas / Esportes </small>
+    Controle de esportes <small> / Atletas / Esportes </small>
 @stop
 
 @section('content')
@@ -56,11 +56,4 @@
         <!-- Fim linha -->
     </div>
         
-    
-
-    <!-- Trigger the modal with a button -->
-    
-    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal">Open Modal</button>
-
-            
 @stop

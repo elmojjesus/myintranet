@@ -30,4 +30,8 @@ class Status extends Model
     protected $hidden = [];
 
     protected $dates = ['deleted_at'];
+
+    public function sport() {
+        return $this->belongsTo('\App\Sport');
+    }
 }

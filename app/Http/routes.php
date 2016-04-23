@@ -11,10 +11,14 @@
 |
 */
 Route::get('/', ['middleware' => 'auth', function () {
-    return view('welcome');
+    return view('dashboard/index');
 }]);
 
 Route::group(['middleware' => 'auth'], function() {
+
+	//Dashboard routes
+	Route::get('dashboard', 'DashboardController@index');
+
 	//Routes deficiencies
 	Route::get('deficiency', 'DeficiencyController@index');
 	Route::get('deficiency/create', 'DeficiencyController@create');
@@ -61,25 +65,19 @@ Route::group(['middleware' => 'auth'], function() {
 
 
 	//Athlete routes
-	Route::get('athlete', 'Athlete@index');
-	Route::get('athlete/create', 'AthleteController@create');
-	Route::get('athlete/create/modal', 'AthleteController@createModal');
-	Route::post('sport', 'SportController@store');
-	Route::get('sport/edit/{id}', 'SportController@edit');
-	Route::post('sport/update/{id}', 'SportController@update');
-
-	#Route::put('user/update/{id}', ['as' => 'sport/update', 'uses' => 'SportController@update']);
-
-	//Athlete routes
 	Route::get('athlete', 'AthleteController@index');
-	Route::post('athlete', 'AthleteController@index');
-	Route::get('athlete/create/{id}', 'AthleteController@create');
+	#Route::post('athlete', 'AthleteController@index');
+	Route::get('athlete/create', 'AthleteController@create');
+	Route::post('athlete/create', 'AthleteController@create');
+	Route::get('athlete/create/modal/{id}', 'AthleteController@createModal');
 	Route::post('athlete/store/{id}', 'AthleteController@store');
-	Route::post('athlete/show', 'AthleteController@show');
+	Route::get('athlete/show', 'AthleteController@show');
+
 
 	//Route Documents
 	Route::get('document/create/{id}', 'DocumentController@create');
 	Route::post('document/store', 'DocumentController@store');
+
 
 	//Route Departaments
 	Route::get('departament', 'DepartamentController@index');
