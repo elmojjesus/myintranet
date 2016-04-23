@@ -121,6 +121,10 @@ Route::group(['middleware' => 'auth'], function() {
 	Route::get('user/image/upload/{id}', 'ImageController@userUpload');
 	Route::post('user/image/store', 'ImageController@userStore');
 
+
+	Route::get('reports', 'ReportsController@index');
+	Route::get('reports/user', 'ReportsController@user');
+
 });
 
 // Authentication routes...

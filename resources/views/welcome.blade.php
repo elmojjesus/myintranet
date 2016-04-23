@@ -53,6 +53,7 @@
                 <a href="/employee">Funcionário</a> ||||
                 <a href="/therapy">Terapias</a> ||||
                 <a href="/pacient">Pacientes</a> ||||
+                <a href="/reports">Relatórios</a> ||||
             </div>
         </div>
     </body>
