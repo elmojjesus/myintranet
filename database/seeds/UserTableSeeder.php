@@ -12,6 +12,17 @@ class UserTableSeeder extends Seeder
      */
     public function run()
     {
+        $regionais = [
+            'Bacacheri',
+            'Centro',
+            'Sul',
+            'Norte',
+            'Leste',
+            'Oeste',
+            'Capivara',
+            'República'
+        ];
+
         $faker = Faker\Factory::create();
         DB::statement('SET FOREIGN_KEY_CHECKS = 0');
         \App\User::truncate();
@@ -33,11 +44,12 @@ class UserTableSeeder extends Seeder
             'voluntary' => $faker->boolean(50),
             'sex' => 'M',
             'status_id' => 1,
+            'regional' => $regionais[$faker->numberBetween(0, count($regionais) -1 )],
         ];
-        foreach (range(0, 500) as $number) {
+        foreach (range(0, 200) as $number) {
             $users[] = [
                 'email' => $faker->email,
-                'password' => bcrypt('123456'),
+                'password' => bcrypt('123456'),  
                 'name' => $faker->name,
                 'deficiency_id' => $deficiencies->random(1)->id,
                 'education_id' => $educations->random(1)->id,
@@ -47,6 +59,7 @@ class UserTableSeeder extends Seeder
                 'voluntary' => $faker->boolean(50),
                 'sex' => $sex[$faker->numberBetween($min = 0, $max = 1)],
                 'status_id' => $status->random(1)->id,
+                'regional' => $regionais[$faker->numberBetween(0, count($regionais) -1)],
             ];
         }
         

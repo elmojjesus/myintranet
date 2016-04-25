@@ -119,7 +119,7 @@
                         </ul>
                     </li>
                     <li>
-                        <a href="tab-panel.html"><i class="fa fa-heart"></i>
+                        <a href="/employee"><i class="fa fa-heart"></i>
                             Voluntários
                         </a>
                     </li>
@@ -139,6 +139,12 @@
                                 {!! HTML::link('therapy', 'Terapias', true) !!}
                             </li>
                         </ul>
+                    </li>
+                    <li>
+                        <a href="/reports">
+                            <i class="fa fa-area-chart"></i>
+                            Relatórios
+                        </a>
                     </li>
                 </ul>
             </div>

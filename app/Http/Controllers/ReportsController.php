@@ -26,8 +26,66 @@ class ReportsController extends Controller
             'M' => \App\User::where('sex', 'M')->count(),
             'F' => \App\User::where('sex', 'F')->count()
         ];
+        $usersBySport = [];
+        $amountUsersSports = 0;
+        foreach (\App\Sport::all() as $sport) {
+            $amount = \App\AthleteSport::where('sport_id', $sport->id)->count();
+            $amountUsersSports += $amount;
+            $usersBySport[] = [
+                'name' => $sport->name,
+                'y' => $amount
+            ];
+        }
+        $usersByRegional = [];
+        $amountUsersRegional = 0;
+        $regionais = \App\User::groupBy('regional')->get();
+        foreach ($regionais as $regional) {
+            $amount = \App\User::where('regional', $regional->regional)->count();
+            $amountUsersRegional += $amount;
+            $usersByRegional[] = [
+                'name' => $regional->regional,
+                'y' => $amount
+            ];
+        }
         $voluntaryUsers = \App\User::where('voluntary', true)->count();
-        return view('reports.user', compact('totalUsers', 'usersBySex', 'voluntaryUsers'));
+
+        $usersByDeficiency = [];
+        $amountUsersDeficiency = 0;
+        $deficiencies = \App\Deficiency::all();
+        foreach ($deficiencies as $deficiency) {
+            $amount = \App\User::where('deficiency_id', $deficiency->id)->count();
+            $amountUsersDeficiency += $amount;
+            $usersByDeficiency[] = [
+                'name' => $deficiency->name,
+                'y' => $amount
+            ];
+        }
+
+        $usersByProfession = [];
+        $amountUsersProfession = 0;
+        $professions = \App\Profession::all();
+        foreach ($professions as $profession) {
+            $amount = \App\User::where('profession_id', $profession->id)->count();
+            $amountUsersProfession += $amount;
+            $usersByProfession[] = [
+                'name' => $profession->name,
+                'y' => $amount
+            ];
+        }
+        return view('reports.user', compact(
+                'totalUsers',
+                'usersBySex',
+                'voluntaryUsers',
+                'usersBySport',
+                'amountUsersSports',
+                'usersByRegional',
+                'amountUsersRegional',
+                'usersByDeficiency',
+                'amountUsersDeficiency',
+                'usersByProfession',
+                'amountUsersProfession'
+            )
+        );
     }
 
     /**
