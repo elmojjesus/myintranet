@@ -84,7 +84,7 @@
 					<div class="row">
 						<div class="col-lg-12">
 							<div id="dataTables-example_length" class="dataTables_length">
-								<a class="btn btn-default" href="/user"><i class="fa fa-search"></i>Limpar busca</a>
+								<a class="btn btn-default" href="/user">Limpar busca</a>
 								<input type="submit" class="btn btn-primary" value="Buscar">
 							</div>
 						</div>

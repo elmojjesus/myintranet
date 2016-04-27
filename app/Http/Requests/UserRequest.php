@@ -32,7 +32,7 @@ class UserRequest extends Request
                 'birthDate' => 'required|date_format:d/m/Y',
                 'sex' => 'required',
                 'rg' => 'required|max:15',
-                'cpf' => 'required|max:9'
+                'cpf' => 'required|max:15'
             ];
         } else {
             return [
@@ -43,7 +43,7 @@ class UserRequest extends Request
                 'birthDate' => 'required|date_format:d/m/Y',
                 'sex' => 'required',
                 'rg' => 'required|max:15',
-                'cpf' => 'required|max:9'
+                'cpf' => 'required|max:15'
             ];
         }
         
