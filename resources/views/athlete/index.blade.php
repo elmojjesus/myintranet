@@ -69,7 +69,8 @@
                                 <select name="deficiency_id" class="form-control input-sm">
                                     <option value="">Selecione uma deficiência</option>
                                     @foreach($deficiencies as $deficiency)
-                                        <option {{ isset($query['deficiency_id']) && $query['deficiency_id'] == $deficiency->id ? 'selected="selected"' : '' }} value="{{ $deficiency->id }}">{{ $deficiency->name }}</option>
+                                        <option {{ isset($query['deficiency_id']) && $query['deficiency_id'] == $deficiency->id ? 'selected="selected"' : '' }} value="{{ $deficiency->id }}">{{ $deficiency->name }}
+                                        </option>
                                     @endforeach
                                 </select>
                             </div>
@@ -79,11 +80,15 @@
 
                     <br>
 
-                    <div class="row">
+                    <div class="row right">
                         <div class="col-lg-12">
                             <div id="dataTables-example_length" class="dataTables_length">
-                                <a class="btn btn-default" href="/user"><i class="fa fa-search"></i>Limpar busca</a>
-                                <input type="submit" class="btn btn-primary" value="Buscar">
+                                <button class="btn btn-default " href="/user">
+                                    Limpar busca
+                                </button>
+                                <button class="btn btn-primary " type="submit">
+                                    Buscar &nbsp; <i class="fa fa-search"></i>
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -109,7 +114,7 @@
                         <tr>
                             <th> ID               </th>
                             <th> Nome             </th>
-                            <th> Esporte e Status </th>
+                            <th> Qtd de Esportes  </th>
                             <th> Deficiência      </th>
                             <th>                  </th>
                             <th>                  </th>
@@ -117,20 +122,20 @@
                             @foreach($users as $user)            
                                 <tr>
                                     <td> {{ $user->id }} </td>                
-                                    <td> {{ $user->name }} </td>
+                                    <td> 
+                                        <a class="modal-ajax-link" data-mfp-src="athlete/show/{{ $user->athlete->id }}">
+                                            {{ $user->name }}
+                                        </a> 
+                                    </td>
                                     <td>
                                         @if(!is_null($user->athlete))
                                             @if(!is_null($user->athlete->athleteSport))
-                                                @foreach ($user->athlete->athleteSport as $athleteSport)
-                                                    @if(  !is_null($athleteSport->sport) )
-                                                        {{ $athleteSport->sport->name }}
-                                                        - 
-                                                        {{ $athleteSport->status->name }}
-                                                        <br>
-                                                    @endif
+                                                @foreach ($user->athlete->athleteSport as $index => $athleteSport)
+                                                    
                                                 @endforeach
                                             @endif
                                         @endif
+                                        {{ $index+1 }}
                                     </td>
                                     <td> {{ $user->deficiency->name }} </td>
                                     <td> 
@@ -149,7 +154,11 @@
                     </table>
                     <div class="row">
                         <div class="col-sm-6">
-                            <div aria-relevant="all" aria-live="polite" role="alert" id="dataTables-example_info" class="dataTables_info">Showing 1 to 10 of 57 entries</div>
+                            <div aria-relevant="all" aria-live="polite" role="alert" id="dataTables-example_info" class="dataTables_info">
+                            Total na página: {!! $users->count() !!}
+                            <br>
+                            Atletas no total: {!! $users->total() !!}
+                            </div>
                         </div>
                         <div class="col-sm-6">
                             <div id="dataTables-example_paginate" class="dataTables_paginate paging_simple_numbers">    

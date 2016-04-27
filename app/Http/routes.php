@@ -71,7 +71,7 @@ Route::group(['middleware' => 'auth'], function() {
 	Route::post('athlete/create', 'AthleteController@create');
 	Route::get('athlete/create/modal/{id}', 'AthleteController@createModal');
 	Route::post('athlete/store/{id}', 'AthleteController@store');
-	Route::get('athlete/show', 'AthleteController@show');
+	Route::get('athlete/show/{id}', 'AthleteController@show');
 
 
 	//Route Documents
