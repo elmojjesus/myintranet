@@ -47,16 +47,16 @@ class UserController extends Controller
 
     }
 
-    public function getCommonUsers($request){
-        
+    public function getCommonUsers($request, $table){
+        $GLOBALS['tableGCU'] = $table;
         return $users = DB::table('users')
-                ->leftJoin('athletes', function ($join) {
-                    $join->on('users.id', '=', 'athletes.user_id');
+                ->leftJoin($table, function ($join) {
+                    $join->on('users.id', '=', $GLOBALS['tableGCU'] . '.user_id');
                          /*->where('athletes.id', '=', null);*/
-                         
                 })
                 ->select('users.*')
-                ->whereNull('athletes.id')
+                ->whereNull($table . '.id')
+                ->where('users.status_id', '!=', 2)
                 ->where(function($query) use($request){
                     if (isset($request['id']) && $request['id'] != '') {
                         $query->where('users.id', '=', $request['id']);
@@ -68,7 +68,6 @@ class UserController extends Controller
                 })
                 ->orderBy('users.name')
                 ->paginate(10);
- 
     }
 
     /**

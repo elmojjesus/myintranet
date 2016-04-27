@@ -1,27 +1,103 @@
-<h2>Tornar Funcionário</h2>
-<form method="POST" action="/employee/store">
-	{{ csrf_field() }}
-	<div class="col-md-6">
-		<div class="form-group">
-			<label>Usuário</label>
-			<select name="user_id" class="form-control">
-				<option value=""></option>
-				@foreach($users as $user)
-					<option value="{{ $user->id }}">{{ $user->name }}</option>
-				@endforeach
-			</select>
-		</div>
-	</div>
-	<div class="col-md-6">
-		<div class="form-group">
-			<label>Departamento</label>
-			<select name="departament_id" class="form-control">
-				<option value=""></option>
-				@foreach($departaments as $departament)
-					<option value="{{ $departament->id }}">{{ $departament->name }}</option>
-				@endforeach
-			</select>
-		</div>
-	</div>
-	<input class="btn btn-primary pull-right" type="submit" value="Salvar">
-</form>
+@extends('layouts.layout')
+
+@section('title')
+    Cadastre um Funcionário <i class="fa fa-star"></i>
+    <small> / Funcionários / Cadastrar </small>
+@stop
+
+@section('content')
+<div class="row">
+    <div clas="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">Buscar Usuários</div>
+            <div class="panel-body">
+                
+                {!! Form::open(array('method' => 'post', 'action' => array('EmployeeController@create'))) !!}
+
+                <div class="row">
+                    
+                    <div class="col-sm-6">
+                        <div id="dataTables-example_length" class="dataTables_length">
+
+                            Id: {!! Form::text('id', '', $attributes = array('class' => 'form-control')) !!}
+
+                        </div>
+                    </div>
+                    
+                    <div class="col-sm-6">
+                        <div id="dataTables-example_length" class="dataTables_length">
+
+                            Nome: {!! Form::text('name', '', $attributes = array('class' => 'form-control')) !!}
+
+                        </div>
+                    </div>
+                
+                </div>
+
+                <br>
+
+                <div class="row">
+
+                    <div class="col-lg-12">
+                        <div id="dataTables-example_length" class="dataTables_length">
+                        
+                            {!!Form::submit('Buscar', $attributes = array('class' => 'btn btn-primary')) !!}
+
+                        </div>
+                    </div>
+                            
+                </div>
+
+                {!! Form::close() !!}
+              
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <div clas="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">Usuários Comuns</div>
+            <div class="panel-body">
+                
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th> ID </th>
+                            <th> Nome </th>
+                            <th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($users as $user)
+                            <tr>
+                                <td> {{ $user->id }} </td>
+                                <td> {{ $user->name }} </td> 
+                                <td>
+                                    <a class="modal-ajax-link" data-mfp-src="create/modal/{{ $user->id }}"> 
+                                        Torná-lo(a) funcionário  <i class="fa fa-star"></i>
+                                    </a>   
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th> ID </th>
+                            <th> Nome </th>
+                            <th>
+                        </tr>
+                    </tfoot>
+                </table>
+
+                <div id="dataTables-example_paginate" class="dataTables_paginate paging_simple_numbers">
+                    {!! $users->render() !!}
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+@stop

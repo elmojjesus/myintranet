@@ -18,6 +18,8 @@ class CreateEmployeeTable extends Migration
             $table->foreign('user_id')->references('id')->on('users');
             $table->integer('departament_id')->unsigned();
             $table->foreign('departament_id')->references('id')->on('departaments');
+            $table->integer('status_id')->unsigned();
+            $table->foreign('status_id')->references('id')->on('status');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -30,6 +32,14 @@ class CreateEmployeeTable extends Migration
      */
     public function down()
     {
+
+        Schema::table('employees', function(Blueprint $table){
+            $table->dropForeign(['user_id']);
+            $table->dropForeign(['departament_id']);
+            $table->dropForeign(['status_id']);
+        });
+
         Schema::dropIfExists('employees');
+
     }
 }

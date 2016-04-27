@@ -28,11 +28,27 @@ class EmployeeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    
+    /* Old method
     public function create()
     {
         $users = \App\User::orderBy('name')->get();
         $departaments = \App\Departament::orderBy('name')->get();
         return view('employee.create', compact('users', 'departaments'));
+    }
+    */
+
+    public function create(Request $request)
+    {
+        $userCon = new UserController();
+        $users = $userCon->getCommonUsers($request, 'employees');
+        return view('employee.create', compact('users'));        
+    }
+
+    public function createModal($id){
+        $user = \App\User::findorFail($id);
+        $departaments = \App\Departament::lists('name', 'id')->toArray();
+        return view('employee.createModal', compact('user', 'departaments'));
     }
 
     /**
@@ -41,11 +57,14 @@ class EmployeeController extends Controller
      * @param  EmployeeRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(EmployeeRequest $request)
+    public function store(Request $request, $id)
     {
         $data = $request->all();
+        $data['user_id'] = $id;
+        #dd($data);
         unset($data['_token']);
-        \App\Employee::insert($data);
+        $var = \App\Employee::insert($data);
+        #dd($var);
         Flash::success('Salvo com sucesso.');
         return redirect('employee');
     }

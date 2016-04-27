@@ -17,7 +17,7 @@ class CreateContactsTable extends Migration
             $table->string('homeNumber', 15)->nullable();
             $table->string('mobileNumber', 15)->nullable();
             $table->string('toMessageNumber', 15)->nullable();
-            $table->string('email');
+            $table->string('email')->unique();
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users');
         });
