@@ -18,64 +18,48 @@ class AthleteController extends Controller
      */
     public function index(Request $request)
     {
-        #$athletes = DB::table('users')
-        #            ->join('athletes', 'users.id', '=', 'athletes.user_id')
-        #            ->orderBy('users.name')
-        #            ->paginate(10);
-
-        #dd($athletes);
-        #$users = DB::table('users')
-        #            ->join('athletes', 'users.id', '=', 'athletes.user_id')
-        #            ->join('athlete_sports', 'athletes.id', '=', 'athlete_sports.athlete_id')
-        #            ->join('sports', 'sports.id', '=', 'athlete_sports.sport_id')
-        #            ->orderBy('users.name')
-        #           ->paginate(10);
-
         $status = \App\Status::all();
         $deficiencies = \App\Deficiency::all();
         $sports = \App\Sport::all();
-
+        
         $users = \App\User::with('athlete')
-                    ->whereExists(function ($query) {
-                                $query->select(DB::raw(1))
-                                        ->from('athletes')
-                                        ->whereRaw('athletes.user_id = users.id');
-                                #$query->select(DB::raw(1))
-                                #        ->from('athlete_sports')
-                                #        ->whereRaw('athlete_sports.athlete_id = athlete.id');
-                                    }
-                                )
-                    #->join('athletes', 'athletes.user_id', '=', 'users.id')
-                    #->join('athlete_sports', 'athlete_sports.athlete_id', '=', 'athletes.id')
+                    ->select('users.*')
+                    #->distinct()
+                    ->join('athletes', 'athletes.user_id', '=', 'users.id')
+                    ->join('athlete_sports', 'athlete_sports.athlete_id', '=', 'athletes.id')
+                    #->join('status', 'status.id', '=', 'athlete_sports.status_id')
+
                     ->where(function ($query) use($request){
                         
                         if (isset($request['id']) && $request['id'] != '') {
-                            $query->where('id', 'LIKE', $request['id']);
+                            $query->where('users.id', 'LIKE', $request['id']);
                         }
 
                         if (isset($request['name']) && $request['name'] != '') {
                             $query->where('name', 'LIKE', '%'.$request['name'] .'%');
                         }
 
+                        if (isset($request['sport_id']) && $request['sport_id'] != ''){
+                            $query->where('athlete_sports.sport_id', $request['sport_id']);
+                        }
+
+                        #caso o status seja alterado para setor, devo mudar o where para status.id
+                        # e adicionar um join da tabela status
+                        if (isset($request['status_id']) && $request['status_id'] != '') {
+                            $query->where('athlete_sports.status_id', $request['status_id']);
+                        }
+
                         if (isset($request['deficiency_id']) && $request['deficiency_id'] != '') {
                             $query->where('deficiency_id', $request['deficiency_id']);
                         }
 
-                        if (isset($request['status_id']) && $request['status_id'] != '') {
-                            $query->where('status_id', $request['status_id']);
-                        }
-
-                        #if (isset($request['sport_id']) && $request['sport_id'] != ''){
-                        #    $query->where('athlete_sports.sport_id', $request['sport_id']);
-                        #}
-                        
                     })
-
+                    ->orderBy('users.id')
+                    ->groupBy('users.id')
                     ->paginate(10);
-                    #dd($users);
+        
         return view('athlete.index', compact('users', 'status', 'deficiencies', 'sports'));
 
-        
     }
 
     /**
@@ -86,7 +70,7 @@ class AthleteController extends Controller
     public function create(Request $request)
     {
         $userCon = new UserController();
-        $users = $userCon->getCommonUsers($request);
+        $users = $userCon->getCommonUsers($request, 'athletes');
         return view('athlete.create', compact('users'));        
     }
 
@@ -125,7 +109,8 @@ class AthleteController extends Controller
      */
     public function show($id)
     {
-        return "Show";
+        $athlete = \App\Athlete::find($id);
+        return view('athlete.show', compact('athlete'));
     }
 
     /**

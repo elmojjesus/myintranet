@@ -64,14 +64,14 @@ Route::group(['middleware' => 'auth'], function() {
 	Route::post('sport/update/{id}', 'SportController@update');
 
 
-	//Athlete routes
+	//Athlete's routes
 	Route::get('athlete', 'AthleteController@index');
 	#Route::post('athlete', 'AthleteController@index');
 	Route::get('athlete/create', 'AthleteController@create');
 	Route::post('athlete/create', 'AthleteController@create');
 	Route::get('athlete/create/modal/{id}', 'AthleteController@createModal');
 	Route::post('athlete/store/{id}', 'AthleteController@store');
-	Route::get('athlete/show', 'AthleteController@show');
+	Route::get('athlete/show/{id}', 'AthleteController@show');
 
 
 	//Route Documents
@@ -88,14 +88,16 @@ Route::group(['middleware' => 'auth'], function() {
 	Route::get('departament/delete/{id}', 'DepartamentController@delete');
 	Route::post('departament/destroy/{id}', 'DepartamentController@destroy');
 
-	//Route Employees
+	//Employee's routes
 	Route::get('employee', 'EmployeeController@index');
 	Route::get('employee/create', 'EmployeeController@create');
-	Route::post('employee/store', 'EmployeeController@store');
+	Route::post('employee/create', 'EmployeeController@create');
+	Route::post('employee/store/{id}', 'EmployeeController@store');
 	Route::get('employee/edit/{id}', 'EmployeeController@edit');
 	Route::post('employee/update/{id}', 'EmployeeController@update');
 	Route::get('employee/delete/{id}', 'EmployeeController@delete');
 	Route::post('employee/destroy/{id}', 'EmployeeController@destroy');
+	Route::get('employee/create/modal/{id}', 'EmployeeController@createModal');
 
 	//Route Therapies
 	Route::get('therapy', 'TherapyController@index');

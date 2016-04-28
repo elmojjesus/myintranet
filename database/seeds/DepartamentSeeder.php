@@ -14,12 +14,10 @@ class DepartamentSeeder extends Seeder
         $faker = Faker\Factory::create();
         DB::statement('SET FOREIGN_KEY_CHECKS = 0');
         \App\Departament::truncate();
-        $users = \App\User::all();
         $departaments = [];
         foreach (range(1, 6) as $number) {
         	$departaments[] = [
-        		'name' => 'Departamento '. $number,
-                'user_id' => $users->random(1)->id,
+        		'name' => 'Departamento '. $number
         	];
         }
 

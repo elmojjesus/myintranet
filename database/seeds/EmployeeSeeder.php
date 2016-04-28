@@ -15,11 +15,13 @@ class EmployeeSeeder extends Seeder
     	\App\Employee::truncate();
         $users = \App\User::all();
         $departaments = \App\Departament::all();
+        $status = \App\Status::all();
         $employees = [];
         foreach($departaments as $departament) {
         	$employees[] = [
         		'user_id' => $users->random(1)->id,
-        		'departament_id' => $departament->id
+        		'departament_id' => $departament->id,
+                'status_id' => $status->random(1)->id
         	];
         }
 
