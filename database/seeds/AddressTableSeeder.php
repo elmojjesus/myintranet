@@ -14,6 +14,16 @@ class AddressTableSeeder extends Seeder
         $faker = Faker\Factory::create();
         $users = \App\User::all();
         $cities = \App\City::all();
+        $regionais = [
+            'Bacacheri',
+            'Centro',
+            'Sul',
+            'Norte',
+            'Leste',
+            'Oeste',
+            'Capivara',
+            'República'
+        ];
         $data = [];
         foreach($users as $user){
         	$data[] = [
@@ -23,7 +33,7 @@ class AddressTableSeeder extends Seeder
 	        	'zip_code' => $faker->postcode,
 	        	'neighborhood' => $faker->cityPrefix,
 	        	'city_id' => $cities->random(1)->id,
-	        	'regional' => $faker->state,
+	        	'regional' => $regionais[$faker->numberBetween(0, count($regionais) -1 )],
 	        	'user_id' => $user->id,
         	];
         }

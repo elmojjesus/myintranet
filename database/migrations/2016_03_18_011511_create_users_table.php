@@ -33,7 +33,6 @@ class CreateUsersTable extends Migration
             $table->integer('status_id')->unsigned();
             $table->foreign('status_id')->references('id')->on('status')->onDelete('cascade');
             $table->boolean('voluntary');
-            $table->string('regional', 30)->nullable();
             $table->softDeletes();
             $table->rememberToken();
             $table->timestamps();

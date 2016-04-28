@@ -41,7 +41,7 @@
     <div class="clearfix"></div>
     <p></p>
     <div class="col-md-6">
-       <div id="sports-users"></div>
+       <div id="status-users"></div>
     </div>
     <div class="col-md-6">
        <div id="professions"></div>
@@ -49,17 +49,17 @@
 		
 	</div>
 	<script>
-		var data = <?= json_encode($usersBySport) ?>;
-        var amount = '<?= $amountUsersSports ?>';
+		var data = <?= json_encode($usersByStatus) ?>;
+        var amount = '<?= $amountUsersStatus ?>';
 		$(function () {
     // Set up the chart
     var chart = new Highcharts.Chart({
         chart: {
-            renderTo: 'sports-users',
+            renderTo: 'status-users',
             type: 'pie',
         },
         title: {
-            text: 'Quantidade de usuários por esporte - Total: ' + amount
+            text: 'Quantidade de usuários por status - Total: ' + amount
         },
         plotOptions: {
             pie: {

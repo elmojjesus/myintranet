@@ -26,21 +26,21 @@ class ReportsController extends Controller
             'M' => \App\User::where('sex', 'M')->count(),
             'F' => \App\User::where('sex', 'F')->count()
         ];
-        $usersBySport = [];
-        $amountUsersSports = 0;
-        foreach (\App\Sport::all() as $sport) {
-            $amount = \App\AthleteSport::where('sport_id', $sport->id)->count();
-            $amountUsersSports += $amount;
-            $usersBySport[] = [
-                'name' => $sport->name,
+        $usersByStatus = [];
+        $amountUsersStatus = 0;
+        foreach (\App\Status::all() as $status) {
+            $amount = \App\User::where('status_id', $status->id)->count();
+            $amountUsersStatus += $amount;
+            $usersByStatus[] = [
+                'name' => $status->name,
                 'y' => $amount
             ];
         }
         $usersByRegional = [];
         $amountUsersRegional = 0;
-        $regionais = \App\User::groupBy('regional')->get();
+        $regionais = \App\Address::groupBy('regional')->get();
         foreach ($regionais as $regional) {
-            $amount = \App\User::where('regional', $regional->regional)->count();
+            $amount = \App\Address::where('regional', $regional->regional)->count();
             $amountUsersRegional += $amount;
             $usersByRegional[] = [
                 'name' => $regional->regional,
@@ -76,8 +76,8 @@ class ReportsController extends Controller
                 'totalUsers',
                 'usersBySex',
                 'voluntaryUsers',
-                'usersBySport',
-                'amountUsersSports',
+                'usersByStatus',
+                'amountUsersStatus',
                 'usersByRegional',
                 'amountUsersRegional',
                 'usersByDeficiency',
