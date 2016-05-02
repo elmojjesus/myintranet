@@ -19,7 +19,7 @@ class ReportsController extends Controller
         return view('reports.index');
     }
 
-    public function user(Request $request) {
+    public function user() {
 
         $totalUsers = \App\User::all()->count();
         $usersBySex = [

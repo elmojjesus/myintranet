@@ -121,7 +121,10 @@ class AthleteController extends Controller
      */
     public function edit($id)
     {
-        //
+        $athlete = \App\Athlete::find($id);
+        $status = \App\Status::all();
+        $sports = \App\Sport::all();
+        return view('athlete.edit', compact('athlete', 'status', 'sports'));
     }
 
     /**
@@ -133,7 +136,10 @@ class AthleteController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        \App\AthleteSport::where('athlete_id', $id)
+                           ->where('sport_id', $request->input('sport_id'))
+                           ->update(['status_id' => $request->input('status_id')]);
+        return redirect('athlete');
     }
 
     /**
@@ -144,12 +150,8 @@ class AthleteController extends Controller
      */
     public function destroy($id)
     {
-        //
+        
     }
     
-    public function test(){
-        $nome = "Elmão";
-        return view('test')->with('nome' , $nome);
-    }
     
 }
