@@ -58,7 +58,7 @@
                         </a>
                         <ul class="nav nav-second-level">
                             <li>
-                                {!! HTML::link('dashboard', 'Ir para Dashboard', true) !!}   
+                                {!! HTML::link('reports/user', 'Ir para Dashboard', true) !!}   
                             </li>
                         </ul>
                     </li>
@@ -139,12 +139,6 @@
                                 {!! HTML::link('therapy', 'Terapias', true) !!}
                             </li>
                         </ul>
-                    </li>
-                    <li>
-                        <a href="/reports">
-                            <i class="fa fa-area-chart"></i>
-                            Relatórios
-                        </a>
                     </li>
                 </ul>
             </div>
