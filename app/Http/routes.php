@@ -1,5 +1,5 @@
 <?php
-
+//dd('create regional table and model and vinculate models');
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -11,17 +11,13 @@
 |
 */
 Route::get('/', ['middleware' => 'auth', function () {
-    $report = new \App\Http\Controllers\ReportsController;
-    return $report->user();
+    return view('dashboard/index');
 }]);
 
 Route::group(['middleware' => 'auth'], function() {
 
 	//Dashboard routes
 	Route::get('dashboard', 'DashboardController@index');
-
-	Route::get('reports', 'ReportsController@index');
-	Route::get('reports/user', 'ReportsController@user');
 
 	//Routes deficiencies
 	Route::get('deficiency', 'DeficiencyController@index');
@@ -76,12 +72,7 @@ Route::group(['middleware' => 'auth'], function() {
 	Route::get('athlete/create/modal/{id}', 'AthleteController@createModal');
 	Route::post('athlete/store/{id}', 'AthleteController@store');
 	Route::get('athlete/show/{id}', 'AthleteController@show');
-	Route::get('athlete/edit/{id}', 'AthleteController@edit');
-	Route::post('athlete/update/{id}', 'AthleteController@update');
 
-	Route::get('athleteSports/create/{id}', 'AthleteSportsController@create');
-	Route::post('athleteSports/store/{id}', 'AthleteSportsController@store');
-	Route::get('athleteSports/destroy/{athlete_id}/{sport_id}', 'AthleteSportsController@destroy');
 
 	//Route Documents
 	Route::get('document/create/{id}', 'DocumentController@create');
@@ -130,6 +121,11 @@ Route::group(['middleware' => 'auth'], function() {
 	Route::get('user/image/upload/{id}', 'ImageController@userUpload');
 	Route::post('user/image/store', 'ImageController@userStore');
 
+
+	Route::get('reports', 'ReportsController@index');
+	Route::get('reports/user', 'ReportsController@user');
+	Route::get('reports/athletes', 'ReportsController@athletes');
+	Route::get('reports/pacients', 'ReportsController@pacients');
 
 });
 

@@ -14,8 +14,8 @@ class CreateTarepiesPacientsTable extends Migration
     {
         Schema::create('terapies_pacients', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('terapy_id')->unsigned();
-            $table->foreign('terapy_id')->references('id')->on('terapies');
+            $table->integer('therapy_id')->unsigned();
+            $table->foreign('therapy_id')->references('id')->on('terapies');
             $table->integer('pacient_id')->unsigned();
             $table->foreign('pacient_id')->references('id')->on('pacients');
             $table->integer('status_id')->unsigned();

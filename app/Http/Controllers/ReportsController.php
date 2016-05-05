@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Flash;
 
 class ReportsController extends Controller
 {
@@ -19,7 +20,7 @@ class ReportsController extends Controller
         return view('reports.index');
     }
 
-    public function user() {
+    public function user(Request $request) {
 
         $totalUsers = \App\User::all()->count();
         $usersBySex = [
@@ -86,6 +87,107 @@ class ReportsController extends Controller
                 'amountUsersProfession'
             )
         );
+    }
+
+    public function athletes() {
+        $totalAthletes = \App\Athlete::all()->count();
+        $athletesBySex = [
+            'M' => \App\Athlete::scopeSex('M')->count(),
+            'F' => \App\Athlete::scopeSex('F')->count()
+        ];
+        $usersBySport = [];
+        $amountUsersSport = 0;
+        foreach(\App\Sport::all() as $sport) {
+            $amount = \App\AthleteSport::where('sport_id', $sport->id)->count();
+            $amountUsersSport += $amount;
+            $usersBySport[] = [
+                'name' => $sport->name,
+                'y' => $amount
+            ];
+        }
+
+        $amountAthletesStatus = 0;
+        $athletesByStatus = [];
+        foreach (\App\Status::all() as $status) {
+            $amount = \App\Athlete::where('status_id', $status->id)->count();
+            $amountAthletesStatus += $amount;
+            $athletesByStatus[] = [
+                'name' => $status->name,
+                'y' => $amount
+            ];
+        }
+
+        $athletesByRegional = [];
+        $amountAthletesRegional = 0;
+        foreach (\App\Regional::all() as $regional) {
+            $amount = $regional->athletes($regional->id)->count();
+            $amountAthletesRegional += $amount;
+            $athletesByRegional[] = [
+                'name' => $regional->name,
+                'y' => $amount
+            ];
+        }
+
+        $athletesByDeficiency = [];
+        $amountAthletesDeficiency = 0;
+        foreach(\App\Deficiency::all() as $deficiency) {
+            $amount = $deficiency->athletes($deficiency->id)->count();
+            $amountAthletesDeficiency += $amount;
+            $athletesByDeficiency[] = [
+                'name' => $deficiency->name,
+                'y' => $amount
+            ];
+        }
+
+        return view('reports.athlete', compact(
+            'totalAthletes',
+            'athletesBySex',
+            'usersBySport', 
+            'amountUsersSport',
+            'amountAthletesStatus',
+            'athletesByStatus',
+            'athletesByRegional',
+            'amountAthletesRegional',
+            'athletesByDeficiency',
+            'amountAthletesDeficiency'
+        ));
+    }
+
+    public function pacients() {
+        $totalPacients = \App\Pacient::all()->count();
+        $pacientsBySex = [
+            'M' => \App\Pacient::ScopeSex('M')->count(),
+            'F' => \App\Pacient::ScopeSex('F')->count()
+        ];
+        $pacientsByTerapies = [];
+        $amountPacientsTerapies = 0;
+        foreach(\App\Therapy::all() as $therapy) {
+            $amount = \App\PacientTherapy::where('therapy_id', $therapy->id)->count();
+            $amountPacientsTerapies += $amount;
+            $pacientsByTerapies[] = [
+                'name' => $therapy->name,
+                'y' => $amount
+            ];
+        }
+        $pacientsByStatus = [];
+        $amountPacientsStatus = 0;
+        foreach (\App\Status::all() as $status) {
+            $amount = \App\Pacient::where('status_id', $status->id)->count();
+            $amountPacientsStatus += $amount;
+            $pacientsByStatus[] = [
+                'name' => $status->name,
+                'y' => $amount
+            ];
+        }
+
+        return view('reports.pacients', compact(
+            'totalPacients',
+            'pacientsBySex',
+            'pacientsByTerapies',
+            'amountPacientsTerapies',
+            'pacientsByStatus',
+            'amountPacientsStatus'
+        ));
     }
 
     /**

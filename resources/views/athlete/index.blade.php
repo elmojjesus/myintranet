@@ -118,7 +118,6 @@
                             <th> Deficiência      </th>
                             <th>                  </th>
                             <th>                  </th>
-                            <th>                  </th>
                         </tr>   
                             @foreach($users as $user)            
                                 <tr>
@@ -140,17 +139,12 @@
                                     </td>
                                     <td> {{ $user->deficiency->name }} </td>
                                     <td> 
-                                        <a class="modal-ajax-link" data-mfp-src="/athlete/edit/{{ $user->athlete->id }}" data-toggle="tooltip" data-placement="top" title="Editar esportes">
+                                        <a class="modal-ajax-link" data-mfp-src="/athlete/edit/{{ $user->athlete->id }}">
                                             <i class="fa fa-pencil"></i>
                                         </a>
                                     </td>
                                     <td>
-                                        <a class="modal-ajax-link" data-mfp-src="/athleteSports/create/{{ $user->athlete->id }}" data-toggle="tooltip" data-placement="top" title="Adicionar esporte">
-                                            <i class="fa fa-plus"></i>
-                                        </a>
-                                    </td>
-                                    <td>
-                                        <a class="modal-ajax-link" data-mfp-src="/athlete/delete/{{ $user->athlete->id }}" data-toggle="tooltip" data-placement="top" title="Excluir atleta">
+                                        <a class="modal-ajax-link" data-mfp-src="/athlete/delete/{{ $user->athlete->id }}">
                                             <i class="fa fa-trash-o"></i>
                                         </a>
                                     </td>

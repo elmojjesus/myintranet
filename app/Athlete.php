@@ -38,4 +38,12 @@ class Athlete extends Model
     public function user(){
         return $this->belongsTo('\App\User');
     }
+
+    public static function ScopeSex($sex) {
+        return \App\Athlete::join('users', function ($join) use($sex) {
+            $join->on('users.id', '=', 'athletes.user_id')
+                 ->where('users.sex', '=', $sex);
+        })
+        ->get();
+    }
 }

@@ -33,11 +33,11 @@ class CreateEmployeeTable extends Migration
     public function down()
     {
 
-        Schema::table('employees', function(Blueprint $table){
+        /**Schema::table('employees', function(Blueprint $table){
             $table->dropForeign(['user_id']);
             $table->dropForeign(['departament_id']);
             $table->dropForeign(['status_id']);
-        });
+        });*/
 
         Schema::dropIfExists('employees');
 

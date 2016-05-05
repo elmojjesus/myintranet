@@ -39,4 +39,12 @@ class Pacient extends Model
     public function status() {
         return $this->belongsTo('\App\Status');
     }
+
+    public static function ScopeSex($sex) {
+        return \App\Pacient::join('users', function ($join) use($sex) {
+            $join->on('users.id', '=', 'pacients.user_id')
+                 ->where('users.sex', '=', $sex);
+        })
+        ->get();
+    }
 }

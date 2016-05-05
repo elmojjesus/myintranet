@@ -32,6 +32,8 @@ class CreateUsersTable extends Migration
             $table->foreign('profession_id')->references('id')->on('professions')->onDelete('cascade');
             $table->integer('status_id')->unsigned();
             $table->foreign('status_id')->references('id')->on('status')->onDelete('cascade');
+            $table->integer('regional_id')->unsigned()->nullable();
+            $table->foreign('regional_id')->references('id')->on('regionais');
             $table->boolean('voluntary');
             $table->softDeletes();
             $table->rememberToken();
