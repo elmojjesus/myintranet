@@ -115,6 +115,7 @@
                             <th> ID               </th>
                             <th> Nome             </th>
                             <th> Qtd de Esportes  </th>
+                            <th> Status           </th>
                             <th> Deficiência      </th>
                             <th>                  </th>
                             <th>                  </th>
@@ -138,6 +139,8 @@
                                         @endif
                                         {{ $index+1 }}
                                     </td>
+                                    <?php $athlete = $user->athlete; ?>
+                                    <td> {{ $athlete->status['name'] }}</td>
                                     <td> {{ $user->deficiency->name }} </td>
                                     <td> 
                                         <a class="modal-ajax-link" data-mfp-src="/athlete/edit/{{ $user->athlete->id }}" data-toggle="tooltip" data-placement="top" title="Editar esportes">

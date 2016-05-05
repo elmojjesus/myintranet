@@ -13,11 +13,15 @@ class AthleteSeeder extends Seeder
     {
         $faker = Faker\Factory::create();
         DB::statement('SET FOREIGN_KEY_CHECKS = 0');
+        \App\Athlete::truncate();
        	$users = \App\User::all();
+        $status = \App\Status::all();
+
        	$athletes = [];
        	foreach(range(0, 10) as $value) {
        		$athletes[] = [
        			'user_id' => $users->random(1)->id,
+            'status_id' => $status->random(1)->id,
        		];
        	}
        	

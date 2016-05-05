@@ -25,43 +25,42 @@
                             <table class="table table-hover">
                                 <thead class="thead-default">
                                     <tr>
-                                        <th> <center> Esporte           </center> </th>
-                                        <th> <center> Status no esporte </center> </th>
-                                        <th>                                      </th>
-                                        <th>                                      </th>
+                                        <th> <center> Status do atleta    </center> </th>
+                                        <th> <center> Esportes praticados </center> </th>
                                     </tr>
                                 </thead>
                                 <tbody id="myForm">
-                                    @foreach ($athlete->athleteSport as $key => $athleteSport)
-                                        @if(  !is_null($athleteSport->sport) )
-                                        <tr>
-                                            <td> 
-                                                <center> 
-                                                    {{ $athleteSport->sport->name }}
-                                                    <input type="hidden" value="{{ $athleteSport->sport->id }}" id="sport_id{{ $key }}" name="sport_id" disabled>
-                                                </center> 
-                                            </td>
-                                            <td>
-                                                <select id="status_id{{ $key }}" name="status_id" class="form-control input-sm" disabled>
-                                                    @foreach($status as $s)
-                                                        <option {{ isset($athleteSport->status->id) && $athleteSport->status->id == $s->id ? 'selected="selected"' : '' }} value="{{ $s->id }}">{{ $s->name }}
-                                                        </option>
-                                                    @endforeach
-                                                </select> 
-                                            </td>
-                                            <td> 
-                                                <a onclick="enableInput(status_id{{ $key }}, sport_id{{ $key }})" data-toggle="tooltip" data-placement="top" title="Editar status">
-                                                    <i class="fa fa-pencil"></i>
-                                                </a>
-                                            </td>
-                                            <td>
-                                                <a href="/athleteSports/destroy/{{ $athleteSport->athlete->id }}/{{ $athleteSport->sport->id }}" data-toggle="tooltip" data-placement="top" title="Excluir esporte">
-                                                    <i class="fa fa-trash-o"></i>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                        @endif
-                                    @endforeach
+                                <tr>
+                                    <td>
+                                        <p class="text-center"> Combo status </p>
+                                    </td>
+                                    <td>      
+                                        <table class="table table-hover">  
+                                            @foreach ($athlete->athleteSport as $key => $athleteSport)
+                                                @if(  !is_null($athleteSport->sport) )
+                                                <tr>
+                                                    <td> 
+                                                        <center> 
+                                                            {{ $athleteSport->sport->name }}
+                                                            <input type="hidden" value="{{ $athleteSport->sport->id }}" id="sport_id{{ $key }}" name="sport_id">
+                                                        </center> 
+                                                    </td>
+                                                    <td>
+                                                        <a 
+                                                          href="/athleteSports/destroy/{{ $athlete->id }}/{{ $athleteSport->sport->id }" 
+                                                          class="pointer" 
+                                                          data-toggle="tooltip" 
+                                                          data-placement="top" 
+                                                          title="Remover esporte">
+                                                            <i class="fa fa-times"></i>
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                                @endif
+                                            @endforeach
+                                        </table>
+                                    </td>
+                                </tr>
                                 </tbody>
                             </table>
                         </tbody>
@@ -76,5 +75,5 @@
 </div>
 
 <div class="data-footer"> 
-    <button class="btn btn-primary" onclick="formSubmit(editAthlete)">Cadastrar atleta</button>  
+    <button class="btn btn-primary" onclick="formSubmit(editAthlete)">Salvar alterações</button>  
 </div>

@@ -39,7 +39,4 @@ class AthleteSport extends Model
     	return $this->belongsTo('\App\Sport');
     }
 
-    public function status() {
-        return $this->belongsTo('\App\Status');
-    }
 }

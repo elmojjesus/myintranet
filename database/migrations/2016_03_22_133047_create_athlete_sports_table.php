@@ -18,9 +18,7 @@ class CreateAthleteSportsTable extends Migration
 
             $table->integer('sport_id')->unsigned();
             $table->foreign('sport_id')->references('id')->on('sports');
-                
-            $table->integer('status_id')->unsigned();
-            $table->foreign('status_id')->references('id')->on('status');
+            
             $table->timestamps();
             $table->softDeletes();
         });
@@ -33,6 +31,11 @@ class CreateAthleteSportsTable extends Migration
      */
     public function down()
     {
+        Schema::table('athlete_sports', function(Blueprint $table){
+            $table->dropForeign(['athlete_id']);
+            $table->dropForeign(['sport_id']);
+        });
+
         Schema::dropIfExists('athlete_sports');
     }
 }

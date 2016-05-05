@@ -31,7 +31,5 @@ class Status extends Model
 
     protected $dates = ['deleted_at'];
 
-    public function sport() {
-        return $this->belongsTo('\App\Sport');
-    }
+    
 }

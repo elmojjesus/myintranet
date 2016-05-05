@@ -38,4 +38,16 @@ class Athlete extends Model
     public function user(){
         return $this->belongsTo('\App\User');
     }
+
+    public function status(){
+        return $this->belongsTo('\App\Status');
+    }
+
+    public function scopeAmountSports(){
+        $status = \App\Status::where('name', 'Inativo')->first();
+        return \App\AthleteSport::where(function($query) use($status){
+            $query->where('athlete_id', $this->id);
+            $query->where('status_id', '!=', $status->id);
+        })->groupBy('sport_id')->count();
+    }
 }

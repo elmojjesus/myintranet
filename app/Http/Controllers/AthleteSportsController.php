@@ -90,9 +90,10 @@ class AthleteSportsController extends Controller
     public function destroy($athlete_id, $sport_id)
     {
         #\App\AthleteSport::destroy();
-        $athlete = \App\AthleteSport::where('athlete_id', $athlete_id)
+        $sport = \App\AthleteSport::where('athlete_id', $athlete_id)
                                     ->where('sport_id', $sport_id);
-        $athlete->delete();
+        #dd($sport);
+        $sport->delete();
         return redirect('athlete');
     }
 }
