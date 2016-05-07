@@ -26,13 +26,14 @@
 	<div class="col-md-6">
 		<div class="form-group">
 		<label>Nome:</label>
-		<input type="text" class="form-control" maxlength="200" id="name" name="name" />
+		<input type="text" class="form-control" placeholder="Nome Completo" maxlength="200" id="name" name="name" />
 		</div>
 	</div>
 	<div class="col-md-6">
 		<div class="form-group">
-		<label>Email:</label>
-		<input type="text" class="form-control" maxlength="200" id="email" name="email" />
+		<label>Email:</label> <label class="hidden" id="lblEmailInvalido" style="color: red"> Email inválido, por favor, verifique
+		</label>
+		<input type="text" placeholder="exemplo@email.com" class="form-control" onblur="validaEmail();" maxlength="200" id="email" name="email" />
 		</div>
 	</div>
 
@@ -48,8 +49,9 @@
 	</div>
 	<div class="col-md-6">
 		<div class="form-group">
-		<label>Data de nascimento:</label>
-		<input type="text" maxlength="50" class="form-control" id="dataNasc" name="birthDate">
+		<label>Data de nascimento:</label> <label class="hidden" id="lblDataInvalido" style="color: red"> Data inválida, por favor, verifique
+		</label>
+		<input type="text" maxlength="10" onblur="validaData(this.value)" placeholder="__/__/____" data-mask="00/00/0000" class="form-control" id="dataNasc" name="dataNasc">
 		</div>
 	</div>
 	<div class="col-md-6">
@@ -63,19 +65,19 @@
 	<div class="col-md-6">
 		<div class="form-group">
 		<label>Nacionalidade:</label>
-		<input type="text" maxlength="250" class="form-control" id="nacionalidade" name="nationality">
+		<input type="text" maxlength="250" placeholder="Nacionalidade" class="form-control" id="nacionalidade" name="nationality">
 		</div>
 	</div>
 	<div class="col-md-6">
 		<div class="form-group">
 		<label>Nome da mãe:</label>
-		<input type="text" maxlength="250" class="form-control" id="mae" name="mother">
+		<input type="text" maxlength="250" placeholder="Mãe" class="form-control" id="mae" name="mother">
 		</div>
 	</div>
 	<div class="col-md-6">
 		<div class="form-group">
 		<label>Nome do Pai:</label>
-		<input type="text" maxlength="250" class="form-control" id="pai" name="father">
+		<input type="text" maxlength="250" placeholder="Pai" class="form-control" id="pai" name="father">
 		</div>
 	</div>
 	<div class="col-md-6">
@@ -107,10 +109,10 @@
 			<label>Voluntário:</label>
 			<br>
 			<label class="checkbox-inline">
-	  			Sim <input type="radio" name="voluntary"> 
+	  			Sim <input type="radio" id="volS" name="voluntary"> 
 			</label>	
 			<label class="checkbox-inline">
-	  			Não <input type="radio" name="voluntary"> 
+	  			Não <input type="radio" id="volN" name="voluntary"> 
 			</label>
 
 		</div>
@@ -125,6 +127,18 @@
 		</select>
 		</div>
 	</div>
+	<div class="col-md-6">
+		<div class="form-group">
+		<label>Telefone 1:</label>
+		<input type="text" maxlength="14" placeholder="(00) 0000-0000" data-mask="(00) 0000-0000" class="form-control" id="telefone1" name="telefone1">
+		</div>
+	</div>
+	<div class="col-md-6">
+		<div class="form-group">
+		<label>Telefone 2:</label>
+		<input type="text" maxlength="14" placeholder="(00) 0000-0000" data-mask="(00) 0000-0000" class="form-control" id="telefone2" name="telefone2">
+		</div>
+	</div>
 
 </div>
 </div>
@@ -136,19 +150,21 @@
 	<div class="col-md-6">
 		<div class="form-group">
 			<label>RG</label>
-			<input type="text" name="rg" maxlength="20" class="form-control" />
+			<input type="text" id="rg" placeholder="RG" name="rg" maxlength="20" class="form-control numeric" />
 		</div>
 	</div>
 	<div class="col-md-6">
 		<div class="form-group">
-			<label>CPF</label>
-			<input type="text" maxlength="17" name="cpf" class="form-control" />
+			<label>CPF</label> <label class="hidden" id="lblCPFInvalido" style="color: red"> CPF inválido, por favor, verifique
+		</label>
+			<input type="text" maxlength="17" data-mask="000.000.000-00" id="cpf" 
+			onblur="validaCPF(this.value)" name="cpf" placeholder="CPF" class="form-control"/>
 		</div>
 	</div>
 	<div class="col-md-6">
 		<div class="form-group">
 			<label>Passaporte</label>
-			<input type="text" maxlength="100" name="passport" class="form-control" />
+			<input type="text" maxlength="100" placeholder="Passaporte" id="passport" name="passport" class="form-control numeric" />
 		</div>
 	</div>
 	</div>
@@ -160,37 +176,38 @@
 	<div class="col-md-6">
 		<div class="form-group">
 			<label>Rua</label>
-			<input type="text" maxlength="250" name="street" class="form-control" />
+			<input type="text" maxlength="250" placeholder="Rua" name="street" id="street" class="form-control" />
 		</div>
 	</div>
 	<div class="col-md-3">
 		<div class="form-group">
 			<label>Número</label>
-			<input type="text" maxlength="5" name="number" class="form-control" />
+			<input type="text" maxlength="5" placeholder="Número" name="number" id="number" class="form-control numeric" />
 		</div>
 	</div>
 	<div class="col-md-3">
 		<div class="form-group">
 			<label>Complemento</label>
-			<input type="text" maxlength="100" name="complement" class="form-control" />
+			<input type="text" maxlength="100" placeholder="Complemento" name="complement" id="complement" class="form-control" />
 		</div>
 	</div>
 	<div class="col-md-6">
 		<div class="form-group">
 			<label>Código Postal</label>
-			<input type="text" maxlength="5" name="street" class="form-control" />
+			<input type="text" maxlength="5" placeholder="Código Postal" name="codPostal" id="codPostal" class="form-control numeric" />
 		</div>
 	</div>
 	<div class="col-md-3">
 		<div class="form-group">
 			<label>Bairro</label>
-			<input type="text" maxlength="250" name="number" class="form-control" />
+			<input type="text" maxlength="250" placeholder="Bairro" name="bairro" id="bairro" class="form-control" />
 		</div>
 	</div>
 		<div class="col-md-3">
 		<div class="form-group">
 			<label>Regional</label>
 			<select class="form-control" id="regional" name="regional">
+			<option value="Selecione">-- Selecione --</option> 
 				<option value="Bairro Novo">Bairro Novo</option>
 				<option value="Boa Vista">Boa Vista</option>
 				<option value="Boqueirão">Boqueirão</option>
@@ -207,13 +224,13 @@
 	<div class="col-md-6">
 		<div class="form-group">
 			<label>Cidade</label>
-			<input type="text" maxlength="250" name="complement" class="form-control" />
+			<input type="text" maxlength="250" placeholder="Cidade" id="cidade" name="cidade" class="form-control" />
 		</div>
 	</div>
 	<div class="col-md-6">
 		<div class="form-group">
 			<label>Estado</label>
-			<select name="estado" class="form-control" id="regional" name="regional"> 
+			<select name="estado" class="form-control" id="estado"> 
 		<option value="Selecione">-- Selecione --</option> 
 		<option value="ac">Acre</option> 
 		<option value="al">Alagoas</option> 
@@ -256,22 +273,25 @@
 </div>
 
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.2.43/jquery.form-validator.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js" type="text/javascript"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.2.43/jquery.form-validator.min.js" type="text/javascript"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.0/jquery.mask.js" type="text/javascript"></script>
 
 <script type="text/javascript">
 
-
 window.onload = function() {
-  //$('sexM').prop('checked', true); 
   document.getElementById('sexM').checked=true;
+  document.getElementById('volN').checked=true;
 };
 
+jQuery('.numeric').keyup(function () { 
+    this.value = this.value.replace(/[^0-9\.]/g,'');
+});
 
 function validaCampo() {
         var isSalvar = true;
         var objCadastro = { name: '#name', email : '#email', profession : '#profissao',
-          education : '#educacao', birthDate : '#dataNasc', status : '#status', nationality : '#nacionalidade'
+          education : '#educacao', birthDate : '#dataNasc', status : '#status', nationality : '#nacionalidade', cpf : '#cpf', rg : '#rg', street : '#street', bairro : '#bairro', tel1 : '#telefone1', tel2 : '#telefone2', numero : '#number', cidade : '#cidade', estado : '#estado'
          };
 
         for (var i in objCadastro) {
@@ -287,6 +307,7 @@ function validaCampo() {
         return isSalvar;
     }
 
+
     function verificaCampo(campo) {
         if ($(campo).val() == " " || $(campo).val() == "" || $(campo).val() == undefined ||
             $(campo).val() == "Selecione") {
@@ -297,6 +318,134 @@ function validaCampo() {
             return false;
         }
     }
+
+
+    function validaEmail(){
+    var	emailAddress = $("#email").val();
+    if (emailAddress != "") 
+    {
+    if (!isValidEmailAddress(emailAddress)) {
+    	$("#email").addClass('danger');
+    	$("#lblEmailInvalido").removeClass('hidden');
+    	return true;
+    }
+    $("#email").removeClass('danger');
+    $("#lblEmailInvalido").addClass('hidden');
+    return true;
+}
+$("#email").removeClass('danger');
+    $("#lblEmailInvalido").addClass('hidden');
+        return true;
+    }
+
+function isValidEmailAddress(emailAddress) {
+    var pattern = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
+    return pattern.test(emailAddress);
+}
+
+function validaCPF(cpf) {
+
+$("#lblCPFInvalido").addClass('hidden');
+$("#cpf").removeClass('danger');
+    cpf = cpf.replace(/[^\d]+/g, '');
+
+    // Elimina CPFs conhecidos como inválidos
+    if (cpf == '' ||
+        cpf.length != 11 ||
+        cpf == "00000000000" ||
+        cpf == "11111111111" ||
+        cpf == "22222222222" ||
+        cpf == "33333333333" ||
+        cpf == "44444444444" ||
+        cpf == "55555555555" ||
+        cpf == "66666666666" ||
+        cpf == "77777777777" ||
+        cpf == "88888888888" ||
+        cpf == "99999999999"){
+    	$("#lblCPFInvalido").removeClass('hidden');
+    	$("#cpf").addClass('danger');
+        return false;
+}
+
+    // Valida 1o digito
+    add = 0;
+    for (i = 0; i < 9; i++)
+        add += parseInt(cpf.charAt(i)) * (10 - i);
+    rev = 11 - (add % 11);
+    if (rev == 10 || rev == 11)
+        rev = 0;
+    if (rev != parseInt(cpf.charAt(9))){
+    	$("#lblCPFInvalido").removeClass('hidden');
+    	$("#cpf").addClass('danger');
+        return false;
+    }
+
+    // Valida 2o digito
+    add = 0;
+    for (i = 0; i < 10; i++)
+        add += parseInt(cpf.charAt(i)) * (11 - i);
+    rev = 11 - (add % 11);
+    if (rev == 10 || rev == 11)
+        rev = 0;
+    if (rev != parseInt(cpf.charAt(10))){
+    	$("#lblCPFInvalido").removeClass('hidden');
+    	$("#cpf").addClass('danger');
+        return false;
+    }
+
+    return true;
+}
+
+function validaData(data) {
+
+$("#lblDataInvalido").addClass('hidden');
+$("#dataNasc").removeClass('danger');
+
+var valida = true;
+
+    data = data.replace('_', '');
+    data = data.replace('__', '');
+    data = data.replace('___', '');
+    data = data.replace('____', '');
+    data = data.replace('__', '');
+    data = data.replace('_', '');
+
+    data = data.split("/");
+    dia = data[0];
+    mes = data[1];
+    ano = data[2];
+
+    if (typeof dia == "undefined" || typeof mes == "undefined" || typeof ano == "undefined")
+        valida = false;    
+
+    if ((ano < 1000))
+        valida = false;
+
+    if ((mes < 1) || (mes > 12))
+        valida = false;
+    if ((dia < 1) || (dia > 31))
+        valida = false;
+    if ((mes == 2) || (mes == 4) || (mes == 6) || (mes == 9) || (mes == 11)) {
+        if (dia > 30)
+            valida = false;
+        if (mes == 2) {
+            if (ano % 4 == 0) {
+                if (dia > 29)
+                    valida = false;
+            }
+            else if (dia > 28)
+                valida = false;
+        }
+    }
+    if (valida == false) 
+    {
+        $("#lblDataInvalido").removeClass('hidden');
+        $("#dataNasc").addClass('danger');
+        return false;
+    }
+    return true;
+}
+
 
 </script>
 
