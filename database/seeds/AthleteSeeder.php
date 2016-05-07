@@ -15,7 +15,7 @@ class AthleteSeeder extends Seeder
         DB::statement('SET FOREIGN_KEY_CHECKS = 0');
        	$users = \App\User::all();
        	$athletes = [];
-       	foreach(range(0, 10) as $value) {
+       	foreach(range(0, 199) as $value) {
        		$athletes[] = [
        			'user_id' => $users->random(1)->id,
        		];

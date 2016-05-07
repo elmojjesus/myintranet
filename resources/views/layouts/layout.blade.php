@@ -58,7 +58,7 @@
                         </a>
                         <ul class="nav nav-second-level">
                             <li>
-                                {!! HTML::link('reports/user', 'Ir para Dashboard', true) !!}   
+                                {!! HTML::link('dashboard', 'Ir para Dashboard', true) !!}   
                             </li>
                         </ul>
                     </li>
@@ -140,6 +140,12 @@
                             </li>
                         </ul>
                     </li>
+                    <li>
+                        <a href="/reports">
+                            <i class="fa fa-area-chart"></i>
+                            Relatórios
+                        </a>
+                    </li>
                 </ul>
             </div>
         </nav>
@@ -152,12 +158,20 @@
                     <div class="col-md-12">
 
                         <!-- Erros -->
-                        <ul class="errors">
-                            @foreach($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
+                        @if($errors->all())
+	                        <ul class="errors alert alert-danger">
+	                            @foreach($errors->all() as $error)
+	                                <li>{{ $error }}</li>
+	                            @endforeach
+	                        </ul>
+                        @endif
+                    	@if (Session::has('flash_notification.message'))
+						    <div class="alert alert-{{ Session::get('flash_notification.level') }}">
+						        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
 
+						        {{ Session::get('flash_notification.message') }}
+						    </div>
+						@endif
                         <h1 class="page-header">
                             @yield('title')
                         </h1>

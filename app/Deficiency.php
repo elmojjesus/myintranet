@@ -30,4 +30,16 @@ class Deficiency extends Model
     protected $hidden = [];
 
     protected $dates = ['deleted_at'];
+
+    public function users() {
+        return $this->hasMany('\App\User');
+    }
+
+    public function athletes($id) {
+        return \App\Athlete::join('users', function ($join) use($id) {
+            $join->on('users.id', '=', 'athletes.user_id')
+                 ->where('users.deficiency_id', '=', $id);
+        })
+        ->get();
+    }
 }

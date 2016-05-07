@@ -66,6 +66,7 @@ class User extends Model implements AuthenticatableContract,
         return $this->hasOne('\App\Contact');
     }
 
+
     public static function notPacients() {
         $pacients = \App\Pacient::All();
         $ids = [];
