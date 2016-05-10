@@ -219,17 +219,12 @@
 <div class="row">
     <div clas="col-md-12">
 
-     <div class="col-md-4">
-<a  href="http://www.webthemez.com"><font color="white">Designed by: webthemez.com</font></a>
-
-  </div>
-
-    <div  style="text-align: center;"class="col-md-4">
+    <div  style="text-align: left;"class="col-md-6">
 <a  href="http://www.movasoft.com.br"><font color="white">MovaSoft © - All rights reserved</font></a>
 
   </div>
 
-  <div style="text-align: right;" class="col-md-4">
+  <div style="text-align: right;" class="col-md-6">
 <font color="white">Versão 1.0</font>
 
   </div>
