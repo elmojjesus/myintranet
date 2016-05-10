@@ -38,7 +38,7 @@ class UserTableSeeder extends Seeder
             'status_id' => 1,
             'regional_id' => $regionais->random(1)->id,
         ];
-        foreach (range(0, 200) as $number) {
+        foreach (range(0, 100) as $number) {
             $users[] = [
                 'email' => $faker->email,
                 'password' => bcrypt('123456'),  

@@ -146,6 +146,12 @@
                             Relatórios
                         </a>
                     </li>
+                    <li>
+                        <a href="/profiles">
+                            <i class="fa fa-low-vision"></i>
+                            Perfis de Acesso
+                        </a>
+                    </li>
                 </ul>
             </div>
         </nav>

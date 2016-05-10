@@ -19,8 +19,7 @@ class CreateAthleteSportsTable extends Migration
             $table->integer('sport_id')->unsigned();
             $table->foreign('sport_id')->references('id')->on('sports');
                 
-            $table->integer('status_id')->unsigned();
-            $table->foreign('status_id')->references('id')->on('status');
+            
             $table->softDeletes();
         });
     }

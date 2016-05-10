@@ -16,6 +16,8 @@ class CreateAtlhetesTable extends Migration
             $table->increments('id');
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users');
+            $table->integer('status_id')->unsigned();
+            $table->foreign('status_id')->references('id')->on('status');
             $table->timestamps();
             $table->softDeletes();
         });

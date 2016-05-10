@@ -26,6 +26,10 @@ class DatabaseSeeder extends Seeder
 
         $this->call('UserTableSeeder');
 
+        $this->call('RoleSeeder');
+
+        $this->call('ProfileSeeder');
+
         $this->call('DocumentSeeder');
 
         $this->call('AthleteSeeder');

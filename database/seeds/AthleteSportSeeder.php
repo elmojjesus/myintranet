@@ -15,14 +15,12 @@ class AthleteSportSeeder extends Seeder
         DB::statement('SET FOREIGN_KEY_CHECKS = 0');
         $sports = \App\Sport::all();
         $athletes = \App\Athlete::all();
-        $status = \App\Status::all();
 
         $athleteSport = [];
         foreach(range(0, 20) as $value) {
         	$athleteSport[] = [
         		'athlete_id' => $athletes->random(1)->id,
 	        	'sport_id' => $sports->random(1)->id,
-	        	'status_id' => $status->random(1)->id,
         	];
         }
 
