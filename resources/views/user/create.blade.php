@@ -51,7 +51,7 @@
 		<div class="form-group">
 		<label>Data de nascimento:</label> <label class="hidden" id="lblDataInvalido" style="color: red"> Data inválida, por favor, verifique
 		</label>
-		<input type="text" maxlength="10" onblur="validaData(this.value)" placeholder="__/__/____" data-mask="00/00/0000" class="form-control" id="dataNasc" name="dataNasc">
+		<input type="text" maxlength="10" onblur="validaData(this.value)" placeholder="__/__/____" data-mask="00/00/0000" class="form-control" id="dataNasc" name="birthDate">
 		</div>
 	</div>
 	<div class="col-md-6">
@@ -349,6 +349,8 @@ $("#lblCPFInvalido").addClass('hidden');
 $("#cpf").removeClass('danger');
     cpf = cpf.replace(/[^\d]+/g, '');
 
+    if (cpf !="") {
+
     // Elimina CPFs conhecidos como inválidos
     if (cpf == '' ||
         cpf.length != 11 ||
@@ -392,7 +394,10 @@ $("#cpf").removeClass('danger');
     	$("#cpf").addClass('danger');
         return false;
     }
-
+    $("#cpf").removeClass('danger');
+    $("#lblCPFInvalido").addClass('hidden');
+    return treu;
+}
     return true;
 }
 
@@ -414,6 +419,9 @@ var valida = true;
     dia = data[0];
     mes = data[1];
     ano = data[2];
+
+    if (data != "") 
+    {
 
     if (typeof dia == "undefined" || typeof mes == "undefined" || typeof ano == "undefined")
         valida = false;    
@@ -443,6 +451,10 @@ var valida = true;
         $("#dataNasc").addClass('danger');
         return false;
     }
+    $("#dataNasc").removeClass('danger');
+    $("#lblDataInvalido").addClass('hidden');
+        return true;
+}
     return true;
 }
 

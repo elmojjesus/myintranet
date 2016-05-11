@@ -19,7 +19,7 @@
                     <div class="col-sm-6">
                         <div id="dataTables-example_length" class="dataTables_length">
 
-                            Id: {!! Form::text('id', '', $attributes = array('class' => 'form-control')) !!}
+                            Id: {!! Form::text('id', '', $attributes = array('class' => 'form-control numeric', 'maxlength' => '3')) !!}
 
                         </div>
                     </div>
@@ -100,4 +100,18 @@
         </div>
     </div>
 </div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js" type="text/javascript"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.2.43/jquery.form-validator.min.js" type="text/javascript"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.0/jquery.mask.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+    
+    jQuery('.numeric').keyup(function () { 
+    this.value = this.value.replace(/[^0-9\.]/g,'');
+});
+
+
+</script>
+
 @stop
