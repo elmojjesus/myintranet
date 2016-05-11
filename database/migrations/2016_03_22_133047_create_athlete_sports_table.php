@@ -18,8 +18,13 @@ class CreateAthleteSportsTable extends Migration
 
             $table->integer('sport_id')->unsigned();
             $table->foreign('sport_id')->references('id')->on('sports');
+<<<<<<< HEAD
             
             $table->timestamps();
+=======
+                
+            
+>>>>>>> 3a2d3fb98947c970d0b2f2126a441025a571f146
             $table->softDeletes();
         });
     }

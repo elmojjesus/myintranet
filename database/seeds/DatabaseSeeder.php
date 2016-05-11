@@ -22,7 +22,13 @@ class DatabaseSeeder extends Seeder
 
         $this->call('ProfessionSeeder');
 
+        $this->call('RegionalSeeder');
+
         $this->call('UserTableSeeder');
+
+        $this->call('RoleSeeder');
+
+        $this->call('ProfileSeeder');
 
         $this->call('DocumentSeeder');
 
@@ -36,15 +42,18 @@ class DatabaseSeeder extends Seeder
 
         $this->call('EmployeeSeeder');
 
-        //$this->call('TerapiesSeeder');
+        $this->call('TherapySeeder');
 
-        //$this->call('PacientSeeder');
+        $this->call('PacientSeeder');
+
+        $this->call('TherapyPacientSeeder');
 
         $this->call('StateTableSeeder');
 
         $this->call('CityTableSeeder');
 
         $this->call('AddressTableSeeder');
+
 
         Model::reguard();
     }

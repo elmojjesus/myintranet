@@ -94,15 +94,13 @@ class UserController extends Controller
     {
         $data = $request->all();
         unset($data['_token']);
-        unset($data['password_confirm']);
-        $data['password'] = bcrypt($data['password']);
         if (isset($data['rg'])) {
             $document = [
                 'rg' => $data['rg'],
                 'cpf' => $data['cpf'],
                 'passport' => $data['passport']
             ];
-            unset($data['rg'], $data['cpf'], $data['passport']);
+            unset($data['rg'], $data['cpf']);
         }
         \App\User::insert($data);
         $user = \App\User::where('email', $data['email'])->first();

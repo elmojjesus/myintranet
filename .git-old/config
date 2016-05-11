@@ -1,0 +1,15 @@
+[core]
+	repositoryformatversion = 0
+	filemode = true
+	bare = false
+	logallrefupdates = true
+[branch "master"]
+[gui]
+	wmstate = normal
+	geometry = 887x425+422+77 171 192
+[remote "master"]
+	url = https://ueslei000@bitbucket.org/movasoft/adfpsystemadfp.git
+	fetch = +refs/heads/*:refs/remotes/master/*
+[remote "origin"]
+	url = https://ueslei000@bitbucket.org/movasoft/adfpsystemadfp.git
+	fetch = +refs/heads/*:refs/remotes/origin/*

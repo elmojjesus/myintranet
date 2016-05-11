@@ -17,7 +17,7 @@ class CreateUsersTable extends Migration
             $table->string('name');
             $table->string('custom_code', 5);
             $table->string('email')->unique();
-            $table->string('password', 60);
+            $table->string('password', 60)->nullable()->default(NULL);
             $table->string('image', 100)->nullable()->default(NULL);
             $table->integer('deficiency_id')->unsigned()->nullable()->default(NULL);
             $table->foreign('deficiency_id')->references('id')->on('deficiencies')->onDelete('cascade');
@@ -32,6 +32,8 @@ class CreateUsersTable extends Migration
             $table->foreign('profession_id')->references('id')->on('professions')->onDelete('cascade');
             $table->integer('status_id')->unsigned();
             $table->foreign('status_id')->references('id')->on('status')->onDelete('cascade');
+            $table->integer('regional_id')->unsigned()->nullable();
+            $table->foreign('regional_id')->references('id')->on('regionais');
             $table->boolean('voluntary');
             $table->softDeletes();
             $table->rememberToken();

@@ -15,7 +15,7 @@
                         {!! Form::open(array('method' => 'post', 'action' => 'EducationController@store')) !!}
                             <div class="form-group">
                                 <label> Nível de educação </label>
-                                {!! Form::text('name', '', $attributes = array('class' => 'form-control')) !!}
+                                {!! Form::text('name', '', $attributes = array('class' => 'form-control', 'maxlength' => '100')) !!}
                                 <br>
                                 {!! Form::submit('Cadastrar nível', $attributes = array('class' => 'btn btn-primary')) !!}    
                             </div>

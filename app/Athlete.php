@@ -39,6 +39,7 @@ class Athlete extends Model
         return $this->belongsTo('\App\User');
     }
 
+<<<<<<< HEAD
     public function status(){
         return $this->belongsTo('\App\Status');
     }
@@ -49,5 +50,13 @@ class Athlete extends Model
             $query->where('athlete_id', $this->id);
             $query->where('status_id', '!=', $status->id);
         })->groupBy('sport_id')->count();
+=======
+    public static function ScopeSex($sex) {
+        return \App\Athlete::join('users', function ($join) use($sex) {
+            $join->on('users.id', '=', 'athletes.user_id')
+                 ->where('users.sex', '=', $sex);
+        })
+        ->get();
+>>>>>>> 3a2d3fb98947c970d0b2f2126a441025a571f146
     }
 }

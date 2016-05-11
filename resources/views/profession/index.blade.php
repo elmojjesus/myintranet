@@ -15,7 +15,7 @@
                         {!! Form::open(array('method' => 'post', 'action' => 'ProfessionController@store')) !!}
                             <div class="form-group">
                                 <label> Profissão </label>
-                                {!! Form::text('name', '', $attributes = array('class' => 'form-control')) !!}
+                                {!! Form::text('name', '', $attributes = array('class' => 'form-control', 'maxlength' => '100')) !!}
                                 <br>
                                 {!! Form::submit('Cadastrar profissão', $attributes = array('class' => 'btn btn-primary')) !!}    
                             </div>

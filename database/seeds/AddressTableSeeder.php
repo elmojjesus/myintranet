@@ -12,6 +12,7 @@ class AddressTableSeeder extends Seeder
     public function run()
     {
         $faker = Faker\Factory::create();
+        \App\Address::truncate();
         $users = \App\User::all();
         $cities = \App\City::all();
         $regionais = [

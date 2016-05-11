@@ -21,6 +21,7 @@ class UserTableSeeder extends Seeder
         $deficiencies = \App\Deficiency::all();
         $educations = \App\Education::all();
         $professions = \App\Profession::all();
+        $regionais = \App\Regional::all();
         $status = \App\Status::all();
         $sex = [0 => 'M', 1 => 'F'];
         $users[] = [
@@ -35,62 +36,10 @@ class UserTableSeeder extends Seeder
             'voluntary' => $faker->boolean(50),
             'sex' => 'M',
             'status_id' => 1,
+            'regional_id' => $regionais->random(1)->id,
         ];
-        $users[] = [
-            'email' => 'elmo@mail.com',
-            'password' => bcrypt('123456'),
-            'name' => 'Elmo J Jesus',
-            'deficiency_id' => $deficiencies->random(1)->id,
-            'education_id' => $educations->random(1)->id,
-            'profession_id' => $professions->random(1)->id,
-            'mother' => $faker->firstNameFemale, 
-            'father' => $faker->firstNameMale,
-            'voluntary' => $faker->boolean(50),
-            'sex' => 'M',
-            'status_id' => 1,
-        ];
-        $users[] = [
-            'email' => 'camila@mail.com',
-            'password' => bcrypt('123456'),
-            'name' => 'Camila Prado',
-            'deficiency_id' => $deficiencies->random(1)->id,
-            'education_id' => $educations->random(1)->id,
-            'profession_id' => $professions->random(1)->id,
-            'mother' => $faker->firstNameFemale, 
-            'father' => $faker->firstNameMale,
-            'voluntary' => $faker->boolean(50),
-            'sex' => 'F',
-            'status_id' => 1,
-        ];
-        $users[] = [
-            'email' => 'alan@mail.com',
-            'password' => bcrypt('123456'),
-            'name' => 'Alan Domingues',
-            'deficiency_id' => $deficiencies->random(1)->id,
-            'education_id' => $educations->random(1)->id,
-            'profession_id' => $professions->random(1)->id,
-            'mother' => $faker->firstNameFemale, 
-            'father' => $faker->firstNameMale,
-            'voluntary' => $faker->boolean(50),
-            'sex' => 'M',
-            'status_id' => 1,
-        ];
-        $users[] = [
-            'email' => 'junior@mail',
-            'password' => bcrypt('123456'),
-            'name' => 'Junior Ongaro',
-            'deficiency_id' => $deficiencies->random(1)->id,
-            'education_id' => $educations->random(1)->id,
-            'profession_id' => $professions->random(1)->id,
-            'mother' => $faker->firstNameFemale, 
-            'father' => $faker->firstNameMale,
-            'voluntary' => $faker->boolean(50),
-            'sex' => 'M',
-            'status_id' => 1,
-        ];
-        foreach (range(0, 200) as $number) {
+        foreach (range(0, 100) as $number) {
             $users[] = [
-                #'image' => $faker->image($dir = '/tmp', $width = 200, $height = 200),
                 'email' => $faker->email,
                 'password' => bcrypt('123456'),  
                 'name' => $faker->name,
@@ -102,6 +51,7 @@ class UserTableSeeder extends Seeder
                 'voluntary' => $faker->boolean(50),
                 'sex' => $sex[$faker->numberBetween($min = 0, $max = 1)],
                 'status_id' => $status->random(1)->id,
+                'regional_id' => $regionais->random(1)->id,
             ];
         }
         
