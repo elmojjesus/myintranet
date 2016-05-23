@@ -100,12 +100,26 @@ class UserController extends Controller
                 'cpf' => $data['cpf'],
                 'passport' => $data['passport']
             ];
-            unset($data['rg'], $data['cpf']);
+            unset($data['rg'], $data['cpf'], $data['passport']);
+        }
+        if (isset($data['street'])) {
+            $address = [
+                'street' => $data['street'],
+                'number' => $data['number'],
+                'complement' => $data['complement'],
+                'zip_code' => $data['codPostal'],
+                'neighborhood' => $data['bairro'],
+                'regional' => $data['regional'],
+                'city_id' => 1
+            ];
+            unset($data['street'], $data['number'], $data['complement'], $data['codPostal'], $data['bairro'], $data['regional'], $data['cidade'], $data['estado']);
         }
         \App\User::insert($data);
         $user = \App\User::where('email', $data['email'])->first();
         $document['user_id'] = $user->id;
+        $address['user_id'] = $user->id;
         \App\Document::insert($document);
+        \App\Address::insert($address);
         Flash::success('Primeira etapa do usuário completa!');
         return redirect('user/image/upload/' . $user->id);
     }

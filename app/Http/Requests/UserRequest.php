@@ -28,7 +28,7 @@ class UserRequest extends Request
             return [
                 'name' => 'required|min:3',
                 'email' => 'required|email',
-                'birthDate' => 'required|date_format:d/m/Y',
+                //'birthDate' => 'required|date_format:d/m/Y',
                 'sex' => 'required',
                 'rg' => 'required|max:15',
                 'cpf' => 'required|max:15'
@@ -37,7 +37,7 @@ class UserRequest extends Request
             return [
                 'name' => 'required|min:3',
                 'email' => 'required|email|unique:users',
-                'birthDate' => 'required|date_format:d/m/Y',
+                //'birthDate' => 'required|date_format:d/m/Y',
                 'sex' => 'required',
                 'rg' => 'required|max:15',
                 'cpf' => 'required|max:15'

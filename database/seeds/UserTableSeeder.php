@@ -24,7 +24,7 @@ class UserTableSeeder extends Seeder
         $regionais = \App\Regional::all();
         $status = \App\Status::all();
         $sex = [0 => 'M', 1 => 'F'];
-        $users[] = [
+        $first[] = [
             'email' => 'ueslei.lima@movasoft.com.br',
             'password' => bcrypt('123456'),
             'name' => 'Ueslei Lima',
@@ -38,10 +38,10 @@ class UserTableSeeder extends Seeder
             'status_id' => 1,
             'regional_id' => $regionais->random(1)->id,
         ];
+        \App\User::insert($first);
         foreach (range(0, 100) as $number) {
             $users[] = [
                 'email' => $faker->email,
-                'password' => bcrypt('123456'),  
                 'name' => $faker->name,
                 'deficiency_id' => $deficiencies->random(1)->id,
                 'education_id' => $educations->random(1)->id,

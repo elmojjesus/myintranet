@@ -28,6 +28,8 @@ class CreateUsersTable extends Migration
             $table->string('father')->nullable();
             $table->integer('education_id')->unsigned()->nullable();
             $table->foreign('education_id')->references('id')->on('educations')->onDelete('cascade');
+            $table->text('telephone1')->nullable()->default(NULL);
+            $table->text('telephone2')->nullable()->default(NULL);
             $table->integer('profession_id')->unsigned()->nullable();
             $table->foreign('profession_id')->references('id')->on('professions')->onDelete('cascade');
             $table->integer('status_id')->unsigned();

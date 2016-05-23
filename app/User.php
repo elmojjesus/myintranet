@@ -66,6 +66,18 @@ class User extends Model implements AuthenticatableContract,
         return $this->hasOne('\App\Contact');
     }
 
+    public function profile() {
+        return $this->hasOne('\App\Profile');
+    }
+
+    public static function notProfile() {
+        $profiles = \App\Profile::all();
+        $ids = [];
+        foreach ($profiles as $profile) {
+            $ids[] = $profile->user->id;
+        }
+        return \App\User::whereNotIn('id', $ids)->orderBy('name')->get();
+    }
 
     public static function notPacients() {
         $pacients = \App\Pacient::All();

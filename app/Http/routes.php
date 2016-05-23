@@ -11,13 +11,13 @@
 |
 */
 Route::get('/', ['middleware' => 'auth', function () {
-    return view('dashboard/index');
+    return view('reports/index');
 }]);
 
 Route::group(['middleware' => 'auth'], function() {
 
 	//Dashboard routes
-	Route::get('dashboard', 'DashboardController@index');
+	Route::get('dashboard', 'ReportsController@index');
 
 	//Routes deficiencies
 	Route::get('deficiency', 'DeficiencyController@index');
@@ -126,6 +126,10 @@ Route::group(['middleware' => 'auth'], function() {
 	Route::get('reports/user', 'ReportsController@user');
 	Route::get('reports/athletes', 'ReportsController@athletes');
 	Route::get('reports/pacients', 'ReportsController@pacients');
+
+	//Route Roles And Profiles
+	Route::get('profiles', 'ProfileController@index');
+	Route::post('profiles/store', 'ProfileController@store');
 
 });
 

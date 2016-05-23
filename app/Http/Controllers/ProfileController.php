@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Auth;
+use Flash;
 
 class ProfileController extends Controller
 {
@@ -14,9 +16,18 @@ class ProfileController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        if (Auth::user()->profile->role->name == 'GOD') {
+            $profiles = \App\Profile::paginate(15, ['*'], 'pagProfile');
+            $roles = \App\Role::orderBy('name')->paginate(5,['*'],'pagRole');
+        } else {
+            $profiles = \App\Profile::where('role_id', '>', 1)->paginate(15, ['*'], 'pagProfile');
+            $roles = \App\Role::where('id', '>', 1)->orderBy('name')->paginate(5,['*'],'pagRole');
+        }
+        $users = \App\User::notProfile();
+        $query = $request->all();
+        return view('profile.index', compact('profiles', 'roles', 'query', 'users'));
     }
 
     /**
@@ -37,7 +48,18 @@ class ProfileController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+        $password = bcrypt($data['password']);
+        unset($data['_token'], $data['password_confirm'], $data['password']);
+        if (\App\Profile::where('user_id', $data['user_id'])->count() > 0) {
+            \App\Profile::where('user_id', $data['user_id'])
+                ->update(['role_id' => $data['role_id']]);
+        } else {
+            \App\Profile::insert($data);
+        }
+        \App\User::where('id', $data['user_id'])->update(['password' => $password]);
+        Flash::success('Perfil cadastrado com sucesso!');
+        return redirect('profiles');
     }
 
     /**

@@ -51,7 +51,7 @@
 		<div class="form-group">
 		<label>Data de nascimento:</label> <label class="hidden" id="lblDataInvalido" style="color: red"> Data inválida, por favor, verifique
 		</label>
-		<input type="text" maxlength="10" onblur="validaData(this.value)" placeholder="__/__/____" data-mask="00/00/0000" class="form-control" id="dataNasc" name="dataNasc">
+		<input type="text" maxlength="10" onblur="validaData(this.value)" placeholder="__/__/____" data-mask="00/00/0000" class="form-control" id="dataNasc" name="birthDate">
 		</div>
 	</div>
 	<div class="col-md-6">
@@ -130,13 +130,13 @@
 	<div class="col-md-6">
 		<div class="form-group">
 		<label>Telefone 1:</label>
-		<input type="text" maxlength="14" placeholder="(00) 0000-0000" data-mask="(00) 0000-0000" class="form-control" id="telefone1" name="telefone1">
+		<input type="text" maxlength="14" placeholder="(00) 0000-0000" data-mask="(00) 0000-0000" class="form-control" id="telefone1" name="telephone1">
 		</div>
 	</div>
 	<div class="col-md-6">
 		<div class="form-group">
 		<label>Telefone 2:</label>
-		<input type="text" maxlength="14" placeholder="(00) 0000-0000" data-mask="(00) 0000-0000" class="form-control" id="telefone2" name="telefone2">
+		<input type="text" maxlength="14" placeholder="(00) 0000-0000" data-mask="(00) 0000-0000" class="form-control" id="telefone2" name="telephone2">
 		</div>
 	</div>
 
