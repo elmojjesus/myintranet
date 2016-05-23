@@ -19,7 +19,7 @@
                             <div id="dataTables-example_length" class="dataTables_length">
                                 
                                 <label>ID:</label>
-                                <input type="text" name="id" value="{{ isset($query['id']) ? $query['id'] : '' }}" class="form-control">
+                                <input type="text" name="id" id="id" maxlength="3" value="{{ isset($query['id']) ? $query['id'] : '' }}" class="form-control numeric">
 
                             </div>
                         </div>
@@ -115,6 +115,7 @@
                             <th> ID               </th>
                             <th> Nome             </th>
                             <th> Qtd de Esportes  </th>
+                            <th> Status           </th>
                             <th> Deficiência      </th>
                             <th>                  </th>
                             <th>                  </th>
@@ -137,6 +138,8 @@
                                         @endif
                                         {{ $index+1 }}
                                     </td>
+                                    <?php $athlete = $user->athlete; ?>
+                                    <td> {{ $athlete->status['name'] }}</td>
                                     <td> {{ $user->deficiency->name }} </td>
                                     <td> 
                                         <a class="modal-ajax-link" data-mfp-src="/athlete/edit/{{ $user->athlete->id }}">
@@ -173,5 +176,18 @@
         </div>
     </div>
 </div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js" type="text/javascript"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.2.43/jquery.form-validator.min.js" type="text/javascript"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.0/jquery.mask.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+    
+    jQuery('.numeric').keyup(function () { 
+    this.value = this.value.replace(/[^0-9\.]/g,'');
+});
+
+
+</script>
 
 @stop

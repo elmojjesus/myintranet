@@ -1,4 +1,8 @@
 @extends('layouts.layout')
+@section('title')
+	 Cadastre um paciente <i class="fa fa-user"></i>
+	 <small> / Pacientes / Cadastrar </small>
+@stop
 @section('content')
 	<form method="POST" action="/pacient/store">
 		{{ csrf_field() }}
@@ -17,7 +21,7 @@
 			<div class="form-group">
 				<label>Status</label>
 				<select name="status_id" class="form-control">
-					<option>Selecione um usuário</option>
+					<option>Selecione um status</option>
 					@foreach ($status as $s)
 						<option value="{{ $s->id }}">{{ $s->name }}</option>
 					@endforeach

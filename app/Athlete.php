@@ -39,6 +39,19 @@ class Athlete extends Model
         return $this->belongsTo('\App\User');
     }
 
+
+    public function status(){
+        return $this->belongsTo('\App\Status');
+    }
+
+    public function scopeAmountSports(){
+        $status = \App\Status::where('name', 'Inativo')->first();
+        return \App\AthleteSport::where(function($query) use($status){
+            $query->where('athlete_id', $this->id);
+            $query->where('status_id', '!=', $status->id);
+        })->groupBy('sport_id')->count();
+    }
+
     public static function ScopeSex($sex) {
         return \App\Athlete::join('users', function ($join) use($sex) {
             $join->on('users.id', '=', 'athletes.user_id')

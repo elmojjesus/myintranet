@@ -56,7 +56,9 @@ input[type='submit'] {
     float: right;   
 }
 
-
+.pointer{
+    cursor: pointer;
+}
 
 /*----------------------------------------------
     COMMON  STYLES    

@@ -1,12 +1,16 @@
 @extends('layouts.layout')
+
+@section('title')
+     Relatórios de Usuários <i class="fa fa-tasks"></i>
+     <small> / Relatórios / Usuários </small>
+@stop
+
+
 @section('content')
 	<script src="{{ URL::asset('assets/js/jquery-1.10.2.js') }}"></script>
 	<script src="{{ URL::asset('assets/js/highcharts/highcharts.js') }}"></script>
     <script src="https://code.highcharts.com/modules/exporting.js"></script>
 
-	
-	<h2>Relatórios de Usuários</h2>
-	<p></p>
     <div class="col-md-12">
         <div class="col-md-6">
             <div class="panel panel-default">
@@ -32,20 +36,26 @@
         </div>
     </div>
     <div class="clearfix"></div>
+<div class="col-md-12">
     <div class="col-md-6">
         <div id="regionais"></div>
     </div>
+
     <div class="col-md-6">
         <div id="deficiencies"></div>
     </div>
+</div>
+
     <div class="clearfix"></div>
     <p></p>
+<div class="col-md-12">
     <div class="col-md-6">
        <div id="status-users"></div>
     </div>
     <div class="col-md-6">
        <div id="professions"></div>
     </div>
+</div>
 		
 	</div>
 	<script>

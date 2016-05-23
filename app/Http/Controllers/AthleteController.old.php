@@ -50,7 +50,7 @@ class AthleteController extends Controller
                         #caso o status seja alterado para setor, devo mudar o where para status.id
                         # e adicionar um join da tabela status
                         if (isset($request['status_id']) && $request['status_id'] != '') {
-                            $query->where('athletes.status_id', $request['status_id']);
+                            $query->where('athlete_sports.status_id', $request['status_id']);
                         }
 
                         if (isset($request['deficiency_id']) && $request['deficiency_id'] != '') {
@@ -67,6 +67,37 @@ class AthleteController extends Controller
                     ->orderBy('users.id')
                     ->groupBy('users.id')
                     ->paginate(10);
+            
+                    foreach($users as $index => $user){
+                        $qtd = 0;
+                        $inativos = 0;
+                        
+                        foreach($user->athlete->AthleteSport as $athleteSport){
+                            $qtd++;
+                            if($athleteSport->status->id == 2){
+                             $inativos++;
+                            }
+                        }
+                        
+                        if($inativos == $qtd){
+                            #return "não mostra usuario";
+                            #dd($users['items']);
+                            #unset($users[])
+
+                            $filtered = $users->reject(function ($item){
+                                return $item != $user->id;
+                            });
+                        }
+                    }
+
+                    $collection = collect([1, 2, 3, 4]);
+
+                    $filtered = $collection->reject(function ($item) {
+                        return $item > 2;
+                    });
+
+                    $filtered->all();
+                    https://laravel.com/docs/5.1/collectionsx
                     
         return view('athlete.index', compact('users', 'status', 'deficiencies', 'sports'));
 
@@ -132,7 +163,9 @@ class AthleteController extends Controller
     public function edit($id)
     {
         $athlete = \App\Athlete::find($id);
-        return view('athlete.edit', compact('athlete'));
+        $status = \App\Status::all();
+        $sports = \App\Sport::all();
+        return view('athlete.edit', compact('athlete', 'status', 'sports'));
     }
 
     /**
@@ -144,7 +177,10 @@ class AthleteController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        \App\AthleteSport::where('athlete_id', $id)
+                           ->where('sport_id', $request->input('sport_id'))
+                           ->update(['status_id' => $request->input('status_id')]);
+        return redirect('athlete');
     }
 
     /**
@@ -155,7 +191,8 @@ class AthleteController extends Controller
      */
     public function destroy($id)
     {
-        //
+        
     }
+    
     
 }

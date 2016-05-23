@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
+use database\seeds\RegionalSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -21,8 +22,6 @@ class DatabaseSeeder extends Seeder
         $this->call('EducationSeeder');
 
         $this->call('ProfessionSeeder');
-
-        $this->call('RegionalSeeder');
 
         $this->call('UserTableSeeder');
 
