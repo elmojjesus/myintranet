@@ -224,11 +224,6 @@
 
   </div>
 
-  <div style="text-align: right;" class="col-md-6">
-<font color="white">Versão 1.0</font>
-
-  </div>
-
 </div>
   </div>
 </footer>

@@ -77,8 +77,7 @@
 							</div>
 						</div>
 
-					</div>
-					l
+					</div>					
 					<br>
 
 					<div class="row">
