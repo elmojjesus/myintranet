@@ -131,7 +131,8 @@ class AthleteController extends Controller
      */
     public function edit($id)
     {
-        //
+        $athlete = \App\Athlete::find($id);
+        return view('athlete.edit', compact('athlete'));
     }
 
     /**
@@ -155,11 +156,6 @@ class AthleteController extends Controller
     public function destroy($id)
     {
         //
-    }
-    
-    public function test(){
-        $nome = "Elmão";
-        return view('test')->with('nome' , $nome);
     }
     
 }

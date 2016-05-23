@@ -31,7 +31,7 @@
                                 @if(  !is_null($athleteSport->sport) )
                                 <tr>
                                     <td> <center> {{ $athleteSport->sport->name }}  </center> </td>
-                                    <td> <center> {{ $athleteSport->status->name }} </center> </td>
+                                    <td> <center> n existe mais esse atrb </center> </td>
                                 </tr>
                                 @endif
                             @endforeach

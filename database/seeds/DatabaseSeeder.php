@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
+use database\seeds\RegionalSeeder;
 
 class DatabaseSeeder extends Seeder
 {
