@@ -82,7 +82,7 @@
 								</thead>
 								<tbody>
 									<tr>
-										<td> Cidade: {{ $user->address->city->name }} </td>
+										<td> Cidade: {{ $user->address->city }} </td>
 										<td> Estado: {{ $user->address->state }} </td>
 									</tr>
 									<tr>

@@ -33,7 +33,7 @@ class AddressTableSeeder extends Seeder
 	        	'complement' => $faker->secondaryAddress,
 	        	'zip_code' => $faker->postcode,
 	        	'neighborhood' => $faker->cityPrefix,
-	        	'city_id' => $cities->random(1)->id,
+	        	'city' => $cities->random(1)->name,
 	        	'regional' => $regionais[$faker->numberBetween(0, count($regionais) -1 )],
 	        	'user_id' => $user->id,
         	];
