@@ -16,10 +16,7 @@ class AthleteSeeder extends Seeder
         \App\Athlete::truncate();
        	$users = \App\User::all();
         $status = \App\Status::all();
-<<<<<<< HEAD
 
-=======
->>>>>>> 3a2d3fb98947c970d0b2f2126a441025a571f146
        	$athletes = [];
        	foreach(range(0, 199) as $value) {
        		$athletes[] = [

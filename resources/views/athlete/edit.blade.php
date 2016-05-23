@@ -32,7 +32,7 @@
                                 <tbody id="myForm">
                                 <tr>
                                     <td>
-                                        <p class="text-center"> Combo status </p>
+                                        <p class="text-center"> {{ $athlete->status->name }} </p>
                                     </td>
                                     <td>      
                                         <table class="table table-hover">  
@@ -47,7 +47,7 @@
                                                     </td>
                                                     <td>
                                                         <a 
-                                                          href="/athleteSports/destroy/{{ $athlete->id }}/{{ $athleteSport->sport->id }" 
+                                                          href="/athleteSports/destroy/{{ $athlete->id }}/{{ $athleteSport->sport->id }}" 
                                                           class="pointer" 
                                                           data-toggle="tooltip" 
                                                           data-placement="top" 
