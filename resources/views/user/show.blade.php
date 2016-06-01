@@ -95,7 +95,7 @@
 									</tr>
 									<tr>
 										<td> Bairro: {{ $user->address->neighborhood }} </td>
-										<td> Regional? {{ $user->address->regional }} </td>
+										<td> Regional: {{ $user->address->regional }} </td>
 									</tr>
 								</tbody>
 							</table>
