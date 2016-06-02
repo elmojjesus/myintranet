@@ -130,13 +130,13 @@
 	<div class="col-md-6">
 		<div class="form-group">
 		<label>Telefone 1:</label>
-		<input type="text" maxlength="14" placeholder="(00) 0000-0000" data-mask="(00) 0000-0000" class="form-control" id="telefone1" name="telephone1">
+		<input type="text" maxlength="14" placeholder="(00) 0000-0000" data-mask="(00) 0000-0000" class="form-control" id="homeNumber" name="homeNumber">
 		</div>
 	</div>
 	<div class="col-md-6">
 		<div class="form-group">
 		<label>Telefone 2:</label>
-		<input type="text" maxlength="14" placeholder="(00) 0000-0000" data-mask="(00) 0000-0000" class="form-control" id="telefone2" name="telephone2">
+		<input type="text" maxlength="14" placeholder="(00) 0000-0000" data-mask="(00) 0000-0000" class="form-control" id="mobileNumber" name="mobileNumber">
 		</div>
 	</div>
 
@@ -291,7 +291,7 @@ jQuery('.numeric').keyup(function () {
 function validaCampo() {
         var isSalvar = true;
         var objCadastro = { name: '#name', email : '#email', profession : '#profissao',
-          education : '#educacao', birthDate : '#dataNasc', status : '#status', nationality : '#nacionalidade', cpf : '#cpf', rg : '#rg', street : '#street', bairro : '#bairro', tel1 : '#telefone1', tel2 : '#telefone2', numero : '#number', cidade : '#cidade', estado : '#estado'
+          education : '#educacao', birthDate : '#dataNasc', status : '#status', nationality : '#nacionalidade', cpf : '#cpf', rg : '#rg', street : '#street', bairro : '#bairro', homeNumber : '#homeNumber', mobileNumber : '#mobileNumber', numero : '#number', cidade : '#cidade', estado : '#estado'
          };
 
         for (var i in objCadastro) {
