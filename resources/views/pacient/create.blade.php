@@ -6,6 +6,9 @@
 @section('content')
 	<form method="POST" action="/pacient/store">
 		{{ csrf_field() }}
+
+<div class="row">
+	<div clas="col-md-12">
 		<div class="col-md-6">
 			<div class="form-group">
 				<label>Tornar Paciente</label>
@@ -28,6 +31,9 @@
 				</select>
 			</div>
 		</div>
-		<input class="btn btn-primary" type="submit">
+		
+		<input class="btn btn-primary" value="Salvar" type="submit">
+		</div>
+		</div>
 	</form>
 @endsection
