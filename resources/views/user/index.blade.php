@@ -146,7 +146,7 @@
 											<td> --- </td>
 											<td> --- </td>
 											<td>
-												<a class="modal-ajax-link" data-mfp-src="/user/edit/{{ $user->id }}">
+												<a href="/user/edit/{{ $user->id }}">
 													<i class="fa fa-pencil"></i>
 												</a>
 											</td>

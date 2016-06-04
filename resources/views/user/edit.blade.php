@@ -1,4 +1,5 @@
-
+@extends('layouts.layout')
+@section('content')
 <form action="/user/update/{{ $user->id }}" method="POST">
 	<a href="/user/image/upload/{{ $user->id }}">Alterar foto de perfil</a>
 	<br>
@@ -311,3 +312,5 @@ $("#cpf").removeClass('danger');
 }
 
     </script>
+
+@endsection

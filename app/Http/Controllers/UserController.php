@@ -163,12 +163,15 @@ class UserController extends Controller
     {
         $data = $request->all();
         unset($data['_token']);
-        if ($data['password'] == '') {
-            unset($data['password']);
-        } else {
+        if (isset($data['password']) && $data['password'] != '') {
             $data['password'] = bcrypt($data['password']);
         }
-        unset($data['edit']);
+        if (isset($data['undefined'])) {
+            unset($data['undefined']);
+        }
+        if (isset($data['edit'])) {
+            unset($data['edit']);
+        }
         if (isset($data['rg'])) {
             $document = [
                 'rg' => $data['rg'],
@@ -180,7 +183,7 @@ class UserController extends Controller
         }
         \App\User::where('id', $id)->update($data);
         \App\Document::where('user_id', $id)->update($document);
-        Flash::success('Editado com sucesso.');
+        Flash::success('Usuário editado com sucesso!');
         return redirect('user');
     }
 
