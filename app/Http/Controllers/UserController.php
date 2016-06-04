@@ -94,14 +94,13 @@ class UserController extends Controller
     {
         $data = $request->all();
         unset($data['_token']);
-        if (isset($data['rg'])) {
-            $document = [
-                'rg' => $data['rg'],
-                'cpf' => $data['cpf'],
-                'passport' => $data['passport']
-            ];
-            unset($data['rg'], $data['cpf'], $data['passport']);
-        }
+        $document = [
+            'rg' => $data['rg'],
+            'cpf' => $data['cpf'],
+            'passport' => $data['passport']
+        ];
+        unset($data['rg'], $data['cpf'], $data['passport']);
+
         if (isset($data['street'])) {
             $address = [
                 'street' => $data['street'],
@@ -114,6 +113,8 @@ class UserController extends Controller
             ];
             unset($data['street'], $data['number'], $data['complement'], $data['codPostal'], $data['bairro'], $data['regional'], $data['cidade'], $data['estado']);
         }
+        $birthDate = \DateTime::createFromFormat('d/m/Y', $data['birthDate']);
+        $data['birthDate'] = $birthDate->format('Y-m-d');
         \App\User::insert($data);
         $user = \App\User::where('email', $data['email'])->first();
         $document['user_id'] = $user->id;

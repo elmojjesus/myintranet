@@ -44,7 +44,8 @@
 		<div class="form-group">
 			<label>Data de nascimento:</label> <label class="hidden" id="lblDataInvalido" style="color: red"> Data inválida, por favor, verifique
 		</label>
-			<input maxlength="10" onblur="validaData(this.value)" placeholder="__/__/____" data-mask="00/00/0000" type="text" id="birthDate" name="birthDate" class="form-control" value="{{ $user->birthDate }}">
+            <?php $birthDate = \Datetime::createFromFormat('Y-m-d', $user->birthDate); ?>
+			<input maxlength="10" onblur="validaData(this.value)" placeholder="__/__/____" data-mask="00/00/0000" type="text" id="birthDate" name="birthDate" class="form-control" value="{{ $birthDate->format('d/m/Y') }}">
 		</div>
 	</div>
 	<div class="col-md-6">

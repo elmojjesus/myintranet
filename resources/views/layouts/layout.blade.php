@@ -124,7 +124,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="table.html"><i class="fa fa-wheelchair"></i>
+                        <a><i class="fa fa-wheelchair"></i>
                             Pacientes<span class="fa arrow"></span>
                         </a>
                         <ul class="nav nav-second-level">
@@ -141,10 +141,21 @@
                         </ul>
                     </li>
                     <li>
-                        <a href="/reports">
+                        <a>
                             <i class="fa fa-area-chart"></i>
-                            Relatórios
+                            Relatórios<span class="fa arrow"></span>
                         </a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                {!! HTML::link('reports/user', 'Usuários', true) !!}
+                            </li>
+                            <li>
+                                {!! HTML::link('reports/athletes', 'Atletas', true) !!}
+                            </li>
+                            <li>
+                                {!! HTML::link('reports/pacients', 'Pacientes', true) !!}
+                            </li>
+                        </ul>
                     </li>
                     <li>
                         <a href="/profiles">

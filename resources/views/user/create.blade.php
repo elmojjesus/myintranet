@@ -130,13 +130,13 @@
 	<div class="col-md-6">
 		<div class="form-group">
 		<label>Telefone 1:</label>
-		<input type="text" maxlength="14" placeholder="(00) 0000-0000" data-mask="(00) 0000-0000" class="form-control" id="homeNumber" name="homeNumber">
+		<input type="text" maxlength="14" placeholder="(00) 0000-0000" data-mask="(00) 0000-0000" class="form-control" id="homeNumber" name="telephone1">
 		</div>
 	</div>
 	<div class="col-md-6">
 		<div class="form-group">
 		<label>Telefone 2:</label>
-		<input type="text" maxlength="14" placeholder="(00) 0000-0000" data-mask="(00) 0000-0000" class="form-control" id="mobileNumber" name="mobileNumber">
+		<input type="text" maxlength="14" placeholder="(00) 0000-0000" data-mask="(00) 0000-0000" class="form-control" id="mobileNumber" name="telephone2">
 		</div>
 	</div>
 

@@ -30,7 +30,7 @@ class UserRequest extends Request
                 'email' => 'required|email',
                 //'birthDate' => 'required|date_format:d/m/Y',
                 'sex' => 'required',
-                'rg' => 'required|max:15',
+                'rg' => 'required',
                 'cpf' => 'required|max:15'
             ];
         } else {
@@ -39,7 +39,7 @@ class UserRequest extends Request
                 'email' => 'required|email|unique:users',
                 //'birthDate' => 'required|date_format:d/m/Y',
                 'sex' => 'required',
-                'rg' => 'required|max:15',
+                'rg' => 'required',
                 'cpf' => 'required|max:15'
             ];
         }
