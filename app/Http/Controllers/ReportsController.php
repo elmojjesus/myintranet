@@ -17,7 +17,30 @@ class ReportsController extends Controller
      */
     public function index()
     {
-        return view('reports.index');
+        $totalUsers = \App\User::all()->count();
+        $usersBySex = [
+            'M' => \App\User::where('sex', 'M')->count(),
+            'F' => \App\User::where('sex', 'F')->count()
+        ];
+        $totalAthletes = \App\Athlete::all()->count();
+        $athletesBySex = [
+            'M' => \App\Athlete::scopeSex('M')->count(),
+            'F' => \App\Athlete::scopeSex('F')->count()
+        ];
+        $totalPacients = \App\Pacient::all()->count();
+        $pacientsBySex = [
+            'M' => \App\Pacient::ScopeSex('M')->count(),
+            'F' => \App\Pacient::ScopeSex('F')->count()
+        ];
+
+        return view('reports.index', compact(
+            'totalUsers',
+            'usersBySex',
+            'totalAthletes',
+            'athletesBySex',
+            'totalPacients',
+            'pacientsBySex'
+        ));
     }
 
     public function user(Request $request) {

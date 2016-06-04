@@ -109,9 +109,10 @@ class UserController extends Controller
                 'zip_code' => $data['codPostal'],
                 'neighborhood' => $data['bairro'],
                 'regional' => $data['regional'],
-                'city_id' => 1
+                'city' => $data['city'],
+                'state' => $data['state']
             ];
-            unset($data['street'], $data['number'], $data['complement'], $data['codPostal'], $data['bairro'], $data['regional'], $data['cidade'], $data['estado']);
+            unset($data['street'], $data['number'], $data['complement'], $data['codPostal'], $data['bairro'], $data['regional'], $data['city'], $data['state']);
         }
         $birthDate = \DateTime::createFromFormat('d/m/Y', $data['birthDate']);
         $data['birthDate'] = $birthDate->format('Y-m-d');
