@@ -87,4 +87,8 @@ class User extends Model implements AuthenticatableContract,
         }
         return \App\User::whereNotIn('id', $ids)->orderBy('name')->get();
     }
+
+    public function status() {
+        return $this->belongsTo('App\Status');
+    }
 }

@@ -107,11 +107,11 @@ class UserController extends Controller
                 'number' => $data['number'],
                 'complement' => $data['complement'],
                 'zip_code' => $data['codPostal'],
-                'neighborhood' => $data['bairro'],
+                'neighborhood' => $data['neighborhood'],
                 'regional' => $data['regional'],
                 'city_id' => 1
             ];
-            unset($data['street'], $data['number'], $data['complement'], $data['codPostal'], $data['bairro'], $data['regional'], $data['cidade'], $data['estado']);
+            unset($data['street'], $data['number'], $data['complement'], $data['codPostal'], $data['neighborhood'], $data['regional'], $data['cidade'], $data['estado']);
         }
         $birthDate = \DateTime::createFromFormat('d/m/Y', $data['birthDate']);
         $data['birthDate'] = $birthDate->format('Y-m-d');
@@ -149,7 +149,8 @@ class UserController extends Controller
         $deficiencies = \App\Deficiency::all();
         $educations = \App\Education::all();
         $professions = \App\Profession::all();
-        return view('user.edit', compact('user', 'deficiencies', 'educations', 'professions'));
+        $status = \App\Status::all();
+        return view('user.edit', compact('user', 'deficiencies', 'educations', 'professions', 'status'));
     }
 
     /**

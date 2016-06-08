@@ -129,14 +129,14 @@
 	</div>
 	<div class="col-md-6">
 		<div class="form-group">
-		<label>Telefone 1:</label>
-		<input type="text" maxlength="14" placeholder="(00) 0000-0000" data-mask="(00) 0000-0000" class="form-control" id="homeNumber" name="telephone1">
+		<label>Telefone:</label>
+		<input type="text" maxlength="14" placeholder="(00) 0000-0000" data-mask="(00) 0000-0000" class="form-control" id="telephone1" name="telephone1">
 		</div>
 	</div>
 	<div class="col-md-6">
 		<div class="form-group">
-		<label>Telefone 2:</label>
-		<input type="text" maxlength="14" placeholder="(00) 0000-0000" data-mask="(00) 0000-0000" class="form-control" id="mobileNumber" name="telephone2">
+		<label>Celular:</label>
+		<input type="text" maxlength="14" placeholder="(00) 0000-0000" data-mask="(00) 0000-0000" class="form-control" id="telephone2" name="telephone2">
 		</div>
 	</div>
 
@@ -164,7 +164,7 @@
 	<div class="col-md-6">
 		<div class="form-group">
 			<label>Passaporte</label>
-			<input type="text" maxlength="100" placeholder="Passaporte" id="passport" name="passport" class="form-control numeric" />
+			<input type="text" maxlength="50" placeholder="Passaporte" id="passport" name="passport" class="form-control numeric" />
 		</div>
 	</div>
 	</div>
@@ -194,13 +194,13 @@
 	<div class="col-md-6">
 		<div class="form-group">
 			<label>Código Postal</label>
-			<input type="text" maxlength="5" placeholder="Código Postal" name="codPostal" id="codPostal" class="form-control numeric" />
+			<input type="text" maxlength="9" placeholder="Código Postal" name="codPostal" id="codPostal" class="form-control numeric" />
 		</div>
 	</div>
 	<div class="col-md-3">
 		<div class="form-group">
 			<label>Bairro</label>
-			<input type="text" maxlength="250" placeholder="Bairro" name="bairro" id="bairro" class="form-control" />
+			<input type="text" maxlength="250" placeholder="Bairro" name="neighborhood" id="neighborhood" class="form-control" />
 		</div>
 	</div>
 		<div class="col-md-3">
@@ -291,7 +291,7 @@ jQuery('.numeric').keyup(function () {
 function validaCampo() {
         var isSalvar = true;
         var objCadastro = { name: '#name', email : '#email', profession : '#profissao',
-          education : '#educacao', birthDate : '#dataNasc', status : '#status', nationality : '#nacionalidade', cpf : '#cpf', rg : '#rg', street : '#street', bairro : '#bairro', homeNumber : '#homeNumber', mobileNumber : '#mobileNumber', numero : '#number', cidade : '#cidade', estado : '#estado'
+          education : '#educacao', birthDate : '#dataNasc', status : '#status', nationality : '#nacionalidade', cpf : '#cpf', rg : '#rg', street : '#street', neighborhood : '#neighborhood', number : '#number', telephone1 : '#telephone1', telephone2 : '#telephone2', cidade : '#cidade', estado : '#estado', regional : '#regional'
          };
 
         for (var i in objCadastro) {

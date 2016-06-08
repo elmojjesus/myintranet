@@ -1,7 +1,7 @@
 @extends('layouts.layout')
 
 @section('title')
-    Relatórios <small> / Relatórios </small>
+    Dashboard <small> / Dashboard </small>
 @stop
 
 @section('content') 

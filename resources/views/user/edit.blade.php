@@ -1,3 +1,11 @@
+@extends('layouts.layout')
+
+@section('title')
+     Editar o usuário <i class="fa fa-user"></i>
+     <small> / Usuários / Editar </small>
+@stop
+
+@section('content')
 
 <form action="/user/update/{{ $user->id }}" method="POST">
 	<a href="/user/image/upload/{{ $user->id }}">Alterar foto de perfil</a>
@@ -102,6 +110,38 @@
 			<input type="checkbox" name="voluntary" {{ $user->voluntary ? 'checked' : '' }}>
 		</div>
 	</div>
+
+    <div class="col-md-6">
+        <div class="form-group">
+        <label>Status:</label>
+        <select class="form-control" id="status" name="status_id">
+            
+                @foreach($status as $statu)
+                    <option {{ $statu->id == $user->status->id ? 'selected' : '' }} value="{{ $statu->id }}">{{ $statu->name }}</option>
+                @endforeach
+            
+        </select>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+        <label>Telefone:</label>
+        <input type="text" maxlength="14" placeholder="(00) 0000-0000" data-mask="(00) 0000-0000" class="form-control" id="telephone1" value="{{ $user->telephone1 }}" name="telephone1">
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+        <label>Celular:</label>
+        <input type="text" maxlength="14" placeholder="(00) 0000-0000" data-mask="(00) 0000-0000" class="form-control" id="telephone2" value="{{ $user->telephone2 }}" name="telephone2">
+        </div>
+    </div>
+
+        </div>
+    </div>
+    </div>
+    <div class="panel panel-default">
+            <div class="panel-heading">Documentos</div>
+            <div class="panel-body">
 	<div class="col-md-6">
 		<div class="form-group">
 			<label>RG</label>
@@ -123,12 +163,108 @@
 		</div>
 	</div>
 
+
+	</div>
+	</div>
+    <div class="panel panel-default">
+            <div class="panel-heading">Endereço</div>
+            <div class="panel-body">
+    <div class="col-md-6">
+        <div class="form-group">
+            <label>Rua</label>
+            <input type="text" value="{{ $user->address->street }}" maxlength="250" placeholder="Rua" name="street" id="street" class="form-control" />
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="form-group">
+            <label>Número</label>
+            <input type="text" maxlength="5" value="{{ $user->address->number }}" placeholder="Número" name="number" id="number" class="form-control numeric" />
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="form-group">
+            <label>Complemento</label>
+            <input type="text" maxlength="100" value="{{ $user->address->complement }}" placeholder="Complemento" name="complement" id="complement" class="form-control" />
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            <label>Código Postal</label>
+            <input type="text" maxlength="9" value="{{ $user->address->zip_code }}" placeholder="Código Postal" name="codPostal" id="codPostal" class="form-control numeric" />
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="form-group">
+            <label>Bairro</label>
+            <input type="text" maxlength="250" value="{{ $user->address->neighborhood }}" placeholder="Bairro" name="neighborhood" id="neighborhood" class="form-control" />
+        </div>
+    </div>
+        <div class="col-md-3">
+        <div class="form-group">
+            <label>Regional</label>
+            <select class="form-control" id="regional" name="regional">
+            <option value="{{ $user->address->regional }}">{{ $user->address->regional }}</option> 
+                <option value="Bairro Novo">Bairro Novo</option>
+                <option value="Boa Vista">Boa Vista</option>
+                <option value="Boqueirão">Boqueirão</option>
+                <option value="Cajuru">Cajurú</option>
+                <option value="CIC">CIC</option>
+                <option value="Fazendinha/Portão">Fazendinha/Portão</option>
+                <option value="Matriz">Matriz</option>
+                <option value="Pinheirinho">Pinheirinho</option>
+                <option value="Santa Felicidade">Santa Felicidade</option>
+                <option value="Tatuquara">Tatuquara</option>
+            </select> 
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            <label>Cidade</label>
+            <input type="text" maxlength="250" placeholder="Cidade" id="city" name="city" class="form-control" />
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            <label>Estado</label>
+            <select name="state" class="form-control" id="state"> 
+        <option value="Selecione">-- Selecione --</option> 
+        <option value="ac">Acre</option> 
+        <option value="al">Alagoas</option> 
+        <option value="am">Amazonas</option> 
+        <option value="ap">Amapá</option> 
+        <option value="ba">Bahia</option> 
+        <option value="ce">Ceará</option> 
+        <option value="df">Distrito Federal</option> 
+        <option value="es">Espírito Santo</option> 
+        <option value="go">Goiás</option> 
+        <option value="ma">Maranhão</option> 
+        <option value="mt">Mato Grosso</option> 
+        <option value="ms">Mato Grosso do Sul</option> 
+        <option value="mg">Minas Gerais</option> 
+        <option value="pa">Pará</option> 
+        <option value="pb">Paraíba</option> 
+        <option value="pr">Paraná</option> 
+        <option value="pe">Pernambuco</option> 
+        <option value="pi">Piauí</option> 
+        <option value="rj">Rio de Janeiro</option> 
+        <option value="rn">Rio Grande do Norte</option> 
+        <option value="ro">Rondônia</option> 
+        <option value="rs">Rio Grande do Sul</option> 
+        <option value="rr">Roraima</option> 
+        <option value="sc">Santa Catarina</option> 
+        <option value="se">Sergipe</option> 
+        <option value="sp">São Paulo</option> 
+        <option value="to">Tocantins</option> 
+    </select>
+        </div>
+    </div>
+
+    </div>
+</div>
 	</div>
 	</div>
 	</div>
-	</div>
-	</div>
-	<input type="submit"  class="btn btn-primary" value="Salvar" />
+	<input type="submit" onclick="return validaCampo();" class="btn btn-primary" value="Salvar" />
 </form>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js" type="text/javascript"></script>
@@ -143,7 +279,8 @@ jQuery('.numeric').keyup(function () {
 
 function validaCampo() {
         var isSalvar = true;
-        var objCadastro = { name: '#name', email : '#email', birthDate : '#birthDate', nationality : '#nationality', cpf : '#cpf', rg : '#rg'
+        var objCadastro = { name: '#name', email : '#email', profession : '#profissao',
+          education : '#educacao', birthDate : '#dataNasc', status : '#status', nationality : '#nacionalidade', cpf : '#cpf', rg : '#rg', street : '#street', neighborhood : '#neighborhood', number : '#number', telephone1 : '#telephone1', telephone2 : '#telephone2', city : '#city', state : '#state', regional : '#regional'
          };
 
         for (var i in objCadastro) {
@@ -311,3 +448,5 @@ $("#cpf").removeClass('danger');
 }
 
     </script>
+
+    @endsection
