@@ -10,13 +10,11 @@
 | and give it the controller to call when that URI is requested.
 |
 */
-Route::get('/', ['middleware' => 'auth', function () {
-    return view('reports/index');
-}]);
 
 Route::group(['middleware' => 'auth'], function() {
 
 	//Dashboard routes
+	Route::get('/', 'ReportsController@index');
 	Route::get('dashboard', 'ReportsController@index');
 
 	//Routes deficiencies

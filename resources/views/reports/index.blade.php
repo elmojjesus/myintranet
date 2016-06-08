@@ -6,6 +6,17 @@
 
 @section('content') 
 
+Usuários <br>
+Total: {{ $totalUsers }} <br>
+Sexo:{{ $usersBySex['M'] . ' ' . $usersBySex['F'] }} <br>
+<hr>
+Atletas <br>
+Total: {{ $totalAthletes }} <br>
+Sexo: {{ $athletesBySex['M'] }} <br>
+<hr>
+Pacientes <br>
+Total: {{ $totalPacients }} <br>
+Sexo: {{ $pacientsBySex['M'] }} <br>
 <div class="row">
 	<div class="col-md-12">
 		<div class="col-md-4">

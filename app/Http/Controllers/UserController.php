@@ -109,9 +109,10 @@ class UserController extends Controller
                 'zip_code' => $data['codPostal'],
                 'neighborhood' => $data['neighborhood'],
                 'regional' => $data['regional'],
-                'city_id' => 1
+                'city' => $data['city'],
+                'state' => $data['state']
             ];
-            unset($data['street'], $data['number'], $data['complement'], $data['codPostal'], $data['neighborhood'], $data['regional'], $data['cidade'], $data['estado']);
+            unset($data['street'], $data['number'], $data['complement'], $data['codPostal'], $data['bairro'], $data['regional'], $data['city'], $data['state']);
         }
         $birthDate = \DateTime::createFromFormat('d/m/Y', $data['birthDate']);
         $data['birthDate'] = $birthDate->format('Y-m-d');
@@ -164,12 +165,15 @@ class UserController extends Controller
     {
         $data = $request->all();
         unset($data['_token']);
-        if ($data['password'] == '') {
-            unset($data['password']);
-        } else {
+        if (isset($data['password']) && $data['password'] != '') {
             $data['password'] = bcrypt($data['password']);
         }
-        unset($data['edit']);
+        if (isset($data['undefined'])) {
+            unset($data['undefined']);
+        }
+        if (isset($data['edit'])) {
+            unset($data['edit']);
+        }
         if (isset($data['rg'])) {
             $document = [
                 'rg' => $data['rg'],
@@ -181,7 +185,7 @@ class UserController extends Controller
         }
         \App\User::where('id', $id)->update($data);
         \App\Document::where('user_id', $id)->update($document);
-        Flash::success('Editado com sucesso.');
+        Flash::success('Usuário editado com sucesso!');
         return redirect('user');
     }
 

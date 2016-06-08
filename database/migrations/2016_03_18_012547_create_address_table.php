@@ -19,8 +19,10 @@ class CreateAddressTable extends Migration
             $table->string('complement', 100)->nullable();
             $table->string('zip_code', 8)->nullable();
             $table->string('neighborhood', 40)->nullable();
-            $table->integer('city_id')->unsigned();
-            $table->foreign('city_id')->references('id')->on('cities');
+            $table->string('city', 120)->nullable();
+            $table->string('state', 120)->nullable();
+            /* $table->integer('city_id')->unsigned();
+            $table->foreign('city_id')->references('id')->on('cities'); */
             $table->string('regional', 120)->nullable();
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users');
