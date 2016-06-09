@@ -35,12 +35,13 @@
 							<td> Nacionalidade: {{ $user->nacionality }} </td>
 						</tr>
 						<tr>
-							<td> E-mail: {{ $user->email }} </td>
 							<td> Mãe: {{ $user->mother }} </td>
+							<td> Pai: {{ $user->father }} </td>
 						</tr>
 						<tr>
 							<td> Deficiência: {{ $user->deficiency->name }} </td>
-							<td> Pai: {{ $user->father }} </td>
+														<td> Profissão: {{ $user->profession->name }} </td>
+							
 						</tr>
 						<tr>
 							<td> Data Nasc.: {{ $user->birthDate }} </td>
@@ -48,7 +49,7 @@
 						</tr>
 						<tr>
 							<td> Sexo: {{ $user->sex }} </td>
-							<td> Profissão: {{ $user->profession->name }} </td>
+
 						</tr>
 					</table>
 
@@ -102,7 +103,7 @@
 						@endif
 
 						<!-- Contato -->
-						@if(!is_null($user->contact))
+					
 							<table class="table table-bordered table-hover">
 								<thead class="thead-default">
 									<tr>
@@ -111,18 +112,16 @@
 								</thead>
 								<tbody>
 									<tr>
-										<td> Telefone: {{ $user->contact->homeNumber }} </td>
-										<td> Celular: {{ $user->contact->mobileNumber }} </td>
+										<td> Telefone: {{ $user->telephone1 }} </td>
+										<td> Celular: {{ $user->telephone2 }} </td>
 									</tr>
 									<tr>
-										<td colspan="2"> Num. para recado: {{ $user->contact->toMessageNumber }} </td>
+																	<td> E-mail: {{ $user->email }} </td>
 									</tr>
-									<tr>
-										<td colspan="2"> Email: {{ $user->contact->email }} </td>
-									</tr>
+									
 								</tbody>
 							</table>
-						@endif
+						
 
 						<!-- Atendimentos -->
 						<table class="table table-bordered table-hover on-center">
