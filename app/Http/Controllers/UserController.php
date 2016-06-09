@@ -174,6 +174,19 @@ class UserController extends Controller
         if (isset($data['edit'])) {
             unset($data['edit']);
         }
+        if (isset($data['street'])) {
+            $address = [
+                'street' => $data['street'],
+                'number' => $data['number'],
+                'complement' => $data['complement'],
+                'zip_code' => $data['codPostal'],
+                'neighborhood' => $data['neighborhood'],
+                'regional' => $data['regional'],
+                'city' => isset($data['city']) ? $data['city'] : null,
+                'state' => $data['state']
+            ];
+            unset($data['street'], $data['number'], $data['complement'], $data['codPostal'], $data['neighborhood'], $data['regional'], $data['city'], $data['state']);
+        }
         if (isset($data['rg'])) {
             $document = [
                 'rg' => $data['rg'],
@@ -185,6 +198,7 @@ class UserController extends Controller
         }
         \App\User::where('id', $id)->update($data);
         \App\Document::where('user_id', $id)->update($document);
+        \App\Address::where('user_id', $id)->update($address);
         Flash::success('Usuário editado com sucesso!');
         return redirect('user');
     }
