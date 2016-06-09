@@ -6,34 +6,54 @@
 
 @section('content') 
 
-
-Atletas <br>
-Total: {{ $totalAthletes }} <br>
-Sexo: {{ $athletesBySex['M'] }} <br>
-<hr>
-Pacientes <br>
-Total: {{ $totalPacients }} <br>
-Sexo: {{ $pacientsBySex['M'] }} <br>
-
-
 <div class="row">
 	<div class="col-md-12">
 		<div class="col-md-4">
 		<div class="panel panel-default">
-		<h4 class="text-center">Usuários</h4>
-		<h3 class="text-center">Total: {{ $totalUsers }}</h3>
-		<h3 class="text-center">Sexo: {{ $usersBySex['M'] . ' ' . $usersBySex['F'] }}</h3>
-
-	<a class="btn btn-success" href="/reports/user">Relatório Usuários</a> 
-	<p></p>
-            </div>  
+		<h3 class="text-center">Usuários</h3>
+		<h4 class="text-center">Total: {{ $totalUsers }}</h4>
+		<h4 class="text-center">Quantidade por sexo</h4>
+                <h4 class="text-center">Masculino: {{ $usersBySex['M'] }}</h4>
+                <h4 class="text-center">Feminino: {{ $usersBySex['F'] }}</h4>
+<br/>
+<div style="text-align: center">
+	<a class="btn btn-success" href="/reports/user">Relatório de Usuários</a>
+	</div> 
+	<br/>
+    </div>  
 	</div>
+
 	<div class="col-md-4">
+	<div class="panel panel-default">
+	<h3 class="text-center">Atletas</h3>
+	<h4 class="text-center">Total: {{ $totalAthletes }}</h4>
+	<h4 class="text-center">Quantidade por sexo</h4>
+                <h4 class="text-center">Masculino: {{ $athletesBySex['M'] }}</h4>
+                <h4 class="text-center">Feminino: {{ $athletesBySex['F'] }}</h4>
+	<br/>
+	<div style="text-align: center">
 	<a class="btn btn-success" href="/reports/athletes">Relatório de Atletas</a> 
 	</div>
+	<br/>
+	</div> 
+	</div> 
+
+
 	<div class="col-md-4">
+	<div class="panel panel-default">
+	<h3 class="text-center">Pacientes</h3>
+	<h4 class="text-center">Total: {{ $totalPacients }} </h4>
+	<h4 class="text-center">Quantidade por sexo</h4>
+                <h4 class="text-center">Masculino: {{ $pacientsBySex['M'] }}</h4>
+                <h4 class="text-center">Feminino: {{ $pacientsBySex['F'] }}</h4>
+	<br/>
+	<div style="text-align: center">
 	<a class="btn btn-success" href="/reports/pacients">Relatório de Pacientes</a>
 	</div>
+	<br/>
+	</div>
+	</div>
+
 	     </div>
             </div>
 
