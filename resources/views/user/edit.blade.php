@@ -105,11 +105,22 @@
 		</div>
 	</div>
 	<div class="col-md-6">
-		<div class="form-group">
-			<label>Voluntário:</label>
-			<input type="checkbox" name="voluntary" {{ $user->voluntary ? 'checked' : '' }}>
-		</div>
-	</div>
+        <div class="form-group">
+
+        <!--<label>Voluntário:</label>
+        <input type="checkbox" class="form-control" id="voluntario" name="voluntary">
+-->
+            <label>Voluntário:</label>
+            <br>
+            <label class="checkbox-inline">
+                Sim <input type="radio" id="volS" name="voluntary"> 
+            </label>    
+            <label class="checkbox-inline">
+                Não <input type="radio" id="volN" name="voluntary"> 
+            </label>
+
+        </div>
+    </div>
 
     <div class="col-md-6">
         <div class="form-group">
@@ -279,8 +290,8 @@ jQuery('.numeric').keyup(function () {
 
 function validaCampo() {
         var isSalvar = true;
-        var objCadastro = { name: '#name', email : '#email', profession : '#profissao',
-          education : '#educacao', birthDate : '#dataNasc', status : '#status', nationality : '#nacionalidade', cpf : '#cpf', rg : '#rg', street : '#street', neighborhood : '#neighborhood', number : '#number', telephone1 : '#telephone1', telephone2 : '#telephone2', city : '#city', state : '#state', regional : '#regional'
+        var objCadastro = { name: '#name', email : '#email', profession : '#profession',
+          education : '#education', birthDate : '#birthDate', status : '#status', nationality : '#nationality', cpf : '#cpf', rg : '#rg', street : '#street', neighborhood : '#neighborhood', number : '#number', telephone1 : '#telephone1', telephone2 : '#telephone2', cidade : '#cidade', estado : '#estado', regional : '#regional'
          };
 
         for (var i in objCadastro) {
@@ -297,7 +308,7 @@ function validaCampo() {
     }
 
 
-    function verificaCampo(campo) {
+  function verificaCampo(campo) {
         if ($(campo).val() == " " || $(campo).val() == "" || $(campo).val() == undefined ||
             $(campo).val() == "Selecione") {
             $(campo).addClass('danger');
@@ -307,7 +318,6 @@ function validaCampo() {
             return false;
         }
     }
-
 
    function validaEmail(){
     var	emailAddress = $("#email").val();

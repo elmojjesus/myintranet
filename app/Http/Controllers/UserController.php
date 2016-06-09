@@ -109,7 +109,7 @@ class UserController extends Controller
                 'zip_code' => $data['codPostal'],
                 'neighborhood' => $data['neighborhood'],
                 'regional' => $data['regional'],
-                'city' => $data['city'],
+                'city' => isset($data['city'])?$data['city']:null,
                 'state' => $data['state']
             ];
             unset($data['street'], $data['number'], $data['complement'], $data['codPostal'], $data['bairro'], $data['regional'], $data['city'], $data['state']);

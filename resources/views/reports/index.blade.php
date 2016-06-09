@@ -6,10 +6,7 @@
 
 @section('content') 
 
-Usuários <br>
-Total: {{ $totalUsers }} <br>
-Sexo:{{ $usersBySex['M'] . ' ' . $usersBySex['F'] }} <br>
-<hr>
+
 Atletas <br>
 Total: {{ $totalAthletes }} <br>
 Sexo: {{ $athletesBySex['M'] }} <br>
@@ -17,10 +14,19 @@ Sexo: {{ $athletesBySex['M'] }} <br>
 Pacientes <br>
 Total: {{ $totalPacients }} <br>
 Sexo: {{ $pacientsBySex['M'] }} <br>
+
+
 <div class="row">
 	<div class="col-md-12">
 		<div class="col-md-4">
+		<div class="panel panel-default">
+		<h4 class="text-center">Usuários</h4>
+		<h3 class="text-center">Total: {{ $totalUsers }}</h3>
+		<h3 class="text-center">Sexo: {{ $usersBySex['M'] . ' ' . $usersBySex['F'] }}</h3>
+
 	<a class="btn btn-success" href="/reports/user">Relatório Usuários</a> 
+	<p></p>
+            </div>  
 	</div>
 	<div class="col-md-4">
 	<a class="btn btn-success" href="/reports/athletes">Relatório de Atletas</a> 

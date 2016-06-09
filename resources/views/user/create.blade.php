@@ -224,13 +224,13 @@
 	<div class="col-md-6">
 		<div class="form-group">
 			<label>Cidade</label>
-			<input type="text" maxlength="250" placeholder="Cidade" id="cidade" name="cidade" class="form-control" />
+			<input type="text" maxlength="250" placeholder="Cidade" id="city" name="city" class="form-control" />
 		</div>
 	</div>
 	<div class="col-md-6">
 		<div class="form-group">
 			<label>Estado</label>
-			<select name="estado" class="form-control" id="estado"> 
+			<select name="state" class="form-control" id="state"> 
 		<option value="Selecione">-- Selecione --</option> 
 		<option value="ac">Acre</option> 
 		<option value="al">Alagoas</option> 
@@ -291,7 +291,7 @@ jQuery('.numeric').keyup(function () {
 function validaCampo() {
         var isSalvar = true;
         var objCadastro = { name: '#name', email : '#email', profession : '#profissao',
-          education : '#educacao', birthDate : '#dataNasc', status : '#status', nationality : '#nacionalidade', cpf : '#cpf', rg : '#rg', street : '#street', neighborhood : '#neighborhood', number : '#number', telephone1 : '#telephone1', telephone2 : '#telephone2', cidade : '#cidade', estado : '#estado', regional : '#regional'
+          education : '#educacao', birthDate : '#dataNasc', status : '#status', nationality : '#nacionalidade', cpf : '#cpf', rg : '#rg', street : '#street', neighborhood : '#neighborhood', number : '#number', telephone1 : '#telephone1', telephone2 : '#telephone2', city : '#city', state : '#state', regional : '#regional'
          };
 
         for (var i in objCadastro) {
