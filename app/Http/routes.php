@@ -72,7 +72,7 @@ Route::group(['middleware' => 'auth'], function() {
 	Route::get('athlete/show/{id}', 'AthleteController@show');
 	Route::get('athlete/edit/{id}', 'AthleteController@edit');
 	Route::post('athlete/update/{id}', 'AthleteController@update');
-	Route::get('athleteSports/destroy/{athlete_id}/{sport_id}', 'AthleteSportsController@destroy');
+	Route::post('athleteSports/destroy/{athlete_id}', 'AthleteSportsController@destroy');
 
 	//Route Documents
 	Route::get('document/create/{id}', 'DocumentController@create');

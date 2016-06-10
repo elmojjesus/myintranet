@@ -88,12 +88,31 @@ class AthleteSportsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($athlete_id, $sport_id)
+    public function destroy(Request $request, $athlete_id)
     {
-        $sport = \App\AthleteSport::where('athlete_id', $athlete_id)
-                                    ->where('sport_id', $sport_id);
-        $sport->delete();
+        #$sport = \App\AthleteSport::where('athlete_id', $athlete_id)
+        #                            ->where('sport_id', $sport_id);
+        #$sport->delete();
         
+        #return redirect('athlete');
+        $checked = $request->only('sports');
+        #$sportsIds = [];
+        foreach ($checked as $checkedBox) {
+            foreach ($checkedBox as $sport_id) {
+                $sportsIds[] = $sport_id;
+                \App\AthleteSport::where('athlete_id', $athlete_id)
+                                    ->where('sport_id', $sport_id)
+                                    ->delete();
+            }
+            
+        }
+
+        $num = \App\AthleteSport::where('athlete_id', $athlete_id)->count();
+
+        if($num == 0){
+            \App\Athlete::where('id', $athlete_id)->update(['status_id' => 2]);
+        }
+        #Falta flash message
         return redirect('athlete');
     }
 }

@@ -132,7 +132,8 @@ class AthleteController extends Controller
     public function edit($id)
     {
         $athlete = \App\Athlete::find($id);
-        return view('athlete.edit', compact('athlete'));
+        $status = \App\Status::all();
+        return view('athlete.edit', compact('athlete', 'status'));
     }
 
     /**
@@ -144,7 +145,8 @@ class AthleteController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        \App\Athlete::where('id', $id)->update('status_id', $request->input('status_id'));
+        return redirect('athlete');
     }
 
     /**

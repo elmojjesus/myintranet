@@ -18,7 +18,7 @@ class AthleteSeeder extends Seeder
         $status = \App\Status::all();
 
        	$athletes = [];
-       	foreach(range(0, 199) as $value) {
+       	foreach(range(0, 20) as $value) {
        		$athletes[] = [
        			'user_id' => $users->random(1)->id,
             'status_id' => $status->random(1)->id,

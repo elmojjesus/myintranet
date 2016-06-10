@@ -136,7 +136,6 @@
                                                 @endforeach
                                             @endif
                                         @endif
-                                        {{ $index+1 }}
                                     </td>
                                     <?php $athlete = $user->athlete; ?>
                                     <td> {{ $athlete->status['name'] }}</td>
