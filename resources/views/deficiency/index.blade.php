@@ -13,11 +13,16 @@
                 <div class="panel-heading"> Cadastre uma deficiência </div>
                 <div class="panel-body">
                         {!! Form::open(array('method' => 'post', 'action' => 'DeficiencyController@store')) !!}
+                        <div id="erros" class="col-md-12 hidden">
+        <div class="form-group">
+        <label style="color:#ff0000; text-align: center;">Campo Nome é obrigatório, por favor verifique!</label>
+        </div>
+    </div> 
                             <div class="form-group">
                                 <label> Nome da deficiência </label>
-                                {!! Form::text('name', '', $attributes = array('class' => 'form-control', 'maxlength' => '100')) !!}
+                                {!! Form::text('name', '', $attributes = array('class' => 'form-control', 'maxlength' => '100', 'id' => 'name')) !!}
                                 <br>
-                                {!! Form::submit('Cadastrar deficiência', $attributes = array('class' => 'btn btn-primary')) !!}    
+                                {!! Form::submit('Cadastrar deficiência', $attributes = array('class' => 'btn btn-primary', 'onclick' => 'return validaCampo();')) !!}    
                             </div>
                         {!! Form::close() !!}
                 </div>
@@ -68,6 +73,35 @@
 
     <script type="text/javascript">
         
+        function validaCampo() {
+        var isSalvar = true;
+        var objCadastro = { name: '#name' };
+
+        for (var i in objCadastro) {
+            verificaCampo(objCadastro[i]);
+            if (verificaCampo(objCadastro[i])) {
+                isSalvar = false;
+            }
+        }
+
+        if (!isSalvar) {
+            $("#erros").removeClass('hidden');
+        }
+        return isSalvar;
+    }
+
+
+    function verificaCampo(campo) {
+        if ($(campo).val() == " " || $(campo).val() == "" || $(campo).val() == undefined ||
+            $(campo).val() == "Selecione") {
+            $(campo).addClass('danger');
+            return true;
+        } else {
+            $(campo).removeClass('danger');
+            return false;
+        }
+    }
+
 
     </script>
         

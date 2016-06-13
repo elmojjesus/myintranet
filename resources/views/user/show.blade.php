@@ -49,7 +49,11 @@
 						</tr>
 						<tr>
 							<td> Sexo: {{ $user->sex }} </td>
-
+							<td> Porta de Entrada: </td>
+						</tr>
+						<tr>
+							<td> Cadastro Inicial: </td>
+							
 						</tr>
 					</table>
 
@@ -64,10 +68,15 @@
 								<tbody>
 									<tr>
 										<td> CPF: {{ $user->document->cpf }} </td>
-										<td> RG: {{ $user->document->rg }} </td>
+										<td> Emitido em: </td>
 									</tr>
 									<tr>
-										<td colspan="2"> Passaporte: {{ $user->document->passaport }} </td>
+										<td> RG: {{ $user->document->rg }} </td>
+										<td> Emitido em: </td>
+									</tr>
+									<tr>
+										<td > Passaporte: {{ $user->document->passaport }} </td>
+										<td> Emitido em: </td>
 									</tr>
 								</tbody>
 							</table>

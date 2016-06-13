@@ -1,4 +1,10 @@
 @extends('layouts.layout')
+
+@section('title')
+     Relatórios de Pacientes <i class="fa fa-tasks"></i>
+     <small> / Relatórios / Pacientes </small>
+@stop
+
 @section('content')
 	<script src="{{ URL::asset('assets/js/jquery-1.10.2.js') }}"></script>
 	<script src="{{ URL::asset('assets/js/highcharts/highcharts.js') }}"></script>

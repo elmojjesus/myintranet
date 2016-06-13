@@ -57,7 +57,7 @@
 							<div id="dataTables-example_length" class="dataTables_length">
 								<label>Status:</label>
 								<select name="status_id" class="form-control input-sm">
-									<option value="">Selecione o status na associação</option>
+									<option value="">--Selecione--</option>
 									@foreach($status as $s)
 										<option {{ isset($query['status_id']) && $query['status_id'] == $s->id ? 'selected="selected"' : '' }} value="{{ $s->id }}">{{ $s->name }}</option>
 									@endforeach
@@ -69,7 +69,7 @@
 							<div id="dataTables-example_length" class="dataTables_length">
 								<label>Deficiência:</label>
 								<select name="deficiency_id" class="form-control input-sm">
-									<option value="">Selecione uma deficiência</option>
+									<option value="">--Selecione--</option>
 									@foreach($deficiencies as $deficiency)
 										<option {{ isset($query['deficiency_id']) && $query['deficiency_id'] == $deficiency->id ? 'selected="selected"' : '' }} value="{{ $deficiency->id }}">{{ $deficiency->name }}</option>
 									@endforeach

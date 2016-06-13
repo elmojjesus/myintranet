@@ -146,6 +146,18 @@
         <input type="text" maxlength="14" placeholder="(00) 0000-0000" data-mask="(00) 0000-0000" class="form-control" id="telephone2" value="{{ $user->telephone2 }}" name="telephone2">
         </div>
     </div>
+    <div class="col-md-6">
+        <div class="form-group">
+        <label>Porta de entrada:</label>
+        <input type="text" maxlength="250" placeholder="Porta de Entrada" class="form-control" id="portaEntrada" name="portaEntrada">
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+        <label>Data de Cadastro Inicial:</label> 
+        <input type="text" maxlength="10" placeholder="__/__/____" data-mask="00/00/0000" class="form-control" id="dataCadInicial" name="dataCadInicial">
+        </div>
+    </div>
 
         </div>
     </div>
@@ -159,6 +171,12 @@
 			<input type="text" id="rg" placeholder="RG" name="rg" maxlength="20" class="form-control numeric" value="{{ $user->document->rg }}" 	/>
 		</div>
 	</div>
+    <div class="col-md-6">
+        <div class="form-group">
+        <label>Emitido em:</label> 
+        <input type="text" maxlength="10" placeholder="__/__/____" data-mask="00/00/0000" class="form-control" id="emissaoRG" name="emissaoRG">
+        </div>
+    </div>
 	<div class="col-md-6">
 		<div class="form-group">
 			<label>CPF</label> <label class="hidden" id="lblCPFInvalido" style="color: red"> CPF inválido, por favor, verifique
@@ -167,12 +185,24 @@
 			onblur="validaCPF(this.value)" name="cpf" placeholder="CPF" class="form-control" value="{{ $user->document->cpf }}" />
 		</div>
 	</div>
+    <div class="col-md-6">
+        <div class="form-group">
+        <label>Emitido em:</label> 
+        <input type="text" maxlength="10" placeholder="__/__/____" data-mask="00/00/0000" class="form-control" id="emissaoCPF" name="emissaoCPF">
+        </div>
+    </div>
 	<div class="col-md-6">
 		<div class="form-group">
 			<label>Passaporte</label>
 			<input type="text" name="passport" class="form-control" value="{{ $user->document->passport }}" />
 		</div>
 	</div>
+    <div class="col-md-6">
+        <div class="form-group">
+        <label>Emitido em:</label> 
+        <input type="text" maxlength="10" placeholder="__/__/____" data-mask="00/00/0000" class="form-control" id="emissaoPassport" name="emissaoPassport">
+        </div>
+    </div>
 
 
 	</div>

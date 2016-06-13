@@ -38,7 +38,7 @@
                             <div id="dataTables-example_length" class="dataTables_length">
                                 <label>Esporte:</label>
                                 <select name="sport_id" class="form-control input-sm">
-                                    <option value="">Selecione o esporte</option>
+                                    <option value="">--Selecione--</option>
                                     @foreach($sports as $sport)
                                         <option {{ isset($query['sport_id']) && $query['sport_id'] == $sport->id ? 'selected="selected"' : '' }} value="{{ $sport->id }}">{{ $sport->name }}</option>
                                     @endforeach
@@ -55,7 +55,7 @@
                             <div id="dataTables-example_length" class="dataTables_length">
                                 <label>Status:</label>
                                 <select name="status_id" class="form-control input-sm">
-                                    <option value="">Selecione o status no esporte</option>
+                                    <option value="">--Selecione--</option>
                                     @foreach($status as $s)
                                         <option {{ isset($query['status_id']) && $query['status_id'] == $s->id ? 'selected="selected"' : '' }} value="{{ $s->id }}">{{ $s->name }}</option>
                                     @endforeach
@@ -67,7 +67,7 @@
                             <div id="dataTables-example_length" class="dataTables_length">
                                 <label>Deficiência:</label>
                                 <select name="deficiency_id" class="form-control input-sm">
-                                    <option value="">Selecione uma deficiência</option>
+                                    <option value="">--Selecione--</option>
                                     @foreach($deficiencies as $deficiency)
                                         <option {{ isset($query['deficiency_id']) && $query['deficiency_id'] == $deficiency->id ? 'selected="selected"' : '' }} value="{{ $deficiency->id }}">{{ $deficiency->name }}
                                         </option>
@@ -80,15 +80,11 @@
 
                     <br>
 
-                    <div class="row right">
+                    <div class="row">
                         <div class="col-lg-12">
                             <div id="dataTables-example_length" class="dataTables_length">
-                                <button class="btn btn-default " href="/user">
-                                    Limpar busca
-                                </button>
-                                <button class="btn btn-primary " type="submit">
-                                    Buscar &nbsp; <i class="fa fa-search"></i>
-                                </button>
+                                <a class="btn btn-default" href="/athlete">Limpar busca</a>
+                                <input type="submit" class="btn btn-primary" value="Buscar">
                             </div>
                         </div>
                     </div>
