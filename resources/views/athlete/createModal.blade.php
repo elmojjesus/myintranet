@@ -1,6 +1,6 @@
 
 <div class="data-title">
-    <h3> Torando o usuário um atleta <i class="fa fa-trophy"></i> </h3>
+    <h3> Tornando o usuário um atleta <i class="fa fa-trophy"></i> </h3>
 </div>
 
 
@@ -12,28 +12,46 @@
     <br>    
     
     <div class="row">
-        <div class="col-sm-6">
-            Esporte:
-                @if( isset($sports) )
-                    {!! Form::select('sport_id', 
-                                     array('' => '') + $sports,
-                                     '',
-                                     $attributes = array('class' => 'form-control')) !!}
-                @endif
+        <div class='col-sm-12'>
+            <center> Status </center>
         </div>
-
-        <div class="col-sm-6">
-            Status: 
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
             {!! Form::select('status_id', 
-                    array('' => '', '1' => 'Ativo', '2' => 'Inativo', '3' => 'Em espera', '4' => 'Pendente', '5' => 'Temporário'), 
+                    array('' => '') + $status,
                     '', 
                     $attributes = array('class' => 'form-control')) !!}
+        </div>
+    </div>
+
+    <br>
+
+    <div class="row">
+        <div class='col-sm-12'>
+            <center> Esportes </center>
+        </div>
+    </div>
+    <div class="manySports">
+        
+        <div class="template">
+            <div class='row'>
+                <div class='col-sm-12'>
+                        @if( isset($sports) )
+                            {!! Form::select('sports[]', 
+                                             array('' => '') + $sports,
+                                             '',
+                                             $attributes = array('class' => 'form-control')) !!}
+                        @endif
+                </div>
+            </div>
         </div>
 
     </div>
 
     <!-- ver favoritos salvo para resolver -->
     <div class="data-footer"> 
+        <button class="btn btn-primary plus" onclick="addSport()">Adicionar mais um esporte</button>
         <button class="btn btn-primary" onclick="formSubmit(tornarAtletaForm)">Cadastrar atleta</button>  
     </div>
 

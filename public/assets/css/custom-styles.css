@@ -1,8 +1,21 @@
-/*----------------------------------------------
-Author : www.webthemez.com
-License: Commons Attribution 3.0
-http://creativecommons.org/licenses/by/3.0/
-------------------------------------------------*/
+@media (min-width: 768px ) {
+  .row {
+      position: relative;
+  }
+
+  .bottom-align {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+  }
+
+  .middle-align {
+    float: none;
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+}
 
 
 /* --------------- for tables */

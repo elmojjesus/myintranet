@@ -21,17 +21,19 @@
                             <td> <center> <img src="{{ '/images/profile/' . $athlete->user->image }}" width="80" height="80"> </center> </td>
                             <td> <h3> {{ $athlete->user->name }} </h3> </td>
                         </tr>
+                        <tr>
+                            <td> <label class="right"> Status: </label> </td>
+                            <td> {{ $athlete->status['name'] }} </td>
+                        </tr>
                         <thead class="thead-default">
                             <tr>
-                            <th> <center> <h4> Esportes que pratica </h4> </center> </th>
-                            <th> <center> <h4> Status no esporte    </h4> </center> </th>
+                            <th colspan="2"> <center> <h4> Esportes praticados </h4> </center> </th>
                             </tr>
                         </thead>
                             @foreach ($athlete->athleteSport as $athleteSport)
                                 @if(  !is_null($athleteSport->sport) )
                                 <tr>
-                                    <td> <center> {{ $athleteSport->sport->name }}  </center> </td>
-                                    <td> <center> n existe mais esse atrb </center> </td>
+                                    <td colspan="2"> <center> {{ $athleteSport->sport->name }}  </center> </td>
                                 </tr>
                                 @endif
                             @endforeach

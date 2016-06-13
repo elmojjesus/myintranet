@@ -7,10 +7,23 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
+use Flash;
 
 
 class AthleteController extends Controller
 {
+
+
+    public function getAthleteName($athlete_id){
+        $athlete = DB::table('athletes')
+                        ->join('users', 'users.id', '=', 'athletes.user_id')
+                        ->select('users.name')
+                        ->where('athletes.id', '=', $athlete_id)
+                        ->get(); 
+        $athlete = array_get($athlete, '0');
+
+        return $athlete->name;
+    }
 
     /**
      * Display a listing of the resource.
@@ -86,8 +99,9 @@ class AthleteController extends Controller
 
     public function createModal($id){
         $user = \App\User::findorFail($id);
+        $status = \App\Status::lists('name', 'id')->toArray();
         $sports = \App\Sport::lists('name', 'id')->toArray();
-        return view('athlete.createModal', compact('user', 'sports'));
+        return view('athlete.createModal', compact('user', 'sports', 'status'));
     }
 
     /**
@@ -100,14 +114,20 @@ class AthleteController extends Controller
     {
         $data = $request->all();
         unset($data['_token']);
-        #$athlete = \App\User::findorFail($id);
+        
         $athlete = \App\Athlete::where('user_id', $id)->first();
         if (is_null($athlete)) {
-            \App\Athlete::insert(['user_id' => $id]);
+            \App\Athlete::insert(['user_id' => $id, 'status_id' => $data['status_id']]);
             $athlete = \App\Athlete::where('user_id', $id)->first();
         }
-        $data['athlete_id'] = $athlete->id;
-        \App\AthleteSport::insert($data);
+        
+        $sports = $request->only('sports');
+        $athleteSport = new AthleteSportsController();
+        $athleteSport->store($sports, $athlete->id);
+
+        $athleteName = $this->getAthleteName($athlete->id);
+        
+        Flash::success($athleteName . " agora é um(a) atleta.");
         return redirect('athlete/create');
     }
 
@@ -133,7 +153,8 @@ class AthleteController extends Controller
     {
         $athlete = \App\Athlete::find($id);
         $status = \App\Status::all();
-        return view('athlete.edit', compact('athlete', 'status'));
+        $sports = \App\Sport::lists('name', 'id')->toArray();
+        return view('athlete.edit', compact('athlete', 'status', 'sports'));
     }
 
     /**
@@ -145,7 +166,16 @@ class AthleteController extends Controller
      */
     public function update(Request $request, $id)
     {
-        \App\Athlete::where('id', $id)->update('status_id', $request->input('status_id'));
+        $athleteName = $this->getAthleteName($id);
+        
+        $num = \App\AthleteSport::where('athlete_id', $id)->count();
+        if($num == 0){
+            Flash::error('O atleta ' . $athleteName . ' deve ter ao menos um esporte cadastrado para ter seu status alterado novamente.');
+            return redirect('athlete');
+        }
+
+        Flash::success("Status do " . $athleteName . " alterado com sucesso.");
+        \App\Athlete::where('id', $id)->update(['status_id' => $request->input('status_id')]);
         return redirect('athlete');
     }
 

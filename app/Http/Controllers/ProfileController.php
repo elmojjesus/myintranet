@@ -104,15 +104,11 @@ class ProfileController extends Controller
      */
     public function destroy($id)
     {
-<<<<<<< HEAD:app/Http/Controllers/AthleteSportsController.php
         #\App\AthleteSport::destroy();
         $sport = \App\AthleteSport::where('athlete_id', $athlete_id)
                                     ->where('sport_id', $sport_id);
         #dd($sport);
         $sport->delete();
         return redirect('athlete');
-=======
-        //
->>>>>>> 3a2d3fb98947c970d0b2f2126a441025a571f146:app/Http/Controllers/ProfileController.php
     }
 }

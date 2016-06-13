@@ -131,9 +131,11 @@
                                     <td>
                                         @if(!is_null($user->athlete))
                                             @if(!is_null($user->athlete->athleteSport))
-                                                @foreach ($user->athlete->athleteSport as $index => $athleteSport)
-                                                    
+                                                <?php $count = 0; ?>
+                                                @foreach ($user->athlete->athleteSport as $athleteSport)
+                                                    <?php $count++ ?>
                                                 @endforeach
+                                                {{ $count }}
                                             @endif
                                         @endif
                                     </td>
