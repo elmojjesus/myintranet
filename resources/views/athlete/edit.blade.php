@@ -54,8 +54,12 @@
             <div class="panel-body">
 
                 <div class="row">   
-                    {!! Form::open(array('method' => 'post', 'action' => array('AthleteSportsController@destroy', $athlete->id), 'name' => 'destroyAthleteSports')) !!}
-                        
+                    {!! Form::open(array('method' => 'post', 'action' => array('AthleteSportsController@destroy', $athlete->id), 'name' => 'destroyAthleteSports', 'id' => 'destroyAthleteSports')) !!}
+                        <div id="erros" class="col-md-12 hidden">
+        <div class="form-group">
+        <label style="color:#ff0000; text-align: center;">É necessário checar pelo menos um esporte para exclusão, por favor verifique!</label>
+        </div>
+    </div>
                         <div class="col-sm-4 middle-align">
                             <div id="dataTables-example_length" class="dataTables_length">
                                 Esportes em atividade:
@@ -70,7 +74,7 @@
                                         @if(  !is_null($athleteSport->sport) )
                                             <tr>  
                                                 <td width="90%"> {{ $athleteSport->sport->name }} </td>
-                                                <td> {!! Form::checkbox('sports[]', $athleteSport->sport->id, null) !!} </td>
+                                                <td> {!! Form::checkbox('sports[]', $athleteSport->sport->id, null, $attributes = array('class' => 'checkSport')) !!} </td>
                                             </tr>
                                         @endif
                                     @endforeach
@@ -82,7 +86,7 @@
                         <div class="col-sm-4 bottom-align">
                             <div id="dataTables-example_length" class="dataTables_length">
                                 
-                                <button class="btn btn-primary right" onclick="formSubmit(destroyAthleteSports)">Excluir esporte(s)</button>  
+                                <button class="btn btn-primary right" onclick="return validaEsporteExclusao();">Excluir esporte(s)</button>  
                                 
                             </div>
                         </div>
@@ -138,3 +142,33 @@
         </div>
     </div>
 </div>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js" type="text/javascript"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.2.43/jquery.form-validator.min.js" type="text/javascript"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.0/jquery.mask.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+
+function validaEsporteExclusao()
+{
+
+  $("#erros").addClass('hidden');
+  var checado = false;
+  var inputs = document.getElementsByClassName('checkSport');
+  for(var i = 0, l = inputs.length; i < l; ++i) {
+    if(inputs[i].checked) {
+      checado = true;
+      break;
+      return checado;
+    }
+  }
+  if(!checado) {
+    $("#erros").removeClass('hidden');
+    return checado;
+  }
+
+}
+
+
+</script>
