@@ -196,7 +196,7 @@
 	<div class="col-md-6">
 		<div class="form-group">
 		<label>Emitido em:</label> 
-		<input type="text" maxlength="10" placeholder="__/__/____" data-mask="00/00/0000" class="form-control" id="emissaoPassport" name="emissaoPassport">
+		<input type="text" maxlength="10" placeholder="__/__/____" data-mask="00/00/0000" class="form-control" id="emissaoPassport" name="emission_passport">
 		</div>
 	</div>
 	</div>
@@ -250,6 +250,35 @@
 				<option value="Pinheirinho">Pinheirinho</option>
 				<option value="Santa Felicidade">Santa Felicidade</option>
 				<option value="Tatuquara">Tatuquara</option>
+				<option value="" disabled>-- Região metropolitana --</option>
+				<option value="Adrianópolis">Adrianópolis</option>
+				<option value="Agudos do Sul">Agudos do Sul</option>
+				<option value="Almirante Tamandaré">Almirante Tamandaré</option>
+				<option value="Araucária">Araucária</option>
+				<option value="Balsa Nova">Balsa Nova</option>
+				<option value="Bocaiúva do Sul">Bocaiúva do Sul</option>
+				<option value="Campina Grande do Sul">Campina Grande do Sul</option>
+				<option value="Campo Largo">Campo Largo</option>
+				<option value="Campo Magro">Campo Magro</option>
+				<option value="Campo do Tenente">Campo do Tenente</option>
+				<option value="Cerro Azul">Cerro Azul</option>
+				<option value="Colombo">Colombo</option>
+				<option value="Contenda">Contenda</option>
+				<option value="Doutor Ulysses">Doutor Ulysses</option>
+				<option value="Fazenda Rio Grande">Fazenda Rio Grande</option>
+				<option value="Itaperuçu">Itaperuçu</option>
+				<option value="Lapa">Lapa</option>
+				<option value="Mandirituba">Mandirituba</option>
+				<option value="Piên">Piên</option>
+				<option value="Pinhais">Pinhais</option>
+				<option value="Piraquara">Piraquara</option>
+				<option value="Quatro Barras">Quatro Barras</option>
+				<option value="Quitandinha">Quitandinha</option>
+				<option value="Rio Branco do Sul">Rio Branco do Sul</option>
+				<option value="Rio Negro">Rio Negro</option>
+				<option value="São José dos Pinhais">São José dos Pinhais</option>
+				<option value="Tijucas do Sul">Tijucas do Sul</option>
+				<option value="Tunas do Paraná">Tunas do Paraná</option>
 			</select> 
 		</div>
 	</div>

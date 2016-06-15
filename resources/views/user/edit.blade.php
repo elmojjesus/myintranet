@@ -1,6 +1,9 @@
 @extends('layouts.layout')
 
 @section('title')
+    <a class="btn btn-primary" href="/user" type="button"> 
+        <font class="myMiddle"> <i class="fa fa-arrow-left"></i></font>
+    </a>
      Editar o usuário <i class="fa fa-user"></i>
      <small> / Usuários / Editar </small>
 @stop
@@ -113,10 +116,10 @@
             <label>Voluntário:</label>
             <br>
             <label class="checkbox-inline">
-                Sim <input type="radio" id="volS" name="voluntary"> 
+                Sim <input type="radio" id="volS" name="voluntary" {{ $user->voluntary == 1 ? 'checked' : '' }}> 
             </label>    
             <label class="checkbox-inline">
-                Não <input type="radio" id="volN" name="voluntary"> 
+                Não <input type="radio" id="volN" name="voluntary" {{ $user->voluntary == 1 ? 'checked' : '' }}> 
             </label>
 
         </div>
@@ -149,13 +152,18 @@
     <div class="col-md-6">
         <div class="form-group">
         <label>Porta de entrada:</label>
-        <input type="text" maxlength="250" placeholder="Porta de Entrada" class="form-control" id="portaEntrada" name="portaEntrada">
+        <input type="text" maxlength="250" placeholder="Porta de Entrada" class="form-control" id="portaEntrada" name="entry_port">
         </div>
     </div>
     <div class="col-md-6">
         <div class="form-group">
         <label>Data de Cadastro Inicial:</label> 
-        <input type="text" maxlength="10" placeholder="__/__/____" data-mask="00/00/0000" class="form-control" id="dataCadInicial" name="dataCadInicial">
+        <?php if($user->created_at != '0000-00-00'): ?>
+            <?php $created = \Datetime::createFromFormat('Y-m-d H:i:s', $user->created_at); ?>
+        <?php else: ?>
+            <?php $created = ''; ?>
+        <?php endif; ?>
+        <input type="text" maxlength="10" placeholder="__/__/____" data-mask="00/00/0000" class="form-control" id="dataCadInicial" name="created_at" value="{{ $created ? $created->format('d/m/Y') : '' }}">
         </div>
     </div>
 
@@ -174,21 +182,31 @@
     <div class="col-md-6">
         <div class="form-group">
         <label>Emitido em:</label> 
-        <input type="text" maxlength="10" placeholder="__/__/____" data-mask="00/00/0000" class="form-control" id="emissaoRG" name="emissaoRG">
+        <?php if($user->document->emission_rg != '0000-00-00'): ?>
+            <?php $emissionRg = \Datetime::createFromFormat('Y-m-d', $user->document->emission_rg); ?>
+        <?php else: ?>
+            <?php $emissionRg = ''; ?>
+        <?php endif; ?>
+        <input type="text" maxlength="10" placeholder="__/__/____" data-mask="00/00/0000" class="form-control" id="emissaoRG" name="emission_rg" value="{{ $emissionRg ? $emissionRg->format('d/m/Y') : ''  }}">
         </div>
     </div>
 	<div class="col-md-6">
 		<div class="form-group">
 			<label>CPF</label> <label class="hidden" id="lblCPFInvalido" style="color: red"> CPF inválido, por favor, verifique
 		</label>
-			<input type="text" maxlength="17" data-mask="000.000.000-00" id="cpf" 
-			onblur="validaCPF(this.value)" name="cpf" placeholder="CPF" class="form-control" value="{{ $user->document->cpf }}" />
-		</div>
-	</div>
+            <input type="text" maxlength="17" data-mask="000.000.000-00" id="cpf" 
+            onblur="validaCPF(this.value)" name="cpf" placeholder="CPF" class="form-control" value="{{ $user->document->cpf }}" />
+        </div>
+    </div>
     <div class="col-md-6">
         <div class="form-group">
         <label>Emitido em:</label> 
-        <input type="text" maxlength="10" placeholder="__/__/____" data-mask="00/00/0000" class="form-control" id="emissaoCPF" name="emissaoCPF">
+        <?php if($user->document->emission_cpf != '0000-00-00'): ?>
+            <?php $emissionCpf = \Datetime::createFromFormat('Y-m-d', $user->document->emission_cpf); ?>
+        <?php else: ?>
+            <?php $emissionCpf = ''; ?>
+        <?php endif; ?>
+        <input type="text" maxlength="10" placeholder="__/__/____" data-mask="00/00/0000" class="form-control" id="emissaoCPF" name="emission_cpf" value="{{ $emissionCpf ? $emissionCpf->format('d/m/Y') : '' }}">
         </div>
     </div>
 	<div class="col-md-6">
@@ -199,8 +217,13 @@
 	</div>
     <div class="col-md-6">
         <div class="form-group">
-        <label>Emitido em:</label> 
-        <input type="text" maxlength="10" placeholder="__/__/____" data-mask="00/00/0000" class="form-control" id="emissaoPassport" name="emissaoPassport">
+        <label>Emitido em:</label>
+         <?php if($user->document->passport != '0000-00-00'): ?>
+            <?php $emissionPassport = \Datetime::createFromFormat('Y-m-d', $user->document->passport); ?>
+        <?php else: ?>
+            <?php $emissionPassport = ''; ?>
+        <?php endif; ?>
+        <input type="text" maxlength="10" placeholder="__/__/____" data-mask="00/00/0000" class="form-control" id="emissaoPassport" name="emission_passport" value="{{ $emissionPassport ? $emissionPassport->format('d/m/Y') : '' }}">
         </div>
     </div>
 
@@ -244,8 +267,8 @@
         <div class="form-group">
             <label>Regional</label>
             <select class="form-control" id="regional" name="regional">
-            <option value="{{ $user->address->regional }}">{{ $user->address->regional }}</option> 
-                <option value="Bairro Novo">Bairro Novo</option>
+            <option value="{{ $user->address->regional }}" disabled>{{ $user->address->regional }}</option> 
+            <option value="Bairro Novo">Bairro Novo</option>
                 <option value="Boa Vista">Boa Vista</option>
                 <option value="Boqueirão">Boqueirão</option>
                 <option value="Cajuru">Cajurú</option>
@@ -255,6 +278,35 @@
                 <option value="Pinheirinho">Pinheirinho</option>
                 <option value="Santa Felicidade">Santa Felicidade</option>
                 <option value="Tatuquara">Tatuquara</option>
+                <option value="" disabled>-- Região metropolitana --</option>
+                <option value="Adrianópolis">Adrianópolis</option>
+                <option value="Agudos do Sul">Agudos do Sul</option>
+                <option value="Almirante Tamandaré">Almirante Tamandaré</option>
+                <option value="Araucária">Araucária</option>
+                <option value="Balsa Nova">Balsa Nova</option>
+                <option value="Bocaiúva do Sul">Bocaiúva do Sul</option>
+                <option value="Campina Grande do Sul">Campina Grande do Sul</option>
+                <option value="Campo Largo">Campo Largo</option>
+                <option value="Campo Magro">Campo Magro</option>
+                <option value="Campo do Tenente">Campo do Tenente</option>
+                <option value="Cerro Azul">Cerro Azul</option>
+                <option value="Colombo">Colombo</option>
+                <option value="Contenda">Contenda</option>
+                <option value="Doutor Ulysses">Doutor Ulysses</option>
+                <option value="Fazenda Rio Grande">Fazenda Rio Grande</option>
+                <option value="Itaperuçu">Itaperuçu</option>
+                <option value="Lapa">Lapa</option>
+                <option value="Mandirituba">Mandirituba</option>
+                <option value="Piên">Piên</option>
+                <option value="Pinhais">Pinhais</option>
+                <option value="Piraquara">Piraquara</option>
+                <option value="Quatro Barras">Quatro Barras</option>
+                <option value="Quitandinha">Quitandinha</option>
+                <option value="Rio Branco do Sul">Rio Branco do Sul</option>
+                <option value="Rio Negro">Rio Negro</option>
+                <option value="São José dos Pinhais">São José dos Pinhais</option>
+                <option value="Tijucas do Sul">Tijucas do Sul</option>
+                <option value="Tunas do Paraná">Tunas do Paraná</option>
             </select> 
         </div>
     </div>
@@ -269,33 +321,33 @@
             <label>Estado</label>
             <select name="state" class="form-control" id="state"> 
         <option value="{{ $user->address->state }}">{{ $user->address->state }}</option> 
-        <option value="ac">Acre</option> 
-        <option value="al">Alagoas</option> 
-        <option value="am">Amazonas</option> 
-        <option value="ap">Amapá</option> 
-        <option value="ba">Bahia</option> 
-        <option value="ce">Ceará</option> 
-        <option value="df">Distrito Federal</option> 
-        <option value="es">Espírito Santo</option> 
-        <option value="go">Goiás</option> 
-        <option value="ma">Maranhão</option> 
-        <option value="mt">Mato Grosso</option> 
-        <option value="ms">Mato Grosso do Sul</option> 
-        <option value="mg">Minas Gerais</option> 
-        <option value="pa">Pará</option> 
-        <option value="pb">Paraíba</option> 
-        <option value="pr">Paraná</option> 
-        <option value="pe">Pernambuco</option> 
-        <option value="pi">Piauí</option> 
-        <option value="rj">Rio de Janeiro</option> 
-        <option value="rn">Rio Grande do Norte</option> 
-        <option value="ro">Rondônia</option> 
-        <option value="rs">Rio Grande do Sul</option> 
-        <option value="rr">Roraima</option> 
-        <option value="sc">Santa Catarina</option> 
-        <option value="se">Sergipe</option> 
-        <option value="sp">São Paulo</option> 
-        <option value="to">Tocantins</option> 
+        <option value="ac" {{ $user->address->state == "ac" ? 'selected' : '' }}>Acre</option> 
+        <option value="al" {{ $user->address->state == "al" ? 'selected' : '' }}>Alagoas</option> 
+        <option value="am" {{ $user->address->state == "am" ? 'selected' : '' }}>Amazonas</option> 
+        <option value="ap" {{ $user->address->state == "ap" ? 'selected' : '' }}>Amapá</option> 
+        <option value="ba" {{ $user->address->state == "ba" ? 'selected' : '' }}>Bahia</option> 
+        <option value="ce" {{ $user->address->state == "ce" ? 'selected' : '' }}>Ceará</option> 
+        <option value="df" {{ $user->address->state == "df" ? 'selected' : '' }}>Distrito Federal</option> 
+        <option value="es" {{ $user->address->state == "es" ? 'selected' : '' }}>Espírito Santo</option> 
+        <option value="go" {{ $user->address->state == "go" ? 'selected' : '' }}>Goiás</option> 
+        <option value="ma" {{ $user->address->state == "ma" ? 'selected' : '' }}>Maranhão</option> 
+        <option value="mt" {{ $user->address->state == "mt" ? 'selected' : '' }}>Mato Grosso</option> 
+        <option value="ms" {{ $user->address->state == "ms" ? 'selected' : '' }}>Mato Grosso do Sul</option> 
+        <option value="mg" {{ $user->address->state == "mg" ? 'selected' : '' }}>Minas Gerais</option> 
+        <option value="pa" {{ $user->address->state == "pa" ? 'selected' : '' }}>Pará</option> 
+        <option value="pb" {{ $user->address->state == "pb" ? 'selected' : '' }}>Paraíba</option> 
+        <option value="pr" {{ $user->address->state == "pr" ? 'selected' : '' }}>Paraná</option> 
+        <option value="pe" {{ $user->address->state == "pe" ? 'selected' : '' }}>Pernambuco</option> 
+        <option value="pi" {{ $user->address->state == "pi" ? 'selected' : '' }}>Piauí</option> 
+        <option value="rj" {{ $user->address->state == "rj" ? 'selected' : '' }}>Rio de Janeiro</option> 
+        <option value="rn" {{ $user->address->state == "rn" ? 'selected' : '' }}>Rio Grande do Norte</option> 
+        <option value="ro" {{ $user->address->state == "ro" ? 'selected' : '' }}>Rondônia</option> 
+        <option value="rs" {{ $user->address->state == "rs" ? 'selected' : '' }}>Rio Grande do Sul</option> 
+        <option value="rr" {{ $user->address->state == "rr" ? 'selected' : '' }}>Roraima</option> 
+        <option value="sc" {{ $user->address->state == "sc" ? 'selected' : '' }}>Santa Catarina</option> 
+        <option value="se" {{ $user->address->state == "se" ? 'selected' : '' }}>Sergipe</option> 
+        <option value="sp" {{ $user->address->state == "sp" ? 'selected' : '' }}>São Paulo</option> 
+        <option value="to" {{ $user->address->state == "to" ? 'selected' : '' }}>Tocantins</option> 
     </select>
         </div>
     </div>

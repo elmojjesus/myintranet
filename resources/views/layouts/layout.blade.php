@@ -30,7 +30,7 @@
             <ul class="nav navbar-top-links navbar-right">
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
-                        <img src="{{ '/images/profile/' . Auth::user()->image }}" width="20" height="20">
+                        <img src="/images/profile/{{ Auth::user()->image ?: 'default-profile.png' }}" width="20" height="20">
                         <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">

@@ -100,8 +100,9 @@ class UserController extends Controller
 
         if (isset($data['created_at'])) {
             $date = \Datetime::createFromFormat('d/m/Y', $data['created_at']);
-            $data['created_at'] = $date->format('Y-m-d');
-            if (!$data['created_at']) {
+            if($date) {
+                $data['created_at'] = $date->format('Y-m-d');
+            } else {
                 $data['created_at'] = 'NULL';
             }
         }
@@ -127,7 +128,7 @@ class UserController extends Controller
         $address['user_id'] = $user->id;
         \App\Document::insert($document);
         \App\Address::insert($address);
-        Flash::success('Primeira etapa do usuário completa!');
+        Flash::success('O usuário foi cadastrado com sucesso! Para complementar o usuário adicione uma foto de perfil ou clique em Lista de usuários para visualisar os usuários cadastrados.');
         return redirect('user/image/upload/' . $user->id);
     }
 
@@ -174,6 +175,13 @@ class UserController extends Controller
         if (isset($data['password']) && $data['password'] != '') {
             $data['password'] = bcrypt($data['password']);
         }
+        if (isset($data['created_at'])) {
+            $date = \Datetime::createFromFormat('d/m/Y', $data['created_at']);
+            $data['created_at'] = $date->format('Y-m-d');
+            if (!$data['created_at']) {
+                $data['created_at'] = 'NULL';
+            }
+        }
         if (isset($data['undefined'])) {
             unset($data['undefined']);
         }
@@ -194,13 +202,8 @@ class UserController extends Controller
             unset($data['street'], $data['number'], $data['complement'], $data['codPostal'], $data['neighborhood'], $data['regional'], $data['city'], $data['state']);
         }
         if (isset($data['rg'])) {
-            $document = [
-                'rg' => $data['rg'],
-                'cpf' => $data['cpf'],
-                'passport' => $data['passport'],
-                'user_id' => $id
-            ];
-            unset($data['rg'], $data['cpf'], $data['passport']);
+            $document = \App\Document::extrangeArray($data);
+            unset($data['rg'], $data['cpf'], $data['passport'], $data['emission_rg'], $data['emission_cpf'], $data['emission_passport']);
         }
         \App\User::where('id', $id)->update($data);
         \App\Document::where('user_id', $id)->update($document);
