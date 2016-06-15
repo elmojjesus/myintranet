@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ProfessionRequest;
+use Flash;
 
 class ProfessionController extends Controller
 {
