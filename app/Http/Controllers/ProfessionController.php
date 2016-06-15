@@ -42,6 +42,7 @@ class ProfessionController extends Controller
         $data = $request->all();
         unset($data['_token']);
         \App\Profession::insert($data);
+        Flash::success('Profissão cadastrada com sucesso');
         return redirect('profession');
 
     }
@@ -81,6 +82,7 @@ class ProfessionController extends Controller
         $data = $request->all();
         unset($data['_token']);
         \App\Profession::where('id', $id)->update($data);
+        Flash::success('Profissão editada com sucesso');
         return redirect('profession');
     }
 
@@ -105,6 +107,7 @@ class ProfessionController extends Controller
     public function destroy($id)
     {
         \App\Profession::find($id)->delete();
+        Flash::success('Profissão excluída com sucesso');
         return redirect('profession');
     }
 }

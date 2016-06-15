@@ -1,4 +1,4 @@
-@extends('layouts.layout')
+
 <form action="/profession/update/{{ $profession->id }}" method="POST">
 	{{ csrf_field() }}
 	<label>Nome da profissão:</label>

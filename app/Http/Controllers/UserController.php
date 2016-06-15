@@ -94,12 +94,17 @@ class UserController extends Controller
     {
         $data = $request->all();
         unset($data['_token']);
-        $document = [
-            'rg' => $data['rg'],
-            'cpf' => $data['cpf'],
-            'passport' => $data['passport']
-        ];
-        unset($data['rg'], $data['cpf'], $data['passport']);
+    
+        $document = \App\Document::extrangeArray($data);
+        unset($data['rg'], $data['cpf'], $data['passport'], $data['emission_rg'], $data['emission_cpf'], $data['emission_passport']);
+
+        if (isset($data['created_at'])) {
+            $date = \Datetime::createFromFormat('d/m/Y', $data['created_at']);
+            $data['created_at'] = $date->format('Y-m-d');
+            if (!$data['created_at']) {
+                $data['created_at'] = 'NULL';
+            }
+        }
 
         if (isset($data['street'])) {
             $address = [
@@ -125,6 +130,7 @@ class UserController extends Controller
         Flash::success('Primeira etapa do usuário completa!');
         return redirect('user/image/upload/' . $user->id);
     }
+
 
     /**
      * Display the specified resource.

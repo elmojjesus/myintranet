@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\DeficiencyRequest;
+use Flash;
 
 class DeficiencyController extends Controller
 {
@@ -42,6 +43,7 @@ class DeficiencyController extends Controller
         $data = $request->all();
         unset($data['_token']);
         \App\Deficiency::insert($data);
+        Flash::success('Deficiência cadastrada com sucesso!');
         return redirect('deficiency');
     }
 
@@ -80,6 +82,7 @@ class DeficiencyController extends Controller
         $data = $request->all();
         unset($data['_token']);
         \App\Deficiency::where('id', $id)->update($data);
+        Flash::success('Deficiência editada com sucesso!');
         return redirect('deficiency');
     }
 
@@ -104,6 +107,7 @@ class DeficiencyController extends Controller
     public function destroy($id)
     {
         \App\Deficiency::find($id)->delete();
+        Flash::success('Deficiência excluída com sucesso');
         return redirect('deficiency');
     }
 }

@@ -42,4 +42,5 @@ class Deficiency extends Model
         })
         ->get();
     }
+
 }

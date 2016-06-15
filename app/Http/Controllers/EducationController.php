@@ -43,6 +43,7 @@ class EducationController extends Controller
         $data = $request->all();
         unset($data['_token']);
         \App\Education::insert($data);
+        Flash::success('Educação cadastrada com sucesso!');
         return redirect('education');
     }
 
@@ -81,6 +82,7 @@ class EducationController extends Controller
         $data = $request->all();
         unset($data['_token']);
         \App\Education::where('id', $id)->update($data);
+        Flash::success('Educação editada com sucesso!');
         return redirect('education');
 
     }
@@ -106,6 +108,7 @@ class EducationController extends Controller
     public function destroy($id)
     {
         \App\Education::find($id)->delete();
+        Flash::success('Educação excluída com sucesso!');
         return redirect('education');
     }
 }

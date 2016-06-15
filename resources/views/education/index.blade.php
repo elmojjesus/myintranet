@@ -35,29 +35,34 @@
                 <div class="panel-heading"> Níveis de educação já registrados </div>
                 <div class="panel-body">
                     <div class="table-responsive">
-                        
-                        <table class="table table-striped table-bordered table-hover">
-                            <tr>
-                                <th width="60%">Nível</th>
-                                <th width="20%">Editar</th>
-                                <th width="20%">Remover</th>
-                            </tr>
-
+                        @if($educations->count() > 0)
+                            <table class="table table-striped table-bordered table-hover">
+                                <tr>
+                                    <th width="60%">Nível</th>
+                                    <th width="20%">Editar</th>
+                                    <th width="20%">Remover</th>
+                                </tr>
+                                @foreach($educations as $education)
                                     <tr>
-                                        <td> Ensino Médio</td>
+                                        <td>{{ $education->name }}</td>
                                         <td style="text-align: center;"> 
-                                                 <a class="modal-ajax-link" > 
+                                                 <a class="modal-ajax-link" data-mfp-src="/education/edit/{{ $education->id }}"> 
                                                      <i class="fa fa-pencil"></i> 
                                                  </a> 
                                             </td>
                                         <td style="text-align: center;">
-												<a class="modal-ajax-link">
-													<i class="fa fa-trash-o"></i>
-												</a>
-											</td>
+                                            <a class="modal-ajax-link" data-mfp-src="/education/delete/{{ $education->id }}">
+                                                <i class="fa fa-trash-o"></i>
+                                            </a>
+                                        </td>
                                     </tr>
-                        </table>
-
+                                @endforeach
+                            </table>
+                        @else
+                            <div class="alert alert-danger">
+                                Nenhuma deficiência cadastrada.
+                            </div>
+                        @endif
                     </div>
                 </div>
             </div>

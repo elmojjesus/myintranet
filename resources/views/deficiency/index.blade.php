@@ -42,20 +42,27 @@
                                 <th width="20%">Editar</th>
                                 <th width="20%">Remover</th>
                             </tr>
-
-                                    <tr>
-                                        <td> Cadeirante</td>
-                                        <td style="text-align: center;"> 
-                                                 <a class="modal-ajax-link" > 
+                                @if($deficiencies->count() > 0)
+                                    @foreach($deficiencies as $deficiency)
+                                        <tr>
+                                            <td>{{ $deficiency->name }}</td>
+                                            <td style="text-align: center;"> 
+                                                 <a class="modal-ajax-link" data-mfp-src="/deficiency/edit/{{ $deficiency->id }}"> 
                                                      <i class="fa fa-pencil"></i> 
                                                  </a> 
                                             </td>
-                                        <td style="text-align: center;">
-												<a class="modal-ajax-link">
-													<i class="fa fa-trash-o"></i>
-												</a>
-											</td>
-                                    </tr>
+                                            <td style="text-align: center;">
+    						    				<a class="modal-ajax-link" data-mfp-src="/deficiency/delete/{{ $deficiency->id }}">
+    												<i class="fa fa-trash-o"></i>
+    											</a>
+    										</td>
+                                        </tr>
+                                    @endforeach
+                                @else
+                                    <div class="alert alert-danger">
+                                        Nenhuma deficiência cadastrada
+                                    </div>
+                                @endif
                         </table>
 
                     </div>

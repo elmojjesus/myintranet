@@ -79,6 +79,10 @@ class User extends Model implements AuthenticatableContract,
         return \App\User::whereNotIn('id', $ids)->orderBy('name')->get();
     }
 
+    public function pacient() {
+        return $this->hasOne('\App\Pacient');
+    }
+
     public static function notPacients() {
         $pacients = \App\Pacient::All();
         $ids = [];
@@ -90,5 +94,9 @@ class User extends Model implements AuthenticatableContract,
 
     public function status() {
         return $this->belongsTo('App\Status');
+    }
+
+    public function employee() {
+        return $this->hasOne('\App\Employee');
     }
 }

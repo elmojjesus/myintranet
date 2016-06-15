@@ -17,6 +17,9 @@ class CreateDocumentsTable extends Migration
             $table->string('cpf', 15)->nullable();
             $table->string('rg', 20)->nullable();
             $table->string('passport', 20)->nullable();
+            $table->date('emission_rg')->nullable()->default(NULL);
+            $table->date('emission_cpf')->nullable()->default(NULL);
+            $table->date('emission_passport')->nullable()->default(NULL);
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();

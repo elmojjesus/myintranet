@@ -2,7 +2,7 @@
 
 @section('title')
     Atletas da ADFP
-    <small> / Atletas / Buscar - Listar </small>
+     / Atletas / Buscar - Listar
 @stop
 
 @section('content')
@@ -136,8 +136,8 @@
                                         @endif
                                     </td>
                                     <?php $athlete = $user->athlete; ?>
-                                    <td> {{ $athlete->status['name'] }}</td>
-                                    <td> {{ $user->deficiency->name }} </td>
+                                    <td> {{ $athlete->status ? $athlete->status->name : 'Não cadastrado' }}</td>
+                                    <td> {{ $user->deficiency ? $user->deficiency->name : 'Não cadastrado' }} </td>
                                     <td> 
                                         <a class="modal-ajax-link" data-mfp-src="/athlete/edit/{{ $user->athlete->id }}">
                                             <i class="fa fa-pencil"></i>

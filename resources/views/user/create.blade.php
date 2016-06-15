@@ -41,6 +41,8 @@
 		<div class="form-group">
 		<label>Deficiência:</label>
 		<select name="deficiency_id" id="deficiencia" class="form-control" >	
+			<option value="">Selecione uma deficiência</option>
+			<option value="">Sem deficiência</option>
 			@foreach($deficiencies as $deficiency)
 				<option value="{{ $deficiency->id }}">{{ $deficiency->name }}</option>
 			@endforeach
@@ -142,13 +144,13 @@
 	<div class="col-md-6">
 		<div class="form-group">
 		<label>Porta de entrada:</label>
-		<input type="text" maxlength="250" placeholder="Porta de Entrada" class="form-control" id="portaEntrada" name="portaEntrada">
+		<input type="text" maxlength="250" placeholder="Porta de Entrada" class="form-control" id="portaEntrada" name="entry_port">
 		</div>
 	</div>
 	<div class="col-md-6">
 		<div class="form-group">
 		<label>Data de Cadastro Inicial:</label> 
-		<input type="text" maxlength="10" placeholder="__/__/____" data-mask="00/00/0000" class="form-control" id="dataCadInicial" name="dataCadInicial">
+		<input type="text" maxlength="10" placeholder="__/__/____" data-mask="00/00/0000" class="form-control" id="dataCadInicial" name="created_at">
 		</div>
 	</div>
 
@@ -168,7 +170,7 @@
 	<div class="col-md-6">
 		<div class="form-group">
 		<label>Emitido em:</label> 
-		<input type="text" maxlength="10" placeholder="__/__/____" data-mask="00/00/0000" class="form-control" id="emissaoRG" name="emissaoRG">
+		<input type="text" maxlength="10" placeholder="__/__/____" data-mask="00/00/0000" class="form-control" id="emissaoRG" name="emission_rg">
 		</div>
 	</div>
 	<div class="col-md-6">
@@ -182,13 +184,13 @@
 	<div class="col-md-6">
 		<div class="form-group">
 		<label>Emitido em:</label> 
-		<input type="text" maxlength="10" placeholder="__/__/____" data-mask="00/00/0000" class="form-control" id="emissaoCPF" name="emissaoCPF">
+		<input type="text" maxlength="10" placeholder="__/__/____" data-mask="00/00/0000" class="form-control" id="emissaoCPF" name="emission_cpf">
 		</div>
 	</div>
 	<div class="col-md-6">
 		<div class="form-group">
 			<label>Passaporte</label>
-			<input type="text" maxlength="50" placeholder="Passaporte" id="passport" name="passport" class="form-control numeric" />
+			<input type="text" maxlength="50" placeholder="Passaporte" id="passport" name="emission_passport" class="form-control numeric" />
 		</div>
 	</div>
 	<div class="col-md-6">

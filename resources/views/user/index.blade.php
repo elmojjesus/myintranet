@@ -131,7 +131,7 @@
 													{{ $user->name }} 
 												</a>
 											</td>
-											<td>{{ $user->deficiency->name }}</td>
+											<td>{{ $user->deficiency ? $user->deficiency->name : '-' }}</td>
 											<td>
 												<center>
 													@if(!is_null($user->athlete))
@@ -141,10 +141,38 @@
 													@endif
 												</center>
 											</td>
-											<td> --- </td>
-											<td> --- </td>
-											<td> --- </td>
-											<td> --- </td>
+											<td> 
+												<center>
+													@if(!is_null($user->employee))
+														<i class="fa fa-check" style="color: green"></i>
+													@else
+														<i class="fa fa-times" style="color: red"></i>
+													@endif
+												</center>	
+											</td>
+											<td>
+												<center>
+													@if(!is_null($user->pacient))
+														<i class="fa fa-check" style="color: green"></i>
+													@else
+														<i class="fa fa-times" style="color: red"></i>
+													@endif
+												</center>	
+											</td>
+											<td>
+												<center>
+													{{ $user->status ? $user->status->name : '--' }}
+												</center>
+											</td>
+											<td> 
+												<center>
+													@if($user->voluntary)
+														<i class="fa fa-check" style="color: green"></i>
+													@else
+														<i class="fa fa-times" style="color: red"></i>
+													@endif
+												</center>	 
+											</td>
 											<td>
 												<a href="/user/edit/{{ $user->id }}">
 													<i class="fa fa-pencil"></i>

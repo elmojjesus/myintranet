@@ -1,4 +1,3 @@
-@extends('layouts.layout')
 <form action="/deficiency/update/{{ $deficiency->id }}" method="POST">
 	{{ csrf_field() }}
 	<label>Nome da deficiência:</label>
