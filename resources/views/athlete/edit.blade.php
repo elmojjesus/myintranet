@@ -104,6 +104,11 @@
             <div class="panel-body">
 
                 <div class="row">
+                            <div id="errosAdd" class="col-md-12 hidden">
+        <div class="form-group">
+        <label style="color:#ff0000; text-align: center;">Campo de seleção vazio, por favor, verifique !</label>
+        </div>
+    </div>
                     <div class='col-sm-12'>
                         <center> Adicionar esportes: </center>
                     </div>
@@ -119,7 +124,7 @@
                                         {!! Form::select('sports[]', 
                                                          array('' => '') + $sports,
                                                          '',
-                                                         $attributes = array('class' => 'form-control')) !!}
+                                                         $attributes = array('class' => 'form-control addSport')) !!}
                                     @endif
                             </div>
                         </div>
@@ -133,7 +138,7 @@
                 <div class="row right">
                     <div class="col-lg-12">
                         <button class="btn btn-primary plus" onclick="addSport()">+</button>
-                        <button class="btn btn-primary" onclick="formSubmit(addSports)">Salvar esportes</button>
+                        <button class="btn btn-primary" onclick=" return validaEsporteInclusao();">Salvar esportes</button>
                     </div>
                 </div>
                 
@@ -167,6 +172,30 @@ function validaEsporteExclusao()
     $("#erros").removeClass('hidden');
     return checado;
   }
+
+}
+
+function validaEsporteInclusao()
+{
+  
+  $("#errosAdd").addClass('hidden');
+
+  var selecionado = true;
+  var inputs = document.getElementsByClassName('addSport');
+  for(var i = 0, l = inputs.length; i < l; ++i) {
+    if(inputs[i].value == "") {
+      selecionado = false;
+      $("#errosAdd").removeClass('hidden');
+      break;
+      return selecionado;
+    }
+  }
+
+  if (selecionado) {
+    formSubmit(addSports);
+    return selecionado;
+  }
+
 
 }
 
