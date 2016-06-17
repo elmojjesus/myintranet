@@ -19,7 +19,7 @@
                     <div class="col-sm-6">
                         <div id="dataTables-example_length" class="dataTables_length">
 
-                            Id: {!! Form::text('id', '', $attributes = array('class' => 'form-control')) !!}
+                            <label>ID:</label> {!! Form::text('id', '', $attributes = array('class' => 'form-control')) !!}
 
                         </div>
                     </div>
@@ -27,7 +27,7 @@
                     <div class="col-sm-6">
                         <div id="dataTables-example_length" class="dataTables_length">
 
-                            Nome: {!! Form::text('name', '', $attributes = array('class' => 'form-control')) !!}
+                            <label>Nome:</label> {!! Form::text('name', '', $attributes = array('class' => 'form-control')) !!}
 
                         </div>
                     </div>

@@ -203,7 +203,7 @@
         </div>
         <!-- /. PAGE WRAPPER  -->
         <div class="footer">
-        FOOTER
+        
     </div>
     </div>
      <!-- /. WRAPPER  -->
@@ -241,7 +241,7 @@
 
 <style type="text/css">
 footer {
-    position: fixed; 
+
     bottom: 0px; 
     width: 100%; 
     height: 25x; 

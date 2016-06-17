@@ -65,7 +65,7 @@ class EmployeeController extends Controller
         unset($data['_token']);
         $var = \App\Employee::insert($data);
         #dd($var);
-        Flash::success('Salvo com sucesso.');
+        Flash::success('Funcionário cadastrado com sucesso.');
         return redirect('employee');
     }
 
@@ -124,7 +124,7 @@ class EmployeeController extends Controller
     public function destroy($id)
     {
         \App\Employee::where('id', $id)->delete();
-        Flash::success('Funcionário deletado com sucesso.');
+        Flash::success('Funcionário inativado com sucesso.');
         return redirect('employee');
     }
 }

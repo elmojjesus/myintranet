@@ -1,8 +1,8 @@
 @extends('layouts.layout')
 
 @section('title')
-    Atletas da ADFP
-     / Atletas / Buscar - Listar
+     Atletas da ADFP <i class="fa fa-trophy"></i>
+    <small> / Atletas / Buscar - Listar </small>
 @stop
 
 @section('content')
@@ -106,7 +106,7 @@
 
                 <div style="overflow-x:auto;">
                     
-                    <table class="table table-hover">
+                    <table class="table table-hover table-bordered">
                         <tr>
                             <th> ID               </th>
                             <th> Nome             </th>
@@ -150,6 +150,18 @@
                                     </td>
                                 </tr>
                             @endforeach
+                                 <tfoot>
+                <tr>
+                    <th> ID               </th>
+                            <th> Nome             </th>
+                            <th> Qtd de Esportes  </th>
+                            <th> Status           </th>
+                            <th> Deficiência      </th>
+                            <th>                  </th>
+                            <th>                  </th>
+
+                </tr>
+            </tfoot>
                         
                     </table>
                     <div class="row">
