@@ -107,7 +107,7 @@ class DeficiencyController extends Controller
     public function destroy($id)
     {
         \App\Deficiency::find($id)->delete();
-        Flash::success('Deficiência excluída com sucesso');
+        Flash::success('Deficiência inativada com sucesso');
         return redirect('deficiency');
     }
 }

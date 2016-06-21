@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\SportRequest;
+use Flash;
 
 class SportController extends Controller
 {
@@ -45,6 +47,7 @@ class SportController extends Controller
         $data = $request->all();
         unset($data['_token']);
         \App\Sport::insert($data);
+        Flash::success('Esporte cadastrado com sucesso!');
         return redirect('sport');
     }
 
@@ -84,7 +87,7 @@ class SportController extends Controller
         $sport = \App\Sport::findOrFail($id);
         $sport->name = $request->input('name');
         $sport->save();
-
+        Flash::success('Esporte editado com sucesso!');
         return redirect('sport');
     }
 
