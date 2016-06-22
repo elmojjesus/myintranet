@@ -39,7 +39,7 @@
                         </li>
                         <li class="divider"></li>
                         <li>
-                            <a href="/auth/logout"><i class="fa fa-sign-out fa-fw"></i> Sair</a>
+                            <a href="auth/logout"><i class="fa fa-sign-out fa-fw"></i> Sair</a>
                         </li>
                     </ul>
                     <!-- /.dropdown-user -->
@@ -68,10 +68,10 @@
                         </a>
                         <ul class="nav nav-second-level">
                             <li>
-                                <a href="/user/create"> Cadastrar </a>
+                                {!! HTML::link('user/create', 'Cadastrar', true) !!}
                             </li>
                             <li>
-                                <a href="/user"> Buscar - Listar </a>
+                                {!! HTML::link('user', 'Buscar - Listar', true) !!}
                             </li>
                             <li>
                                 {!! HTML::link('deficiency', 'Deficiências', true) !!}

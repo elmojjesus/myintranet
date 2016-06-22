@@ -4,7 +4,7 @@ jQuery(document).ready(function() {
     /*
         Fullscreen background
     */
-    $.backstretch("http://localhost:8000/assets/img/backgrounds/tablet.jpg");
+    $.backstretch("http://localhost/adfpsystemadfp/public/assets/img/backgrounds/tablet.jpg");
     
     /*
         Form validation
