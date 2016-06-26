@@ -6,13 +6,6 @@
 
 @section('content')
 
-@if (Session::has('flash_notification.message'))
-    <div class="alert alert-{{ Session::get('flash_notification.level') }}">
-        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-        {{ Session::get('flash_notification.message') }}
-    </div>
-@endif
-
 <!-- FILTROS -->
 <div class="row">
 	<div clas="col-md-12">
@@ -212,7 +205,7 @@
 							</div>
 							
 						@else
-							<h1>Não há nenhum usuário cadastrado</h1>
+							<div class="alert alert-danger">Nenhum usuário encontrado.</div>
 						@endif
 
 			</div>

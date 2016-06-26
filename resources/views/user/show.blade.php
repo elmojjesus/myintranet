@@ -27,12 +27,12 @@
 						</thead>
 						<!-- Dados gerais -->
 						<tr>
-							<td> <center> <img src="{{ '/images/profile/' . $user->image }}" width="80" height="80"> </center> </td>
+							<td> <center> <img src="/images/profile/{{ $user->image ?: 'default-profile.png' }}" width="80" height="80"> </center> </td>
 							<td> <h3> {{ $user->name }} </h3> </td>
 						</tr>
 						<tr>
 							<td> Id: {{ $user->id }} </td>
-							<td> Nacionalidade: {{ $user->nacionality }} </td>
+							<td> Nacionalidade: {{ $user->nationality }} </td>
 						</tr>
 						<tr>
 							<td> Mãe: {{ $user->mother }} </td>
@@ -68,15 +68,30 @@
 								<tbody>
 									<tr>
 										<td> CPF: {{ $user->document->cpf }} </td>
-										<td> Emitido em: </td>
+										<?php if($user->document->emission_cpf != '0000-00-00'): ?>
+											<?php $date_cpf = \Datetime::createFromFormat('Y-m-d', $user->document->emission_cpf); ?>
+										<?php else: ?>
+											<?php $date_cpf = false; ?>
+										<?php endif; ?>
+										<td> Emitido em: {{ $date_cpf ? $date_cpf->format('d/m/Y') : '-' }}</td>
 									</tr>
 									<tr>
 										<td> RG: {{ $user->document->rg }} </td>
-										<td> Emitido em: </td>
+										<?php if($user->document->emission_rg != '0000-00-00'): ?>
+											<?php $date_rg = \Datetime::createFromFormat('Y-m-d', $user->document->emission_rg); ?>
+										<?php else: ?>
+											<?php $date_rg = false; ?>
+										<?php endif; ?>
+										<td> Emitido em: {{ $date_rg ? $date_rg->format('d/m/Y') : '-' }}</td>
 									</tr>
 									<tr>
-										<td > Passaporte: {{ $user->document->passaport }} </td>
-										<td> Emitido em: </td>
+										<td> Passaporte: {{ $user->document->passaport }} </td>
+										<?php if($user->document->emission_passport != '0000-00-00'): ?>
+											<?php $date_passport = \Datetime::createFromFormat('Y-m-d', $user->document->emission_passport); ?>
+										<?php else: ?>
+											<?php $date_passport = false; ?>
+										<?php endif; ?>
+										<td> Emitido em: {{ $date_passport ? $date_passport->format('d/m/Y') : '-' }}</td>
 									</tr>
 								</tbody>
 							</table>
