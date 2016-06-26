@@ -17,6 +17,10 @@
 
 }
 
+a.disabled {
+    pointer-events: none;
+    color: #ccc;
+}
 
 /* --------------- for tables */
 .on-center{

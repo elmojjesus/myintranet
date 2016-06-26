@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Faker\Factory as Faker;
 
 class AthleteSeeder extends Seeder
 {
@@ -11,17 +12,19 @@ class AthleteSeeder extends Seeder
      */
     public function run()
     {
-        $faker = Faker\Factory::create();
         DB::statement('SET FOREIGN_KEY_CHECKS = 0');
-        \App\Athlete::truncate();
-       	$users = \App\User::all();
-        $status = \App\Status::all();
 
-       	$athletes = [];
+        $faker = Faker::create();
+        
+       	$users = \App\User::count();
+        $status = \App\Status::count();
+
+       	\App\Athlete::truncate();
+
        	foreach(range(0, 20) as $value) {
        		$athletes[] = [
-       			'user_id' => $users->random(1)->id,
-            'status_id' => $status->random(1)->id,
+       			'user_id' => $faker->unique()->numberBetween($min = 1, $max = $users),
+            'status_id' => $faker->numberBetween($min = 1, $max = $status),
        		];
        	}
        	

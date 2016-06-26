@@ -116,53 +116,52 @@
                             <th>                  </th>
                             <th>                  </th>
                         </tr>   
-                            @foreach($users as $user)            
+
+                            @foreach($users as $user) 
                                 <tr>
-                                    <td> {{ $user->id }} </td>                
+                                    <td> {{ $user->user_id }} </td>                
                                     <td> 
-                                        <a class="modal-ajax-link" data-mfp-src="athlete/show/{{ $user->athlete->id }}">
+                                        <a class="modal-ajax-link" data-mfp-src="athlete/show/{{ $user->athlete_id }}">
                                             {{ $user->name }}
                                         </a> 
                                     </td>
                                     <td>
-                                        @if(!is_null($user->athlete))
-                                            @if(!is_null($user->athlete->athleteSport))
-                                                <?php $count = 0; ?>
-                                                @foreach ($user->athlete->athleteSport as $athleteSport)
-                                                    <?php $count++ ?>
-                                                @endforeach
-                                                {{ $count }}
-                                            @endif
-                                        @endif
+                                           {{ $user->sports }}
                                     </td>
-                                    <?php $athlete = $user->athlete; ?>
-                                    <td> {{ $athlete->status ? $athlete->status->name : 'Não cadastrado' }}</td>
-                                    <td> {{ $user->deficiency ? $user->deficiency->name : 'Não cadastrado' }} </td>
+                                    
+                                    <td> {{ $user->status_name ? $user->status_name : 'Não cadastrado' }}</td>
+                                    <td> {{ $user->deficiency_name ? $user->deficiency_name : 'Não cadastrado' }} </td>
                                     <td> 
-                                        <a class="modal-ajax-link" data-mfp-src="/athlete/edit/{{ $user->athlete->id }}">
+                                        <a class="modal-ajax-link" data-mfp-src="/athlete/edit/{{ $user->athlete_id }}">
                                             <i class="fa fa-pencil"></i>
                                         </a>
                                     </td>
                                     <td>
-                                        <a class="modal-ajax-link" data-mfp-src="/athlete/delete/{{ $user->athlete->id }}">
-                                            <i class="fa fa-trash-o"></i>
-                                        </a>
+                                        @if($user->deleted_at != null or $user->status_id == 2)
+                                            <a class="disabled modal-ajax-link" data-mfp-src="/athlete/delete/{{ $user->athlete_id }}">
+                                                <i class="fa fa-trash-o"></i>
+                                            </a>
+                                        @elseif($user->deleted_at == null or $user->status_id != 2)
+                                            <a class="modal-ajax-link" data-mfp-src="/athlete/delete/{{ $user->athlete_id }}">
+                                                <i class="fa fa-trash-o"></i>
+                                            </a>
+                                        @endif
                                     </td>
                                 </tr>
                             @endforeach
-                                 <tfoot>
-                <tr>
-                    <th> ID               </th>
-                            <th> Nome             </th>
-                            <th> Qtd de Esportes  </th>
-                            <th> Status           </th>
-                            <th> Deficiência      </th>
-                            <th>                  </th>
-                            <th>                  </th>
 
-                </tr>
-            </tfoot>
-                        
+                            <tfoot>
+                                <tr>
+                                    <th> ID               </th>
+                                            <th> Nome             </th>
+                                            <th> Qtd de Esportes  </th>
+                                            <th> Status           </th>
+                                            <th> Deficiência      </th>
+                                            <th>                  </th>
+                                            <th>                  </th>
+
+                                </tr>
+                            </tfoot>
                     </table>
                     <div class="row">
                         <div class="col-sm-6">
@@ -174,7 +173,15 @@
                         </div>
                         <div class="col-sm-6">
                             <div id="dataTables-example_paginate" class="dataTables_paginate paging_simple_numbers">    
-                                {!! $users->render() !!}
+                                {!! $users->appends([
+                                
+                                    'id' => isset($query['id']) ? $query['id'] : '',
+                                    'name' => isset($query['name']) ? $query['name'] : '',
+                                    'sport_id' => isset($query['sport_id']) ? $query['sport_id'] : '',
+                                    'status_id' => isset($query['status_id']) ? $query['status_id'] : '',
+                                    'deficiency_id' => isset($query['deficiency_id']) ? $query['deficiency_id'] : ''
+                                
+                                ])->render() !!}
                             </div>
                         </div>
                     </div>

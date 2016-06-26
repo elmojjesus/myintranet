@@ -40,6 +40,21 @@ class UserTableSeeder extends Seeder
             'regional_id' => $regionais->random(1)->id,
         ];
         \App\User::insert($first);
+        $default[] = [
+            'email' => 'mail@mail.com',
+            'password' => bcrypt('mail'),
+            'name' => 'Default User',
+            'deficiency_id' => $deficiencies->random(1)->id,
+            'education_id' => $educations->random(1)->id,
+            'profession_id' => $professions->random(1)->id,
+            'mother' => $faker->firstNameFemale, 
+            'father' => $faker->firstNameMale,
+            'voluntary' => $faker->boolean(50),
+            'sex' => 'M',
+            'status_id' => 1,
+            'regional_id' => $regionais->random(1)->id,
+        ];
+        \App\User::insert($default);
         foreach (range(0, 100) as $number) {
             $users[] = [
                 'email' => $faker->email,
