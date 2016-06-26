@@ -16,7 +16,8 @@
 	<div class="col-md-6">
 		<div class="form-group">
 			<label>Selecione uma imagem</label>
-			<input type="file" name="image" class="form-control" />
+			<input type="file" name="image"/>
+			<div class="clearfix"></div>
 		</div>
 		<input class="btn btn-primary pull-right" type="submit" value="Salvar">
 		<a href="/user" class="btn btn-default pull-right margin-right">Ir para Lista de usuários</a>
