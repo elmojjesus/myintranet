@@ -53,6 +53,7 @@ Route::group(['middleware' => 'auth'], function() {
 	Route::get('user/delete/{id}', 'UserController@delete');
 	Route::post('user/destroy/{id}', 'UserController@destroy');
 	Route::get('user/show/{id}', 'UserController@show');
+	Route::post('user/verifyEmailExists', 'UserController@verifyEmailExists');
 
 
 	//Sports routes

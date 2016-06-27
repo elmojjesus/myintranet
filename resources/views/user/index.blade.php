@@ -129,7 +129,7 @@
 											<td>{{ $user->deficiency ? $user->deficiency->name : '-' }}</td>
 											<td>
 												<center>
-													@if(!is_null($user->athlete))
+													@if(!is_null($user->athlete) && $user->athlete->status->name != 'Inativo')
 														<i class="fa fa-check" style="color: green"></i>
 													@else
 														<i class="fa fa-times" style="color: red"></i>
@@ -138,7 +138,7 @@
 											</td>
 											<td> 
 												<center>
-													@if(!is_null($user->employee))
+													@if(!is_null($user->employee) && $user->employee->status->name != 'Inativo')
 														<i class="fa fa-check" style="color: green"></i>
 													@else
 														<i class="fa fa-times" style="color: red"></i>
@@ -147,7 +147,7 @@
 											</td>
 											<td>
 												<center>
-													@if(!is_null($user->pacient))
+													@if(!is_null($user->pacient) && $user->pacient->status->name != 'Inativo')
 														<i class="fa fa-check" style="color: green"></i>
 													@else
 														<i class="fa fa-times" style="color: red"></i>
@@ -161,7 +161,7 @@
 											</td>
 											<td> 
 												<center>
-													@if($user->voluntary)
+													@if($user->voluntareers && $user->voluntareers->status->name != 'Inativo')
 														<i class="fa fa-check" style="color: green"></i>
 													@else
 														<i class="fa fa-times" style="color: red"></i>
@@ -174,7 +174,7 @@
 												</a>
 											</td>
 											<td>
-												<a class="modal-ajax-link" data-mfp-src="/user/delete/{{ $user->id }}">
+												<a class="modal-ajax-link" data-mfp-src="/user/delete/{{ $user->id }}" {{ $user->status->name == 'Inativo' ? 'disabled="disabled"' : '' }}>
 													<i class="fa fa-trash-o"></i>
 												</a>
 											</td>

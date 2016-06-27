@@ -49,10 +49,11 @@
 						</tr>
 						<tr>
 							<td> Sexo: {{ $user->sex }} </td>
-							<td> Porta de Entrada: </td>
+							<td> Porta de Entrada: {{ $user->entry_port != '' ?: '-' }}</td>
 						</tr>
 						<tr>
-							<td> Cadastro Inicial: </td>
+							<?php $created = \Datetime::createFromFormat('Y-m-d H:i:s', $user->created_at); ?>
+							<td> Cadastro Inicial: {{ $created ? $created->format('d/m/Y') : '-' }}</td>
 							
 						</tr>
 					</table>
@@ -108,7 +109,7 @@
 								<tbody>
 									<tr>
 										<td> Cidade: {{ $user->address->city }} </td>
-										<td> Estado: {{ $user->address->state }} </td>
+										<td> Estado: {{ $user->address->state->name }} </td>
 									</tr>
 									<tr>
 										<td> Rua: {{ $user->address->street }} </td>
@@ -140,7 +141,7 @@
 										<td> Celular: {{ $user->telephone2 }} </td>
 									</tr>
 									<tr>
-																	<td> E-mail: {{ $user->email }} </td>
+										<td> E-mail: {{ $user->email }} </td>
 									</tr>
 									
 								</tbody>
@@ -164,16 +165,36 @@
 								</tr>
 								<tr>
 									<td>
-										@if(!is_null($user->athlete))
+										@if(!is_null($user->athlete) && $user->athlete->status->name != 'Inativo')
 											<i class="fa fa-check" style="color: green"></i>
 										@else
 											<i class="fa fa-times" style="color: red"></i>
 										@endif
 									</td>
-									<td> --- </td>
-									<td> --- </td>
-									<td> --- </td>
-									<td> --- </td>
+									<td>
+										@if(!is_null($user->employee)  && $user->employee->status->name != 'Inativo')
+											<i class="fa fa-check" style="color: green"></i>
+										@else
+											<i class="fa fa-times" style="color: red"></i>
+										@endif
+									</td>
+									<td>
+										@if(!is_null($user->pacient) && $user->pacient->status->name != 'Inativo')
+											<i class="fa fa-check" style="color: green"></i>
+										@else
+											<i class="fa fa-times" style="color: red"></i>
+										@endif
+									</td>
+									<td>
+										{{ $user->status->name }}
+									</td>
+									<td>
+										@if(!is_null($user->voluntareers) && $user->volunteers->status->name != 'Inativo')
+											<i class="fa fa-check" style="color: green"></i>
+										@else
+											<i class="fa fa-times" style="color: red"></i>
+										@endif
+									</td>
 								</tr>
 							</tbody>
 						</table>

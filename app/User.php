@@ -100,6 +100,10 @@ class User extends Model implements AuthenticatableContract,
         return $this->hasOne('\App\Employee');
     }
 
+    public function voluntareers() {
+        return $this->hasOne('\App\Volunteer');
+    }
+
     public static function extrangeArray($data){
         if (isset($data['created_at'])) {
             $date = \Datetime::createFromFormat('d/m/Y', $data['created_at']);

@@ -31,9 +31,12 @@
 	</div>
 	<div class="col-md-6">
 		<div class="form-group">
-		<label>Email:</label> <label class="hidden" id="lblEmailInvalido" style="color: red"> Email inválido, por favor, verifique
+		<label>Email:</label> 
+		<label class="hidden" id="lblEmailInvalido" style="color: red"> Email inválido, por favor, verifique
 		</label>
-		<input type="text" placeholder="exemplo@email.com" class="form-control" onblur="validaEmail();" maxlength="200" id="email" name="email" />
+		<label class="hidden" id="lblEmailExist" style="color: red"> Email já cadastrado no sistema, por favor, insira um email diferente
+		</label>
+		<input type="text" placeholder="exemplo@email.com" class="form-control" onblur="validaEmail();validaEmailExists();" maxlength="200" id="email" name="email" />
 		</div>
 	</div>
 
@@ -356,24 +359,42 @@ function validaCampo() {
         }
     }
 
+    function validaEmailExists() {
+    	var email = $('#email').val();
+    	var token = '{{ csrf_token() }}';
+    	$.ajax({
+    		url: '/user/verifyEmailExists',
+    		method: 'POST',
+    		data: {email: email, _token: token},
+    		success: function(json) {
+    			if (json.response) {
+    				$("#email").addClass('danger');
+    				$("#lblEmailExist").removeClass('hidden');
+    			} else {
+    				$("#email").removeClass('danger');
+					$("#lblEmailExist").addClass('hidden');
+    			}
+    			return true;
+    		}
+    	});
+    }
 
     function validaEmail(){
-    var	emailAddress = $("#email").val();
-    if (emailAddress != "") 
-    {
-    if (!isValidEmailAddress(emailAddress)) {
-    	$("#email").addClass('danger');
-    	$("#lblEmailInvalido").removeClass('hidden');
+    	var	emailAddress = $("#email").val();
+    	if (emailAddress != "") {
+    		if (!isValidEmailAddress(emailAddress)) {
+    			$("#email").addClass('danger');
+    			$("#lblEmailInvalido").removeClass('hidden');
+    			return true;
+    		}
+    		$("#email").removeClass('danger');
+    		$("#lblEmailInvalido").addClass('hidden');
+    		return true;
+		}
+		$("#email").removeClass('danger');
+		$("#lblEmailInvalido").addClass('hidden');
     	return true;
-    }
-    $("#email").removeClass('danger');
-    $("#lblEmailInvalido").addClass('hidden');
-    return true;
-}
-$("#email").removeClass('danger');
-    $("#lblEmailInvalido").addClass('hidden');
-        return true;
-    }
+	}
 
 function isValidEmailAddress(emailAddress) {
     var pattern = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
