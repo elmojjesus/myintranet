@@ -31,7 +31,7 @@ class UserController extends Controller
                         ->select('users.*')
                         ->where(function($query) use($request) {
                 if (isset($request['cpf'])) {   
-                    $query->where('doc.cpf', 'LIKE', '%'. $request['cpf'] .'%');
+                    $query->where('documents.cpf', 'LIKE', '%'. $request['cpf'] .'%');
                 }
                 if (isset($request['id']) && $request['id'] != '') {
                     $query->where('id', 'LIKE', $request['id']);
