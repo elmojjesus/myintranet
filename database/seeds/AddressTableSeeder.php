@@ -15,6 +15,7 @@ class AddressTableSeeder extends Seeder
         \App\Address::truncate();
         $users = \App\User::all();
         $cities = \App\City::all();
+        $states = \App\State::all();
         $regionais = [
             'Bacacheri',
             'Centro',
@@ -36,6 +37,7 @@ class AddressTableSeeder extends Seeder
 	        	'city' => $cities->random(1)->name,
 	        	'regional' => $regionais[$faker->numberBetween(0, count($regionais) -1 )],
 	        	'user_id' => $user->id,
+                'state_id' => $states->random(1)->id,
         	];
         }
         \App\Address::insert($data);
