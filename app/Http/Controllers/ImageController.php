@@ -99,23 +99,27 @@ class ImageController extends Controller
         unset($data['_token']);
         $file = $request->file('image');
         $flag = false;
-        while(!$flag){
-            $name = substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, 70) . '.' . $file->getClientOriginalExtension();
-            $verify = \App\User::where('image', $name)->count();    
-            if($verify < 1){
-                $flag = true;
-            }
-        }
-        $file->move(base_path() . '/public/images/profile/', $name);
         $user = \App\User::find($data['id']);
-        if ($user->image != NULL) {
-            if(File::exists(public_path() . '/images/profile/' . $user->image)) {
-                File::delete(public_path() . '/images/profile/' . $user->image);
+        if (!$file) {
+            Flash::success('Alterações realizadas com sucesso!');
+        } else {
+            while(!$flag){
+                $name = substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, 70) . '.' . $file->getClientOriginalExtension();
+                $verify = \App\User::where('image', $name)->count();    
+                if($verify < 1){
+                    $flag = true;
+                }
             }
+            $file->move(base_path() . '/public/images/profile/', $name);
+            if ($user->image != NULL) {
+                if(File::exists(public_path() . '/images/profile/' . $user->image)) {
+                    File::delete(public_path() . '/images/profile/' . $user->image);
+                }
+            }
+            $user->image = $name;
+            $user->save();
+            Flash::success('Imagem alterada com sucesso!');
         }
-        $user->image = $name;
-        $user->save();
-        Flash::success('Imagem alterada com sucesso!');
-        return redirect('/user/edit/' . $user->id);
+        return redirect('/user');
     }
 }

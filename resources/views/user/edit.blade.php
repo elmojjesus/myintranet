@@ -43,10 +43,15 @@
 	</div>
 	<div class="col-md-6">
 		<div class="form-group">
-		<label>Deficiência:</label>
-			<select name="deficiency_id" class="form-control">
+        <label>Deficiência:</label>
+            <select name="deficiency_id" class="form-control">
+                <option>Sem deficiência</option>
 				@foreach($deficiencies as $deficiency)
-					<option {{ $deficiency->id == $user->deficiency->id ? 'selected' : '' }} value="{{ $deficiency->id }}" >{{ $deficiency->name }}</option>
+                    @if($user->deficiency_id)
+					   <option {{ $deficiency->id == $user->deficiency->id ? 'selected' : '' }} value="{{ $deficiency->id }}" >{{ $deficiency->name }}</option>
+                    @else
+                        <option value="{{ $deficiency->id }}" >{{ $deficiency->name }}</option>
+                    @endif
 				@endforeach
 			</select>
 		</div>

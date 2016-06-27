@@ -39,8 +39,8 @@
 							<td> Pai: {{ $user->father }} </td>
 						</tr>
 						<tr>
-							<td> Deficiência: {{ $user->deficiency->name }} </td>
-														<td> Profissão: {{ $user->profession->name }} </td>
+							<td> Deficiência: {{ $user->deficiency ? $user->deficiency->name : 'Sem deficiência' }} </td>
+							<td> Profissão: {{ $user->profession ? $user->profession->name : '' }} </td>
 							
 						</tr>
 						<tr>

@@ -290,8 +290,8 @@
 	</div>
 	<div class="col-md-6">
 		<div class="form-group">
-			<label>Estado</label>
-			<select name="state" class="form-control" id="state"> 
+		<label>Estado</label>
+		<select name="state" class="form-control" id="state"> 
 		<option value="Selecione">-- Selecione --</option> 
 		<option value="ac">Acre</option> 
 		<option value="al">Alagoas</option> 
