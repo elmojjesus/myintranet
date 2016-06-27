@@ -99,4 +99,40 @@ class User extends Model implements AuthenticatableContract,
     public function employee() {
         return $this->hasOne('\App\Employee');
     }
+
+    public static function extrangeArray($data){
+        if (isset($data['created_at'])) {
+            $date = \Datetime::createFromFormat('d/m/Y', $data['created_at']);
+            if($date) {
+                $data['created_at'] = $date->format('Y-m-d');
+            } else {
+                $data['created_at'] = 'NULL';
+            }
+        }
+        $birthDate = \DateTime::createFromFormat('d/m/Y', $data['birthDate']);
+        if ($birthDate) {
+            $data['birthDate'] = $birthDate->format('Y-m-d');
+        } else {
+            unset($data['birthDate']);
+        }
+        if (!isset($data['deficiency_id']) || $data['deficiency_id'] == '') {
+            if (isset($data['deficiency_id'])) {
+                unset($data['deficiency_id']);
+            }
+        }
+
+        if (!isset($data['education_id']) || $data['education_id'] == '') {
+            if (isset($data['education_id'])) {
+                unset($data['education_id']);
+            }
+        }
+
+        if (!isset($data['profession_id']) || $data['profession_id'] == '') {
+            if (isset($data['profession_id'])) {
+                unset($data['profession_id']);
+            }
+        }        
+
+        return $data;
+    }
 }
