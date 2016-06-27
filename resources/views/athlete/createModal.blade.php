@@ -62,15 +62,6 @@
 
 {!! Form::close() !!}
 
-<!-- tirar essa parte e colcoar na listagem -->
-@if ( isset($user) )
-    @if ( isset($athlete) ) 
-        Esportes que já faz:
-        @foreach($athlete->sport as $sport)
-            {{ $sport->name }}
-        @endforeach
-    @endif
-@endif
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js" type="text/javascript"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.2.43/jquery.form-validator.min.js" type="text/javascript"></script>
