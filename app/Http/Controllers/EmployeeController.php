@@ -7,20 +7,84 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\EmployeeRequest;
+use Illuminate\Support\Facades\DB;
 use Flash;
 
 class EmployeeController extends Controller
 {
+
+    public function getEmployeeName($employee_id){
+        $employee = DB::table('employees')
+                        ->join('users', 'users.id', '=', 'employees.user_id')
+                        ->select('users.name')
+                        ->where('employees.id', '=', $employee_id)
+                        ->get(); 
+        $employee = array_get($employee, '0');
+
+        return $employee->name;
+    }
+
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $employees = \App\Employee::all();
-        return view('employee.index', compact('employees'));
+        $query = $request->all();
+        $status = \App\Status::all();
+        $departaments = \App\Departament::all();
 
+        $employees = DB::table('users as u')
+            ->distinct()
+            ->join('employees as e', 'u.id', '=', 'e.user_id')
+            ->join('documents as doc', 'u.id', '=', 'doc.user_id')
+            ->join('status as s', 's.id', '=', 'e.status_id')
+            ->join('departaments as d', 'd.id', '=', 'e.departament_id')
+            ->select(
+                        array(
+                                  'u.id as user_id', 
+                                  'u.name',
+                                  'doc.cpf as cpf', 
+                                  'e.id as employee_id', 
+                                  'e.status_id',
+                                  'e.departament_id',
+                                  's.name as status_name',
+                                  'd.name as departament_name',
+                                  'e.deleted_at',
+                                  'e.updated_at'
+                              )
+                            )
+            ->where(function ($query) use($request){
+                        
+                        if (isset($request['id']) && $request['id'] != '') {
+                            $query->where('u.id', 'LIKE', $request['id']);
+                        }
+
+                        if (isset($request['cpf']) && $request['cpf'] != '') {
+                            $query->where('doc.cpf', 'LIKE', $request['cpf']);
+                        }
+
+                        if (isset($request['name']) && $request['name'] != '') {
+                            $query->where('u.name', 'LIKE', '%'.$request['name'] .'%');
+                        }
+
+                        if (isset($request['status_id']) && $request['status_id'] != '') {
+                            $query->where('e.status_id', $request['status_id']);
+                        }
+
+                        if (isset($request['departament_id']) && $request['departament_id'] != '') {
+                            $query->where('e.departament_id', $request['departament_id']);
+                        }
+
+
+                    })
+                    ->orderBy('u.id')
+                    ->groupBy('u.id')
+                    ->paginate(10);
+
+        return view('employee.index', compact('employees', 'status', 'departaments', 'query'));
     }
 
     /**
@@ -66,7 +130,7 @@ class EmployeeController extends Controller
         $var = \App\Employee::insert($data);
         #dd($var);
         Flash::success('Funcionário cadastrado com sucesso.');
-        return redirect('employee');
+        return redirect('employee/create');
     }
 
     /**
@@ -88,10 +152,10 @@ class EmployeeController extends Controller
      */
     public function edit($id)
     {
-        $employee = \App\Employee::find($id);
-        $users = \App\User::orderBy('name')->get();
+        $employee = \App\Employee::withTrashed()->find($id);
+        $status = \App\Status::all();
         $departaments = \App\Departament::orderBy('name')->get();
-        return view('employee.edit', compact('employee', 'users', 'departaments'));
+        return view('employee.edit', compact('employee', 'users', 'departaments', 'status'));
     }
 
     /**
@@ -101,14 +165,26 @@ class EmployeeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(EmployeeRequest $request, $id)
+    public function update(Request $request, $id)
     {
+        
         $data = $request->all();
         unset($data['_token']);
-        \App\Employee::where('id', $id)->update($data);
-        Flash::success('Alterações realizadas com sucesso.');
+
+        $employee = \App\Employee::withTrashed()->find($id);
+        if($request->status_id != 2 and $employee->status_id == 2){
+            $data["deleted_at"] = null;
+        }
+        
+        \App\Employee::withTrashed()->where('id', $id)->update($data);
+        $employeeName = $this->getEmployeeName($id);
+
+        Flash::success( $employeeName . ' teve informações atualizadas.');
         return redirect('employee');
     }
+
+
+
 
     public function delete($id) {
         $employee = \App\Employee::find($id);
@@ -123,8 +199,17 @@ class EmployeeController extends Controller
      */
     public function destroy($id)
     {
-        \App\Employee::where('id', $id)->delete();
-        Flash::success('Funcionário inativado com sucesso.');
+        $employee = \App\Employee::find($id);
+
+        if($employee->delete()) { // If softdeleted
+            DB::table('employees')->where('id', $employee->id)
+              ->update(['status_id' => 2]);
+              #array('deleted_by' => 'SomeNameOrUserID')
+        }
+
+        $employeeName = $this->getEmployeeName($id);
+
+        Flash::success($employeeName . ' agora é um funcionário inativo.');
         return redirect('employee');
     }
 }

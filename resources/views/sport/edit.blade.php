@@ -1,28 +1,5 @@
-<!--
-<div class="modal-header">
-  <button type="button" class="close" data-dismiss="modal">&times;</button>
-  <h4 class="modal-title">Alterar esporte</h4>
-</div>
-<div class="modal-body">
-  <p>Será carregado o input ja com placeholder do esporte selecionado</p>
-</div>
-<div class="modal-footer">
-  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-</div>
--->
-
-<!--
-    <form method="POST" action="/sport/update/{{ $sport->id }}">
-      {{ csrf_field() }}
-      Esporte:
-      <input type="text" name="name" value="{{ $sport->name }}">
-      <br>
-      <input type="submit" class="btn btn-primary" value="Salvar">
-    </form>
--->
-
 <div class="data-title">
-  <h3>Editar esporte: {{ $deficiency->name }}</h3>
+  <h3>Editando um esporte</h3>
 </div>
  <div id="erros" class="col-md-12 hidden">
         <div class="form-group">

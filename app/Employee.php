@@ -38,4 +38,8 @@ class Employee extends Model
     public function departament() {
         return $this->belongsTo('\App\Departament');
     }
+
+    public function status(){
+        return $this->belongsTo('\App\Status');
+    }
 }
