@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTarepiesPacientsTable extends Migration
+class CreatePacientTherapiesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,7 +12,7 @@ class CreateTarepiesPacientsTable extends Migration
      */
     public function up()
     {
-        Schema::create('terapies_pacients', function (Blueprint $table) {
+        Schema::create('pacient_therapies', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('therapy_id')->unsigned();
             $table->foreign('therapy_id')->references('id')->on('terapies');
@@ -32,6 +32,6 @@ class CreateTarepiesPacientsTable extends Migration
     public function down()
     {
         DB::statement('SET FOREIGN_KEY_CHECKS = 0');
-        Schema::dropIfExists('terapies_pacients');
+        Schema::dropIfExists('pacient_therapies');
     }
 }

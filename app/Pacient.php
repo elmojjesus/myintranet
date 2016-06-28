@@ -40,6 +40,10 @@ class Pacient extends Model
         return $this->belongsTo('\App\Status');
     }
 
+    public function pacientTherapy() {
+        return $this->hasMany('\App\PacientTherapy');
+    }
+
     public static function ScopeSex($sex) {
         return \App\Pacient::join('users', function ($join) use($sex) {
             $join->on('users.id', '=', 'pacients.user_id')

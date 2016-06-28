@@ -64,7 +64,6 @@ Route::group(['middleware' => 'auth'], function() {
 
 	//Athlete's routes
 	Route::get('athlete', 'AthleteController@index');
-	#Route::post('athlete', 'AthleteController@index');
 	Route::get('athlete/create', 'AthleteController@create');
 	Route::post('athlete/create', 'AthleteController@create');
 	Route::get('athlete/create/modal/{id}', 'AthleteController@createModal');
@@ -103,6 +102,7 @@ Route::group(['middleware' => 'auth'], function() {
 	Route::post('employee/destroy/{id}', 'EmployeeController@destroy');
 	Route::get('employee/create/modal/{id}', 'EmployeeController@createModal');
 
+
 	//Volunteer's routes
 	Route::get('volunteer', 'VolunteerController@index');
 	Route::get('volunteer/create', 'VolunteerController@create');
@@ -114,7 +114,8 @@ Route::group(['middleware' => 'auth'], function() {
 	Route::post('volunteer/destroy/{id}', 'VolunteerController@destroy');
 	Route::get('volunteer/create/modal/{id}', 'VolunteerController@createModal');
 
-	//Route Therapies
+
+	//Therapies' routes
 	Route::get('therapy', 'TherapyController@index');
 	Route::get('therapy/create', 'TherapyController@create');
 	Route::post('therapy/store', 'TherapyController@store');
@@ -123,14 +124,21 @@ Route::group(['middleware' => 'auth'], function() {
 	Route::get('therapy/delete/{id}', 'TherapyController@delete');
 	Route::post('therapy/destroy/{id}', 'TherapyController@destroy');
 
-	//Route Therapies
+
+	//Pacient's routes
 	Route::get('pacient', 'PacientController@index');
 	Route::get('pacient/create', 'PacientController@create');
-	Route::post('pacient/store', 'PacientController@store');
+	Route::post('pacient/create', 'PacientController@create');
+	Route::get('pacient/create/modal/{id}', 'PacientController@createModal');
+	Route::post('pacient/store/{id}', 'PacientController@store');
+	Route::get('pacient/show/{id}', 'PacientController@show');
 	Route::get('pacient/edit/{id}', 'PacientController@edit');
 	Route::post('pacient/update/{id}', 'PacientController@update');
 	Route::get('pacient/delete/{id}', 'PacientController@delete');
 	Route::post('pacient/destroy/{id}', 'PacientController@destroy');
+	Route::post('pacientSports/destroy/{pacient_id}', 'PacientTherapiesController@destroy');
+	Route::post('pacientSports/update/{pacient_id}', 'PacientTherapiesController@update');
+
 
 	//Image Upload
 	Route::get('user/image/upload/{id}', 'ImageController@userUpload');

@@ -165,7 +165,7 @@ class AthleteSportsController extends Controller
             Flash::success($athleteName . " teve esportes excluídos.");
             return redirect('athlete');
         } else {
-            Flash::success("O " . $athleteName . " teve esportes excluídos.");
+            Flash::success("O/a " . $athleteName . " teve esportes excluídos.");
             return redirect('athlete');
         }
         

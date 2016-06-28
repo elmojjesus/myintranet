@@ -14,7 +14,7 @@ class PacientTherapy extends Model
      *
      * @var string
      */
-    protected $table = 'terapies_pacients';
+    protected $table = 'pacient_therapies';
 
     /**
      * The attributes that are mass assignable.
@@ -31,4 +31,12 @@ class PacientTherapy extends Model
     protected $hidden = [];
 
     protected $dates = ['deleted_at'];
+
+    public function pacient() {
+        return $this->belongsTo('\App\Pacient');
+    }
+
+    public function therapy() {
+        return $this->belongsTo('\App\Therapy');
+    }
 }

@@ -1,39 +1,117 @@
 @extends('layouts.layout')
+
 @section('title')
-	 Cadastre um paciente <i class="fa fa-user"></i>
-	 <small> / Pacientes / Cadastrar </small>
+    Cadastre um paciente <i class="fa fa-wheelchair"></i>
+    <small> / Pacientes / Cadastrar </small>
 @stop
+
 @section('content')
-	<form method="POST" action="/pacient/store">
-		{{ csrf_field() }}
+<div class="row">
+    <div clas="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">Buscar Usuários</div>
+            <div class="panel-body">
+                
+                {!! Form::open(array('method' => 'post', 'action' => array('PacientController@create'))) !!}
+
+                <div class="row">
+                    
+                    <div class="col-sm-6">
+                        <div id="dataTables-example_length" class="dataTables_length">
+
+                            <label>ID:</label> {!! Form::text('id', '', $attributes = array('class' => 'form-control numeric', 'maxlength' => '3')) !!}
+
+                        </div>
+                    </div>
+                    
+                    <div class="col-sm-6">
+                        <div id="dataTables-example_length" class="dataTables_length">
+
+                            <label>Nome:</label> {!! Form::text('name', '', $attributes = array('class' => 'form-control')) !!}
+
+                        </div>
+                    </div>
+                
+                </div>
+
+                <br>
+
+                <div class="row">
+
+                    <div class="col-lg-12">
+                        <div id="dataTables-example_length" class="dataTables_length">
+                        
+                            {!!Form::submit('Buscar', $attributes = array('class' => 'btn btn-primary')) !!}
+
+                        </div>
+                    </div>
+                            
+                </div>
+
+                {!! Form::close() !!}
+              
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <div class="row">
-	<div clas="col-md-12">
-		<div class="col-md-6">
-			<div class="form-group">
-				<label>Tornar Paciente</label>
-				<select name="user_id" class="form-control">
-					<option>Selecione um usuário</option>
-					@foreach ($users as $user)
-						<option value="{{ $user->id }}">{{ $user->name }}</option>
-					@endforeach
-				</select>
-			</div>
-		</div>
-		<div class="col-md-6">
-			<div class="form-group">
-				<label>Status</label>
-				<select name="status_id" class="form-control">
-					<option>Selecione um status</option>
-					@foreach ($status as $s)
-						<option value="{{ $s->id }}">{{ $s->name }}</option>
-					@endforeach
-				</select>
-			</div>
-		</div>
-		
-		<input class="btn btn-primary" value="Salvar" type="submit">
-		</div>
-		</div>
-	</form>
-@endsection
+    <div clas="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">Usuários Comuns</div>
+            <div class="panel-body">
+                
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th> ID </th>
+                            <th> Nome </th>
+                            <th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($users as $user)
+                            <tr>
+                                <td> {{ $user->id }} </td>
+                                <td> {{ $user->name }} </td> 
+                                <td>
+                                    <a class="modal-ajax-link" data-mfp-src="create/modal/{{ $user->id }}"> 
+                                        Torná-lo(a) paciente  <i class="fa fa-wheelchair"></i>
+                                    </a>   
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th> ID </th>
+                            <th> Nome </th>
+                            <th> 
+                        </tr>
+                    </tfoot>
+                </table>
+
+                <div id="dataTables-example_paginate" class="dataTables_paginate paging_simple_numbers">
+                    {!! $users->render() !!}
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js" type="text/javascript"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.2.43/jquery.form-validator.min.js" type="text/javascript"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.0/jquery.mask.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+    
+    jQuery('.numeric').keyup(function () { 
+    this.value = this.value.replace(/[^0-9\.]/g,'');
+});
+
+
+</script>
+
+@stop

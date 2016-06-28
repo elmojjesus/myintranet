@@ -149,23 +149,6 @@
                         </ul>
                     </li>
                     <li>
-                        <a>
-                            <i class="fa fa-area-chart"></i>
-                            Relatórios<span class="fa arrow"></span>
-                        </a>
-                        <ul class="nav nav-second-level">
-                            <li>
-                                {!! HTML::link('reports/user', 'Usuários', true) !!}
-                            </li>
-                            <li>
-                                {!! HTML::link('reports/athletes', 'Atletas', true) !!}
-                            </li>
-                            <li>
-                                {!! HTML::link('reports/pacients', 'Pacientes', true) !!}
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
                         <a href="/profiles">
                             <i class="fa fa-low-vision"></i>
                             Perfis de Acesso
