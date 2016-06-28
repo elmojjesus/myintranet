@@ -13,13 +13,14 @@ class CreateUsersTable extends Migration
     public function up()
     {
         Schema::create('users', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
             $table->increments('id');
             $table->string('name');
             $table->string('custom_code', 5);
             $table->string('email')->unique();
             $table->string('password', 60)->nullable()->default(NULL);
             $table->string('image', 100)->nullable()->default(NULL);
-            $table->integer('deficiency_id')->unsigned()->index()->nullable()->default(NULL);
+            $table->unsignedInteger('deficiency_id')->nullable();
             $table->foreign('deficiency_id')->references('id')->on('deficiencies')->onDelete('set null');
             $table->date('birthDate');
             $table->enum('sex', ['M', 'F']);

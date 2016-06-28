@@ -28,6 +28,9 @@ class UserController extends Controller
 
     public function getUsersByQuery($request) {
         return \App\User::where(function($query) use($request) {
+            /*if (isset($request['cpf']) && $request['cpf'] != '') {
+                $query->join('documents', 'documents.user_id', '=', 'users.id')->where('documents.cpf', $request['cpf']);
+            }*/
             if (isset($request['id']) && $request['id'] != '') {
                 $query->where('id', 'LIKE', $request['id']);
             }
@@ -36,6 +39,7 @@ class UserController extends Controller
                 $query->where('name', 'LIKE', '%'.$request['name'] .'%');
             }
 
+
             if (isset($request['deficiency_id']) && $request['deficiency_id'] != '') {
                 $query->where('deficiency_id', $request['deficiency_id']);
             }
@@ -43,7 +47,7 @@ class UserController extends Controller
             if (isset($request['status_id']) && $request['status_id'] != '') {
                 $query->where('status_id', $request['status_id']);
             }
-        })->orderBy('name')->paginate(15);
+        })->orderBy('users.name')->paginate(15);
 
     }
 
@@ -81,7 +85,8 @@ class UserController extends Controller
         $educations = \App\Education::all();
         $professions = \App\Profession::all();
         $status = \App\Status::all();
-        return view('user.create', compact('deficiencies', 'educations', 'professions', 'status'));
+        $states = \App\State::all();
+        return view('user.create', compact('deficiencies', 'educations', 'professions', 'status', 'states'));
     }
 
     /**
@@ -98,15 +103,6 @@ class UserController extends Controller
         $document = \App\Document::extrangeArray($data);
         unset($data['rg'], $data['cpf'], $data['passport'], $data['emission_rg'], $data['emission_cpf'], $data['emission_passport']);
 
-        if (isset($data['created_at'])) {
-            $date = \Datetime::createFromFormat('d/m/Y', $data['created_at']);
-            if($date) {
-                $data['created_at'] = $date->format('Y-m-d');
-            } else {
-                $data['created_at'] = 'NULL';
-            }
-        }
-
         if (isset($data['street'])) {
             $address = [
                 'street' => $data['street'],
@@ -116,13 +112,27 @@ class UserController extends Controller
                 'neighborhood' => $data['neighborhood'],
                 'regional' => $data['regional'],
                 'city' => isset($data['city']) ? $data['city'] : null,
-                'state' => $data['state']
+                'state_id' => $data['state']
             ];
             unset($data['street'], $data['number'], $data['complement'], $data['codPostal'], $data['neighborhood'], $data['regional'], $data['city'], $data['state']);
         }
+
+        if (isset($data['created_at'])) {
+            $date = \Datetime::createFromFormat('d/m/Y', $data['created_at']);
+            if($date) {
+                $data['created_at'] = $date->format('Y-m-d');
+            } else {
+                $data['created_at'] = 'NULL';
+            }
+        }
         $birthDate = \DateTime::createFromFormat('d/m/Y', $data['birthDate']);
         $data['birthDate'] = $birthDate->format('Y-m-d');
-        \App\User::insert($data);
+        if (!isset($data['deficiency_id']) || $data['deficiency_id'] == '') {
+            if (isset($data['deficiency_id'])) {
+                unset($data['deficiency_id']);
+            }
+        }
+        \App\User::insert(\App\User::extrangeArray($data));
         $user = \App\User::where('email', $data['email'])->first();
         $document['user_id'] = $user->id;
         $address['user_id'] = $user->id;
@@ -158,7 +168,8 @@ class UserController extends Controller
         $educations = \App\Education::all();
         $professions = \App\Profession::all();
         $status = \App\Status::all();
-        return view('user.edit', compact('user', 'deficiencies', 'educations', 'professions', 'status'));
+        $states = \App\State::all();
+        return view('user.edit', compact('user', 'deficiencies', 'educations', 'professions', 'status', 'states'));
     }
 
     /**
@@ -197,7 +208,7 @@ class UserController extends Controller
                 'neighborhood' => $data['neighborhood'],
                 'regional' => $data['regional'],
                 'city' => isset($data['city']) ? $data['city'] : null,
-                'state' => $data['state']
+                'state_id' => $data['state']
             ];
             unset($data['street'], $data['number'], $data['complement'], $data['codPostal'], $data['neighborhood'], $data['regional'], $data['city'], $data['state']);
         }
@@ -232,7 +243,10 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        \App\User::find($id)->delete();
+        $data['status_id'] = \App\Status::where('name', 'Inativo')->first();
+        \App\User::where('id', $id)->update($data);
+        Flash::success('Usuário inativado com sucesso!');
+        /* \App\User::find($id)->delete(); */
         return redirect('user');
     }
 }

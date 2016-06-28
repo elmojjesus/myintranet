@@ -18,7 +18,7 @@
                             </tr>
                         </thead>
                         <tr>
-                            <td> <center> <img src="{{ '/images/profile/' . $athlete->user->image }}" width="80" height="80"> </center> </td>
+                            <td> <center> <img src="/images/profile/{{ $athlete->user->image ?: 'default-profile.png' }}" width="80" height="80"> </center> </td>
                             <td> <h3> {{ $athlete->user->name }} </h3> </td>
                         </tr>
                         <tr>

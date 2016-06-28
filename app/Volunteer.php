@@ -5,15 +5,15 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Employee extends Model
+class Volunteer extends Model
 {
-    use SoftDeletes;
+	use SoftDeletes;
         /**
      * The database table used by the model.
      *
      * @var string
      */
-    protected $table = 'employees';
+    protected $table = "volunteers";
 
     /**
      * The attributes that are mass assignable.
@@ -28,8 +28,6 @@ class Employee extends Model
      * @var array
      */
     protected $hidden = [];
-
-    protected $dates = ['deleted_at'];
 
     public function user() {
         return $this->belongsTo('\App\User');

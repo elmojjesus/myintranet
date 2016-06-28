@@ -44,7 +44,7 @@ class DepartamentController extends Controller
         $data = $request->all();
         unset($data['_token']);
         \App\Departament::insert($data);
-        Flash::success('Cadastrado com sucesso.');
+        Flash::success('Departamento cadastrado com sucesso.');
         return redirect('departament');
     }
 
@@ -84,7 +84,7 @@ class DepartamentController extends Controller
         $data = $request->all();
         unset($data['_token']);
         \App\Departament::where('id', $id)->update($data);
-        Flash::success('Salvo com sucesso.');
+        Flash::success('Departamento editado com sucesso.');
         return redirect('departament');
     }
 
@@ -102,7 +102,7 @@ class DepartamentController extends Controller
     public function destroy($id)
     {
         \App\Departament::where('id', $id)->delete($id);
-        Flash::success('Excluído com sucesso.');
+        Flash::success('Departamento excluído com sucesso.');
         return redirect('departament');
     }
 }

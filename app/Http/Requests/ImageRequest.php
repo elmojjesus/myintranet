@@ -27,7 +27,7 @@ class ImageRequest extends Request
         if (isset($data['id'])) {
             return [
                 'id' => 'required',
-                'image' => 'required|image'
+                'image' => 'image'
             ];
         }
         return [

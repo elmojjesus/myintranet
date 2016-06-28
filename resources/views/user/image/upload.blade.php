@@ -1,7 +1,7 @@
 @extends('layouts.layout')
 
 @section('title')
-	<a class="btn btn-primary" href="{{ URL::previous() }}" type="button"> 
+	<a class="btn btn-primary" href="/user/edit/{{ $user->id }}" type="button"> 
 	<font class="myMiddle"> <i class="fa fa-arrow-left"></i>
 	</font></a>
 	 Foto de perfil <i class="fa fa-user"></i>
@@ -20,7 +20,6 @@
 			<div class="clearfix"></div>
 		</div>
 		<input class="btn btn-primary pull-right" type="submit" value="Salvar">
-		<a href="/user" class="btn btn-default pull-right margin-right">Ir para Lista de usuários</a>
 	</div>
 	<div class="clearfix"></div>
 </form>

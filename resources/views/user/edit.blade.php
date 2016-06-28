@@ -43,10 +43,15 @@
 	</div>
 	<div class="col-md-6">
 		<div class="form-group">
-		<label>Deficiência:</label>
-			<select name="deficiency_id" class="form-control">
+        <label>Deficiência:</label>
+            <select name="deficiency_id" class="form-control">
+                <option>Sem deficiência</option>
 				@foreach($deficiencies as $deficiency)
-					<option {{ $deficiency->id == $user->deficiency->id ? 'selected' : '' }} value="{{ $deficiency->id }}" >{{ $deficiency->name }}</option>
+                    @if($user->deficiency_id)
+					   <option {{ $deficiency->id == $user->deficiency->id ? 'selected' : '' }} value="{{ $deficiency->id }}" >{{ $deficiency->name }}</option>
+                    @else
+                        <option value="{{ $deficiency->id }}" >{{ $deficiency->name }}</option>
+                    @endif
 				@endforeach
 			</select>
 		</div>
@@ -307,7 +312,7 @@
                 <option value="São José dos Pinhais">São José dos Pinhais</option>
                 <option value="Tijucas do Sul">Tijucas do Sul</option>
                 <option value="Tunas do Paraná">Tunas do Paraná</option>
-            </select> 
+            </select>
         </div>
     </div>
     <div class="col-md-6">
@@ -320,35 +325,11 @@
         <div class="form-group">
             <label>Estado</label>
             <select name="state" class="form-control" id="state"> 
-        <option value="{{ $user->address->state }}">{{ $user->address->state }}</option> 
-        <option value="ac" {{ $user->address->state == "ac" ? 'selected' : '' }}>Acre</option> 
-        <option value="al" {{ $user->address->state == "al" ? 'selected' : '' }}>Alagoas</option> 
-        <option value="am" {{ $user->address->state == "am" ? 'selected' : '' }}>Amazonas</option> 
-        <option value="ap" {{ $user->address->state == "ap" ? 'selected' : '' }}>Amapá</option> 
-        <option value="ba" {{ $user->address->state == "ba" ? 'selected' : '' }}>Bahia</option> 
-        <option value="ce" {{ $user->address->state == "ce" ? 'selected' : '' }}>Ceará</option> 
-        <option value="df" {{ $user->address->state == "df" ? 'selected' : '' }}>Distrito Federal</option> 
-        <option value="es" {{ $user->address->state == "es" ? 'selected' : '' }}>Espírito Santo</option> 
-        <option value="go" {{ $user->address->state == "go" ? 'selected' : '' }}>Goiás</option> 
-        <option value="ma" {{ $user->address->state == "ma" ? 'selected' : '' }}>Maranhão</option> 
-        <option value="mt" {{ $user->address->state == "mt" ? 'selected' : '' }}>Mato Grosso</option> 
-        <option value="ms" {{ $user->address->state == "ms" ? 'selected' : '' }}>Mato Grosso do Sul</option> 
-        <option value="mg" {{ $user->address->state == "mg" ? 'selected' : '' }}>Minas Gerais</option> 
-        <option value="pa" {{ $user->address->state == "pa" ? 'selected' : '' }}>Pará</option> 
-        <option value="pb" {{ $user->address->state == "pb" ? 'selected' : '' }}>Paraíba</option> 
-        <option value="pr" {{ $user->address->state == "pr" ? 'selected' : '' }}>Paraná</option> 
-        <option value="pe" {{ $user->address->state == "pe" ? 'selected' : '' }}>Pernambuco</option> 
-        <option value="pi" {{ $user->address->state == "pi" ? 'selected' : '' }}>Piauí</option> 
-        <option value="rj" {{ $user->address->state == "rj" ? 'selected' : '' }}>Rio de Janeiro</option> 
-        <option value="rn" {{ $user->address->state == "rn" ? 'selected' : '' }}>Rio Grande do Norte</option> 
-        <option value="ro" {{ $user->address->state == "ro" ? 'selected' : '' }}>Rondônia</option> 
-        <option value="rs" {{ $user->address->state == "rs" ? 'selected' : '' }}>Rio Grande do Sul</option> 
-        <option value="rr" {{ $user->address->state == "rr" ? 'selected' : '' }}>Roraima</option> 
-        <option value="sc" {{ $user->address->state == "sc" ? 'selected' : '' }}>Santa Catarina</option> 
-        <option value="se" {{ $user->address->state == "se" ? 'selected' : '' }}>Sergipe</option> 
-        <option value="sp" {{ $user->address->state == "sp" ? 'selected' : '' }}>São Paulo</option> 
-        <option value="to" {{ $user->address->state == "to" ? 'selected' : '' }}>Tocantins</option> 
-    </select>
+                <option value="">Selecione um estado</option>
+                @foreach($states as $state)
+                    <option value="{{ $state->id }}" {{ $state->id == $user->address->state['id'] ? 'selected=selected' : '' }}>{{ $state->name }}</option>
+                @endforeach
+            </select>
         </div>
     </div>
 

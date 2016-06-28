@@ -121,7 +121,7 @@ class AthleteController extends Controller
         $users = DB::table('users as u')
                     ->distinct()
                     ->join('athletes as a', 'u.id', '=', 'a.user_id')
-                    ->join('athlete_sports as ats', 'ats.athlete_id', '=', 'a.id')
+                    ->leftJoin('athlete_sports as ats', 'ats.athlete_id', '=', 'a.id')
                     ->join('status as s', 's.id', '=', 'a.status_id')
                     ->join('deficiencies as d', 'd.id', '=', 'u.deficiency_id')
                     ->select(
@@ -134,6 +134,7 @@ class AthleteController extends Controller
                                   's.name as status_name',
                                   'd.name as deficiency_name',
                                   'a.deleted_at',
+                                  'a.updated_at',
                                   DB::raw('count(ats.sport_id) as sports')
                               )
                             )
@@ -163,6 +164,7 @@ class AthleteController extends Controller
 
 
                     })
+                    
                     ->orderBy('u.id')
                     ->groupBy('u.id')
                     ->paginate(10);
@@ -269,8 +271,14 @@ class AthleteController extends Controller
             return redirect('athlete');
         }
 
+        $athlete = \App\Athlete::withTrashed()->find($id);
+        if($request->status_id != 2 and $athlete->status_id == 2){
+            \App\Athlete::withTrashed()->where('id', $id)->update(['status_id' => $request->input('status_id'), 'deleted_at' => null]);
+        } else {
+            \App\Athlete::where('id', $id)->update(['status_id' => $request->input('status_id')]);
+        }
+
         Flash::success("Status do " . $athleteName . " alterado com sucesso.");
-        \App\Athlete::where('id', $id)->update(['status_id' => $request->input('status_id')]);
         return redirect('athlete');
     }
 

@@ -1,9 +1,7 @@
 @extends('layouts.layout')
 
 @section('title')
-
-	 Funcionários da ADFP <i class="fa fa-star"></i><small> / Funcionários / Buscar - Listar </small>
-
+	 Voluntários da ADFP <i class="fa fa-heart"></i><small> / Voluntários / Buscar - Listar </small>
 @stop
 
 
@@ -79,7 +77,7 @@
 					<div class="row">
 						<div class="col-lg-12">
 							<div id="dataTables-example_length" class="dataTables_length">
-								<a class="btn btn-default" href="/employee">Limpar busca</a>
+								<a class="btn btn-default" href="/volunteer">Limpar busca</a>
 								<input type="submit" class="btn btn-primary" value="Buscar">
 							</div>
 						</div>
@@ -96,12 +94,12 @@
 	<div class="row">
 	<div clas="col-lg-12">
 		<div class="panel panel-default">
-			<div class="panel-heading">Listagem de funcionários</div>
+			<div class="panel-heading">Listagem de voluntários</div>
 			<div class="panel-body">
 
 				<div style="overflow-x:auto;">
 
-	@if($employees)
+	@if($volunteers)
 		<table class="table table-hover table-bordered">
 			<thead>
 				<tr>
@@ -113,24 +111,24 @@
 				</tr>
 			</thead>
 			<tbody>
-				@foreach($employees as $employee)
+				@foreach($volunteers as $volunteer)
 					<tr>
-					    <td>{{ $employee->user_id  }}</td>
-						<td>{{ $employee->name  }}</td>
-						<td>{{ $employee->departament_name }}</td>
-						<td>{{ $employee->status_name }}</td>
+					    <td>{{ $volunteer->user_id  }}</td>
+						<td>{{ $volunteer->name  }}</td>
+						<td>{{ $volunteer->departament_name }}</td>
+						<td>{{ $volunteer->status_name }}</td>
 						<td>
-							<a class="modal-ajax-link" data-mfp-src="/employee/edit/{{ $employee->employee_id }}">
+							<a class="modal-ajax-link" data-mfp-src="/volunteer/edit/{{ $volunteer->volunteer_id }}">
 								<center><i class="fa fa-pencil"></i></center>
 							</a>
 						</td>
 						<td>
-							@if($employee->deleted_at != null or $employee->status_id == 2)
-								<a class="disabled modal-ajax-link" data-mfp-src="/employee/delete/{{ $employee->employee_id }}">
+							@if($volunteer->deleted_at != null or $volunteer->status_id == 2)
+								<a class="disabled modal-ajax-link" data-mfp-src="/volunteer/delete/{{ $volunteer->volunteer_id }}">
 									<center><i class="fa fa-trash-o"></i></center>
 								</a>
-							@elseif($employee->deleted_at == null or $employee->status_id != 2)
-								<a class="modal-ajax-link" data-mfp-src="/employee/delete/{{ $employee->employee_id }}">
+							@elseif($volunteer->deleted_at == null or $volunteer->status_id != 2)
+								<a class="modal-ajax-link" data-mfp-src="/volunteer/delete/{{ $volunteer->volunteer_id }}">
 									<center><i class="fa fa-trash-o"></i></center>
 								</a>
 							@endif
@@ -151,14 +149,14 @@
 		<div class="row">
             <div class="col-sm-6">
                 <div aria-relevant="all" aria-live="polite" role="alert" id="dataTables-example_info" class="dataTables_info">
-                Total na página: {!! $employees->count() !!}
+                Total na página: {!! $volunteers->count() !!}
                 <br>
-                Funcionários no total: {!! $employees->total() !!}
+                Voluntários no total: {!! $volunteers->total() !!}
                 </div>
             </div>
             <div class="col-sm-6">
                 <div id="dataTables-example_paginate" class="dataTables_paginate paging_simple_numbers">    
-                    {!! $employees->appends([
+                    {!! $volunteers->appends([
                     
                         'id' => isset($query['id']) ? $query['id'] : '',
                         'cpf' => isset($query['cpf']) ? $query['cpf'] : '',
@@ -171,7 +169,7 @@
             </div>
         </div>
 	@else
-		<div class="alert alert-danger">Nenhum funcionário cadastrado</div>
+		<div class="alert alert-danger">Nenhum voluntário cadastrado</div>
 	@endif
 		</div>
 
