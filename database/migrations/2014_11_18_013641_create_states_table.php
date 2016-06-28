@@ -16,6 +16,7 @@ class CreateStatesTable extends Migration
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->string('name');
+            $table->string('initials', 5);
         });
     }
 
