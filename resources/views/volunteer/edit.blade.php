@@ -30,7 +30,6 @@
 					<div class="form-group">
 						<label>Departamento</label>
 						<select name="departament_id" class="form-control">
-							<option value=""></option>
 							@foreach($departaments as $departament)
 								<option value="{{ $departament->id }}" {{ $volunteer->departament->id == $departament->id ? 'selected="selected"' : '' }}>{{ $departament->name }}</option>
 							@endforeach
