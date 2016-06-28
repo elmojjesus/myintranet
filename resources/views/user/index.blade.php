@@ -1,7 +1,7 @@
 @extends('layouts.layout')
 
 @section('title')
-	 Usuários da ADFP <small> / Usuários / Buscar - Listar </small>
+	 Usuários da ADFP <i class="fa fa-user"></i> <small> / Usuários / Buscar - Listar </small>
 @stop
 
 @section('content')

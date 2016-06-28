@@ -17,14 +17,12 @@
 
 }
 
-<<<<<<< HEAD
 a.disabled {
     pointer-events: none;
     color: #ccc;
-=======
+}
 .margin-right {
     margin-right:10px;
->>>>>>> 21dd28873c1dedd230f26ba4f6b3e4c757d7f21b
 }
 
 /* --------------- for tables */

@@ -19,7 +19,7 @@
                     <div class="col-sm-6">
                         <div id="dataTables-example_length" class="dataTables_length">
 
-                            <label>ID:</label> {!! Form::text('id', '', $attributes = array('class' => 'form-control numeric', 'maxlength' => '3')) !!}
+                            <label>ID:</label> {!! Form::text('id', '', $attributes = array('class' => 'form-control numeric', 'maxlength' => '5')) !!}
 
                         </div>
                     </div>
@@ -36,17 +36,15 @@
 
                 <br>
 
+                
                 <div class="row">
-
-                    <div class="col-lg-12">
-                        <div id="dataTables-example_length" class="dataTables_length">
-                        
-                            {!!Form::submit('Buscar', $attributes = array('class' => 'btn btn-primary')) !!}
-
+                        <div class="col-lg-12">
+                            <div id="dataTables-example_length" class="dataTables_length">
+                                <a class="btn btn-default" href="/athlete/create">Limpar busca</a>
+                                {!!Form::submit('Buscar', $attributes = array('class' => 'btn btn-primary')) !!}
+                            </div>
                         </div>
                     </div>
-                            
-                </div>
 
                 {!! Form::close() !!}
               

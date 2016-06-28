@@ -40,7 +40,6 @@
                             <tr>
                                 <th width="60%">Departamento</th>
                                 <th width="20%">Editar</th>
-                                <th width="20%">Remover</th>
                             </tr>
 
                                     <tr>
@@ -49,11 +48,6 @@
                                                  <a class="modal-ajax-link" > 
                                                      <i class="fa fa-pencil"></i> 
                                                  </a> 
-                                            </td>
-                                        <td style="text-align: center;">
-                                                <a class="modal-ajax-link">
-                                                    <i class="fa fa-trash-o"></i>
-                                                </a>
                                             </td>
                                     </tr>
                         </table>
