@@ -9,7 +9,7 @@
 <form action="/profession/update/{{ $profession->id }}" method="POST" name="editProfession">
 	{{ csrf_field() }}
 	<label>Nome da profissão:</label>
-	<input type="text" id="name" name="name" value="{{ $profession->name }}" />
+	<input type="text" id="name" class="form-control" name="name" value="{{ $profession->name }}" />
 </form>
 
 <div class="data-footer">

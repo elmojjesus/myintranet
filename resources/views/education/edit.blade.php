@@ -9,7 +9,7 @@
 <form action="/education/update/{{ $education->id }}" method="POST" name="editEducation">
 	{{ csrf_field() }}
 	<label>Nome da deficiência:</label>
-	<input type="text" id="name" name="name" value="{{ $education->name }}" />
+	<input type="text" id="name" class="form-control" name="name" value="{{ $education->name }}" />
 </form>
 
 <div class="data-footer">

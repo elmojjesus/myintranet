@@ -1,7 +1,9 @@
 @extends('layouts.layout')
 
 @section('title')
+
 	 Funcionários da ADFP <i class="fa fa-star"></i><small> / Funcionários / Buscar - Listar </small>
+
 @stop
 
 

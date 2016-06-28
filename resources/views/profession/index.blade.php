@@ -40,7 +40,6 @@
                             <tr>
                                 <th width="60%">Profissão</th>
                                 <th width="20%">Editar</th>
-                                <th width="20%">Remover</th>
                             </tr>
                                 @foreach($professions as $profession)
                                     <tr>
@@ -49,13 +48,6 @@
                                             <center>
                                                 <a class="modal-ajax-link" data-mfp-src="/profession/edit/{{ $profession->id }}"> 
                                                      <i class="fa fa-pencil"></i> 
-                                                 </a> 
-                                            </center>
-                                        </td>
-                                        <td>
-                                            <center>
-                                                <a class="modal-ajax-link" data-mfp-src="/profession/delete/{{ $profession->id }}"> 
-                                                     <i class="fa fa-trash-o"></i> 
                                                  </a> 
                                             </center>
                                         </td>
