@@ -1,9 +1,9 @@
 
 <div class="data-title">
-    <h3> Editando informações do funcionário <i class="fa fa-star"></i> </h3>
+    <h3> Editando informações do voluntário <i class="fa fa-heart"></i> </h3>
 </div>
 
-{!! Form::open(array('method' => 'post', 'action' => array('EmployeeController@update', $employee->id), 'name' => 'editarFuncionario' , 'id' => 'editarFuncionario')) !!}
+{!! Form::open(array('method' => 'post', 'action' => array('VolunteerController@update', $volunteer->id), 'name' => 'editarFuncionario' , 'id' => 'editarFuncionario')) !!}
 
 
 
@@ -11,15 +11,15 @@
     <div clas="col-lg-12">
         <div class="panel panel-default">
         <div class="panel-heading">
-            <img src="/images/profile/{{ $employee->user->image ?: 'default-profile.png' }}" width="80" height="80">
-            {{ $employee->user->name }} 
+            <img src="/images/profile/{{ $volunteer->user->image ?: 'default-profile.png' }}" width="80" height="80">
+            {{ $volunteer->user->name }} 
         </div>
         <div class="panel-body">
             
         	<div class="row">
 	            <div class="col-md-12">
 					<div class="form-group">
-						Edite o departamento em que <b>{{ $employee->user->name }}</b> trabalha, ou seu respectivo status: 
+						Edite o departamento em que <b>{{ $volunteer->user->name }}</b> trabalha, ou seu respectivo status: 
 					</div>
 				</div>
 			</div>
@@ -32,7 +32,7 @@
 						<select name="departament_id" class="form-control">
 							<option value=""></option>
 							@foreach($departaments as $departament)
-								<option value="{{ $departament->id }}" {{ $employee->departament->id == $departament->id ? 'selected="selected"' : '' }}>{{ $departament->name }}</option>
+								<option value="{{ $departament->id }}" {{ $volunteer->departament->id == $departament->id ? 'selected="selected"' : '' }}>{{ $departament->name }}</option>
 							@endforeach
 						</select>
 					</div>
@@ -43,7 +43,7 @@
 						<label>Status</label>
 						<select class="form-control" id="status" name="status_id">
                             @foreach($status as $statu)
-                                <option {{ $statu->id == $employee->status->id ? 'selected' : '' }} value="{{ $statu->id }}">{{ $statu->name }}</option>
+                                <option {{ $statu->id == $volunteer->status->id ? 'selected' : '' }} value="{{ $statu->id }}">{{ $statu->name }}</option>
                             @endforeach
                         </select>
 					</div>

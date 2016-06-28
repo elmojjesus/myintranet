@@ -37,10 +37,6 @@
                     <div class="table-responsive">
                         
                         <table class="table table-striped table-bordered table-hover">
-                            <tr>
-                                <th> Esporte </th>
-                                <th>  </th>
-                            </tr>
                             @if($sports->count() > 0)
                                 @foreach ($sports as $sport)
                                     <tr>
@@ -49,7 +45,7 @@
                                     </tr>
                                 @endforeach  
                             @else
-                                Vazio.  
+                                Ainda não há esportes cadastrados.  
                             @endif
                         </table>
 

@@ -37,25 +37,16 @@
                     <div class="table-responsive">
                         
                         <table class="table table-striped table-bordered table-hover">
-                            <tr>
-                                <th width="60%">Departamento</th>
-                                <th width="20%">Editar</th>
-                                <th width="20%">Remover</th>
-                            </tr>
-
+                            @if($departaments->count() > 0)
+                                @foreach ($departaments as $departament)
                                     <tr>
-                                        <td> Esporte</td>
-                                        <td style="text-align: center;"> 
-                                                 <a class="modal-ajax-link" > 
-                                                     <i class="fa fa-pencil"></i> 
-                                                 </a> 
-                                            </td>
-                                        <td style="text-align: center;">
-                                                <a class="modal-ajax-link">
-                                                    <i class="fa fa-trash-o"></i>
-                                                </a>
-                                            </td>
+                                        <td> {!! $departament->name !!} </td>
+                                        <td> <a class="modal-ajax-link" data-mfp-src="/departament/edit/{{ $departament->id }}"> <i class="fa fa-pencil"></i> </a> </td>
                                     </tr>
+                                @endforeach  
+                            @else
+                                Ainda não há departamentos cadastrados.
+                            @endif
                         </table>
 
                     </div>

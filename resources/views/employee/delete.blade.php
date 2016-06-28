@@ -1,5 +1,5 @@
 <div class="data-title">
-    <h3> Deletando um funcionário <i class="fa fa-star"></i> </h3>
+    <h3> Inativando um funcionário <i class="fa fa-star"></i> </h3>
 </div>
 
 <b>Tem certeza de que deseja inativar o(a) funcionário(a) {{ $employee->user->name }}?</b>

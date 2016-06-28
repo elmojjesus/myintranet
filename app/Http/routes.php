@@ -103,6 +103,17 @@ Route::group(['middleware' => 'auth'], function() {
 	Route::post('employee/destroy/{id}', 'EmployeeController@destroy');
 	Route::get('employee/create/modal/{id}', 'EmployeeController@createModal');
 
+	//Volunteer's routes
+	Route::get('volunteer', 'VolunteerController@index');
+	Route::get('volunteer/create', 'VolunteerController@create');
+	Route::post('volunteer/create', 'VolunteerController@create');
+	Route::post('volunteer/store/{id}', 'VolunteerController@store');
+	Route::get('volunteer/edit/{id}', 'VolunteerController@edit');
+	Route::post('volunteer/update/{id}', 'VolunteerController@update');
+	Route::get('volunteer/delete/{id}', 'VolunteerController@delete');
+	Route::post('volunteer/destroy/{id}', 'VolunteerController@destroy');
+	Route::get('volunteer/create/modal/{id}', 'VolunteerController@createModal');
+
 	//Route Therapies
 	Route::get('therapy', 'TherapyController@index');
 	Route::get('therapy/create', 'TherapyController@create');

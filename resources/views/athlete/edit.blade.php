@@ -9,7 +9,7 @@
     <div clas="col-lg-12">
         <div class="panel panel-default">
         <div class="panel-heading">
-            <img src="{{ '/images/profile/' . $athlete->user->image }}" width="80" height="80">
+            <img src="/images/profile/{{ $athlete->user->image ?: 'default-profile.png' }}" width="80" height="80">
             {{ $athlete->user->name }} 
         </div>
             <div class="panel-body">

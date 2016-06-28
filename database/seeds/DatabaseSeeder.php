@@ -54,6 +54,7 @@ class DatabaseSeeder extends Seeder
 
         $this->call('AddressTableSeeder');
 
+        $this->call('VolunteerTableSeeder');
 
         Model::reguard();
     }

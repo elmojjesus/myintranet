@@ -1,5 +1,5 @@
 <div class="data-title">
-    <h3> Deletando um atleta <i class="fa fa-trophy"></i> </h3>
+    <h3> Inativando um atleta <i class="fa fa-trophy"></i> </h3>
 </div>
 
 <b>Tem certeza de que deseja inativar o(a) atleta {{ $athlete->user->name }}?</b>

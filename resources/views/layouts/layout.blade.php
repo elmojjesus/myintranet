@@ -102,7 +102,7 @@
                         </ul>
                     </li>
                     <li>
-                        <a href="chart.html"><i class="fa fa-star"></i>
+                        <a href="#"><i class="fa fa-star"></i>
                             Funcionários<span class="fa arrow"></span>
                         </a>
                         <ul class="nav nav-second-level">
@@ -119,9 +119,17 @@
                         </ul>
                     </li>
                     <li>
-                        <a href="/employee"><i class="fa fa-heart"></i>
-                            Voluntários
+                        <a href="#"><i class="fa fa-heart"></i>
+                            Voluntários<span class="fa arrow"></span>
                         </a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                {!! HTML::link('volunteer/create', 'Cadastrar', true) !!}
+                            </li>
+                            <li>
+                                {!! HTML::link('volunteer', 'Buscar - Listar', true) !!}
+                            </li>
+                        </ul>
                     </li>
                     <li>
                         <a><i class="fa fa-wheelchair"></i>
