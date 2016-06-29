@@ -38,7 +38,7 @@
     </div>
 
     <script>
-    	var data = <?= json_encode($pacientsByTerapies) ?>;
+    	var test = <?= json_encode($pacientsByTerapies) ?>;
         var amount = '<?= $amountPacientsTerapies ?>';
 		$(function () {
 		    var chart = new Highcharts.Chart({
@@ -65,7 +65,7 @@
 		            }
 		        },
 		        series: [{
-		            data: data
+		            data: test
 		        }]
 		    });
 		});
@@ -78,7 +78,7 @@
 		            type: 'pie',
 		        },
 		        title: {
-		            text: 'Quantidade de pacientes por terapia - Total: ' + amount
+		            text: 'Quantidade de pacientes por status - Total: ' + amount
 		        },
 		        plotOptions: {
 		            pie: {

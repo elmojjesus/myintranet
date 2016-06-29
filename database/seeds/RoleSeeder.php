@@ -15,13 +15,10 @@ class RoleSeeder extends Seeder
         \App\Role::truncate();
         $data = [
         	[
-        		'name' => "GOD"
+        		'name' => "Diretor"
         	],
         	[
-        		'name' => "Administrador"
-        	],
-        	[
-        		'name' => "Secretaria"
+        		'name' => "Usuário"
         	]
         ];
         \App\Role::insert($data);

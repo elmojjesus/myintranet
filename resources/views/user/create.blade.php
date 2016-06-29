@@ -15,14 +15,15 @@
 
 <form  action="/user/store" method="POST">
 	{{ csrf_field() }}
-
 	<div id="erros" class="col-md-12 hidden">
 		<div class="form-group">
-		<label style="color:#ff0000; text-align: center;">Campo(s) obrigatorio(s) nao preenchidos, por favor verifique!</label>
+			<label style="color:#ff0000; text-align: center;">
+				Campo(s) obrigatorio(s) nao preenchidos, por favor verifique!
+			</label>
 		</div>
 	</div> 
 
-	                                <!-- DADOS PESSOAIS -->
+	<!-- DADOS PESSOAIS -->
 	<div class="col-md-6">
 		<div class="form-group">
 		<label>Nome:</label>

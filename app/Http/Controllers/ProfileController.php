@@ -18,7 +18,7 @@ class ProfileController extends Controller
      */
     public function index(Request $request)
     {
-        if (Auth::user()->profile->role->name == 'GOD') {
+        if (Auth::user()->profile->role->name == 'Diretor') {
             $profiles = \App\Profile::paginate(15, ['*'], 'pagProfile');
             $roles = \App\Role::orderBy('name')->paginate(5,['*'],'pagRole');
         } else {
