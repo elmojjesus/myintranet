@@ -78,7 +78,14 @@
 			            			<tr>
 			            				<td>{{ $profile->user->name }}</td>
 			            				<td>{{ $profile->role->name }}</td>
-			            				<td><i class="fa fa-pencil"></i></td>
+			            				<td>
+			            					<a class="modal-ajax-link" data-mfp-src="/profiles/edit/{{ $profile->id }}">
+			            						<i class="fa fa-pencil"></i>
+		            						</a>
+		            						<a class="modal-ajax-link" data-mfp-src="/profiles/delete/{{ $profile->id }}">
+			            						<i class="fa fa-trash-o"></i>
+		            						</a>
+		            					</td>
 			            			</tr>
 		            			@endforeach
 		            		</tbody>
@@ -117,7 +124,11 @@
     	} else {
     		$('#password').removeClass('danger');
     		$('#lblRequirePass').addClass('hidden');
-    	}    	
+    		if ($('#password').val() != $('#password_confirm').val()) {
+    			error = false;
+    			validaSenha();
+    		}
+    	}
 
     	return error;
 

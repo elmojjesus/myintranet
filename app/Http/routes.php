@@ -154,6 +154,10 @@ Route::group(['middleware' => 'auth'], function() {
 	//Route Roles And Profiles
 	Route::get('profiles', 'ProfileController@index');
 	Route::post('profiles/store', 'ProfileController@store');
+	Route::get('profiles/edit/{id}', 'ProfileController@edit');
+	Route::get('profiles/delete/{id}', 'ProfileController@delete');
+	Route::post('profiles/update/{id}', 'ProfileController@update');
+	Route::post('profiles/destroy/{id}', 'ProfileController@destroy');
 
 });
 

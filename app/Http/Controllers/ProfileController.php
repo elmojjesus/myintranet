@@ -58,7 +58,7 @@ class ProfileController extends Controller
             \App\Profile::insert($data);
         }
         \App\User::where('id', $data['user_id'])->update(['password' => $password]);
-        Flash::success('Perfil cadastrado com sucesso!');
+        Flash::success('Acesso cadastrado com sucesso!');
         return redirect('profiles');
     }
 
@@ -81,7 +81,13 @@ class ProfileController extends Controller
      */
     public function edit($id)
     {
-        //
+        if (Auth::user()->profile->role->name == 'Diretor') {
+            $roles = \App\Role::orderBy('name')->get();
+        } else {
+            $roles = \App\Role::where('id', '>', 1)->orderBy('name')->get();
+        }
+        $profile = \App\Profile::find($id);
+        return view('profile.edit', compact('roles', 'profile'));
     }
 
     /**
@@ -93,7 +99,27 @@ class ProfileController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = $request->all();
+        $profile = \App\Profile::find($id);
+        if (isset($data['password']) && isset($data['password'])){
+            if ($data['password'] != '' && $data['password_confirm'] != '') {
+                $password = bcrypt($data['password']);
+                \App\User::where('id', $profile->user->id)->update(['password' => $password]);
+            }
+            unset($data['password_confirm'], $data['password']);
+        }
+        
+        if (isset($data['role_id']) && $data['role_id'] != '') {
+            \App\Profile::where('id', $profile->id)
+                ->update(['role_id' => $data['role_id']]);
+        }
+        Flash::success('Acesso atualizado com sucesso!');
+        return redirect('profiles');
+    }
+
+    public function delete($id) {
+        $profile = \App\Profile::find($id);
+        return view('profile.delete', compact('profile'));
     }
 
     /**
@@ -104,11 +130,10 @@ class ProfileController extends Controller
      */
     public function destroy($id)
     {
-        #\App\AthleteSport::destroy();
-        $sport = \App\AthleteSport::where('athlete_id', $athlete_id)
-                                    ->where('sport_id', $sport_id);
-        #dd($sport);
-        $sport->delete();
-        return redirect('athlete');
+        $profile = \App\Profile::find($id);
+        \App\User::where('id', $profile->user->id)->update(['password' => null]);
+        \App\Profile::find($id)->delete();
+        Flash::success('Acesso deletado com sucesso');
+        return redirect('profiles');
     }
 }
