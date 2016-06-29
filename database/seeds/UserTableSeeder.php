@@ -56,9 +56,13 @@ class UserTableSeeder extends Seeder
         ];
         \App\User::insert($default);
         foreach (range(0, 100) as $number) {
+            $now = new \DateTime();
             $users[] = [
                 'email' => $faker->email,
                 'name' => $faker->name,
+                'nationality' => 'Brasileiro',
+                'entry_port' => 'Entrada',
+                'birthDate' => '2000-05-01 12:21:12',
                 'deficiency_id' => $deficiencies->random(1)->id,
                 'education_id' => $educations->random(1)->id,
                 'profession_id' => $professions->random(1)->id,
@@ -68,6 +72,7 @@ class UserTableSeeder extends Seeder
                 'sex' => $sex[$faker->numberBetween($min = 0, $max = 1)],
                 'status_id' => $status->random(1)->id,
                 'regional_id' => $regionais->random(1)->id,
+                'created_at' => $now->format('Y-m-d H:i:s'),
             ];
         }
         

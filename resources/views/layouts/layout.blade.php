@@ -39,7 +39,7 @@
                         </li>
                         <li class="divider"></li>
                         <li>
-                            <a href="auth/logout"><i class="fa fa-sign-out fa-fw"></i> Sair</a>
+                            <a href="/auth/logout"><i class="fa fa-sign-out fa-fw"></i> Sair</a>
                         </li>
                     </ul>
                     <!-- /.dropdown-user -->

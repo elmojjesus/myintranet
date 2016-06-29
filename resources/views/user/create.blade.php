@@ -108,23 +108,6 @@
 	</div>
 	<div class="col-md-6">
 		<div class="form-group">
-
-		<!--<label>Voluntário:</label>
-		<input type="checkbox" class="form-control" id="voluntario" name="voluntary">
--->
-			<label>Voluntário:</label>
-			<br>
-			<label class="checkbox-inline">
-	  			Sim <input type="radio" id="volS" name="voluntary"> 
-			</label>	
-			<label class="checkbox-inline">
-	  			Não <input type="radio" id="volN" name="voluntary"> 
-			</label>
-
-		</div>
-	</div>
-	<div class="col-md-6">
-		<div class="form-group">
 		<label>Status:</label>
 		<select class="form-control" id="status" name="status_id">
 			@foreach($status as $s)

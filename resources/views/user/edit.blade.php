@@ -45,7 +45,7 @@
 		<div class="form-group">
         <label>Deficiência:</label>
             <select name="deficiency_id" class="form-control">
-                <option>Sem deficiência</option>
+                <option value="">Sem deficiência</option>
 				@foreach($deficiencies as $deficiency)
                     @if($user->deficiency_id)
 					   <option {{ $deficiency->id == $user->deficiency->id ? 'selected' : '' }} value="{{ $deficiency->id }}" >{{ $deficiency->name }}</option>
@@ -112,24 +112,6 @@
 			</select>
 		</div>
 	</div>
-	<div class="col-md-6">
-        <div class="form-group">
-
-        <!--<label>Voluntário:</label>
-        <input type="checkbox" class="form-control" id="voluntario" name="voluntary">
--->
-            <label>Voluntário:</label>
-            <br>
-            <label class="checkbox-inline">
-                Sim <input type="radio" id="volS" name="voluntary" {{ $user->voluntary == 1 ? 'checked' : '' }}> 
-            </label>    
-            <label class="checkbox-inline">
-                Não <input type="radio" id="volN" name="voluntary" {{ $user->voluntary == 1 ? 'checked' : '' }}> 
-            </label>
-
-        </div>
-    </div>
-
     <div class="col-md-6">
         <div class="form-group">
         <label>Status:</label>
@@ -157,7 +139,7 @@
     <div class="col-md-6">
         <div class="form-group">
         <label>Porta de entrada:</label>
-        <input type="text" maxlength="250" placeholder="Porta de Entrada" class="form-control" id="portaEntrada" name="entry_port">
+        <input type="text" maxlength="250" placeholder="Porta de Entrada" class="form-control" id="portaEntrada" name="entry_port" value="{{ $user->entry_port }}">
         </div>
     </div>
     <div class="col-md-6">

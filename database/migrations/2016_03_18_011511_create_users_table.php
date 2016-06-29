@@ -21,7 +21,7 @@ class CreateUsersTable extends Migration
             $table->string('password', 60)->nullable()->default(NULL);
             $table->string('image', 100)->nullable()->default(NULL);
             $table->unsignedInteger('deficiency_id')->nullable();
-            $table->foreign('deficiency_id')->references('id')->on('deficiencies')->onDelete('set null');
+            $table->foreign('deficiency_id')->references('id')->on('deficiencies');
             $table->date('birthDate');
             $table->enum('sex', ['M', 'F']);
             $table->string('nationality', 25)->nullable();

@@ -65,6 +65,7 @@
 								<label>Deficiência:</label>
 								<select name="deficiency_id" class="form-control input-sm">
 									<option value="">--Selecione--</option>
+									<option value="not_deficiency">Sem deficiência</option>
 									@foreach($deficiencies as $deficiency)
 										<option {{ isset($query['deficiency_id']) && $query['deficiency_id'] == $deficiency->id ? 'selected="selected"' : '' }} value="{{ $deficiency->id }}">{{ $deficiency->name }}</option>
 									@endforeach
@@ -126,7 +127,7 @@
 													{{ $user->name }} 
 												</a>
 											</td>
-											<td>{{ $user->deficiency ? $user->deficiency->name : '-' }}</td>
+											<td>{{ $user->deficiency ? $user->deficiency->name : 'Sem deficiência' }}</td>
 											<td>
 												<center>
 													@if(!is_null($user->athlete) && $user->athlete->status->name != 'Inativo')

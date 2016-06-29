@@ -49,7 +49,7 @@
 						</tr>
 						<tr>
 							<td> Sexo: {{ $user->sex }} </td>
-							<td> Porta de Entrada: {{ $user->entry_port != '' ?: '-' }}</td>
+							<td> Porta de Entrada: {{ $user->entry_port != '' ? $user->entry_port : '-' }}</td>
 						</tr>
 						<tr>
 							<?php $created = \Datetime::createFromFormat('Y-m-d H:i:s', $user->created_at); ?>
@@ -86,7 +86,7 @@
 										<td> Emitido em: {{ $date_rg ? $date_rg->format('d/m/Y') : '-' }}</td>
 									</tr>
 									<tr>
-										<td> Passaporte: {{ $user->document->passaport }} </td>
+										<td> Passaporte: {{ $user->document->passport }} </td>
 										<?php if($user->document->emission_passport != '0000-00-00'): ?>
 											<?php $date_passport = \Datetime::createFromFormat('Y-m-d', $user->document->emission_passport); ?>
 										<?php else: ?>
