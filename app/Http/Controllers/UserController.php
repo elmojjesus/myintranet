@@ -27,27 +27,34 @@ class UserController extends Controller
     }
 
     public function getUsersByQuery($request) {
-        return \App\User::where(function($query) use($request) {
-            /*if (isset($request['cpf']) && $request['cpf'] != '') {
-                $query->join('documents', 'documents.user_id', '=', 'users.id')->where('documents.cpf', $request['cpf']);
-            }*/
-            if (isset($request['id']) && $request['id'] != '') {
-                $query->where('id', 'LIKE', $request['id']);
-            }
+        return \App\User::join('documents', 'documents.user_id', '=', 'users.id')
+                        ->select('users.*')
+                        ->where(function($query) use($request) {
+                if (isset($request['cpf'])) {   
+                    $query->where('documents.cpf', 'LIKE', '%'. $request['cpf'] .'%');
+                }
+                if (isset($request['id']) && $request['id'] != '') {
+                    $query->where('users.id', 'LIKE', $request['id']);
+                }
 
-            if (isset($request['name']) && $request['name'] != '') {
-                $query->where('name', 'LIKE', '%'.$request['name'] .'%');
-            }
+                if (isset($request['name']) && $request['name'] != '') {
+                    $query->where('users.name', 'LIKE', '%'.$request['name'] .'%');
+                }
 
 
-            if (isset($request['deficiency_id']) && $request['deficiency_id'] != '') {
-                $query->where('deficiency_id', $request['deficiency_id']);
-            }
+                if (isset($request['deficiency_id']) && $request['deficiency_id'] != '') {
+                    if ($request['deficiency_id'] == 'not_deficiency') {
+                        $query->whereNull('users.deficiency_id');
+                    } else {
+                        $query->where('users.deficiency_id', $request['deficiency_id']);
+                    }
+                }
 
-            if (isset($request['status_id']) && $request['status_id'] != '') {
-                $query->where('status_id', $request['status_id']);
-            }
-        })->orderBy('users.name')->paginate(15);
+                if (isset($request['status_id']) && $request['status_id'] != '') {
+                    $query->where('users.status_id', $request['status_id']);
+                }
+            })->groupBy('users.id')->orderBy('users.name')->paginate(15);
+
 
     }
 
@@ -117,22 +124,12 @@ class UserController extends Controller
             unset($data['street'], $data['number'], $data['complement'], $data['codPostal'], $data['neighborhood'], $data['regional'], $data['city'], $data['state']);
         }
 
-        if (isset($data['created_at'])) {
-            $date = \Datetime::createFromFormat('d/m/Y', $data['created_at']);
-            if($date) {
-                $data['created_at'] = $date->format('Y-m-d');
-            } else {
-                $data['created_at'] = 'NULL';
-            }
-        }
-        $birthDate = \DateTime::createFromFormat('d/m/Y', $data['birthDate']);
-        $data['birthDate'] = $birthDate->format('Y-m-d');
         if (!isset($data['deficiency_id']) || $data['deficiency_id'] == '') {
             if (isset($data['deficiency_id'])) {
                 unset($data['deficiency_id']);
             }
         }
-        \App\User::insert(\App\User::extrangeArray($data));
+        \App\User::insert(\App\User::extrangeArray($data, 'create'));
         $user = \App\User::where('email', $data['email'])->first();
         $document['user_id'] = $user->id;
         $address['user_id'] = $user->id;
@@ -186,13 +183,6 @@ class UserController extends Controller
         if (isset($data['password']) && $data['password'] != '') {
             $data['password'] = bcrypt($data['password']);
         }
-        if (isset($data['created_at'])) {
-            $date = \Datetime::createFromFormat('d/m/Y', $data['created_at']);
-            $data['created_at'] = $date->format('Y-m-d');
-            if (!$data['created_at']) {
-                $data['created_at'] = 'NULL';
-            }
-        }
         if (isset($data['undefined'])) {
             unset($data['undefined']);
         }
@@ -216,7 +206,7 @@ class UserController extends Controller
             $document = \App\Document::extrangeArray($data);
             unset($data['rg'], $data['cpf'], $data['passport'], $data['emission_rg'], $data['emission_cpf'], $data['emission_passport']);
         }
-        \App\User::where('id', $id)->update($data);
+        \App\User::where('id', $id)->update(\App\User::extrangeArray($data, 'edit'));
         \App\Document::where('user_id', $id)->update($document);
         \App\Address::where('user_id', $id)->update($address);
         Flash::success('Usuário editado com sucesso!');
@@ -243,10 +233,27 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        $data['status_id'] = \App\Status::where('name', 'Inativo')->first();
+        $data['status_id'] = \App\Status::where('name', 'Inativo')->first()->id;
+        
         \App\User::where('id', $id)->update($data);
+        \App\Athlete::where('user_id', $id)->update($data);
+        \App\Employee::where('user_id', $id)->update($data);
+        \App\Pacient::where('user_id', $id)->update($data);
+        \App\Volunteer::where('user_id', $id)->update($data);
+
         Flash::success('Usuário inativado com sucesso!');
         /* \App\User::find($id)->delete(); */
         return redirect('user');
+    }
+
+    public function verifyEmailExists(Request $request) {
+        $data = $request->all();
+        unset($data['_token']);
+        if (isset($data['email'])) {
+            if (\App\User::where('email', $data['email'])->count() > 0) {
+                return ['response' => true];
+            }
+        }
+        return ['response' => false];
     }
 }

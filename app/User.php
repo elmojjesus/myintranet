@@ -100,24 +100,46 @@ class User extends Model implements AuthenticatableContract,
         return $this->hasOne('\App\Employee');
     }
 
-    public static function extrangeArray($data){
-        if (isset($data['created_at'])) {
-            $date = \Datetime::createFromFormat('d/m/Y', $data['created_at']);
-            if($date) {
-                $data['created_at'] = $date->format('Y-m-d');
-            } else {
-                $data['created_at'] = 'NULL';
+    public function voluntareers() {
+        return $this->hasOne('\App\Volunteer');
+    }
+
+    public static function extrangeArray($data, $type = 'edit'){
+
+        if (isset($data['birthDate'])) {
+            $birthDate = \DateTime::createFromFormat('d/m/Y', $data['birthDate']);
+            if ($birthDate) {
+                $data['birthDate'] = $birthDate->format('Y-m-d');
             }
         }
-        $birthDate = \DateTime::createFromFormat('d/m/Y', $data['birthDate']);
-        if ($birthDate) {
-            $data['birthDate'] = $birthDate->format('Y-m-d');
-        } else {
-            unset($data['birthDate']);
-        }
+
         if (!isset($data['deficiency_id']) || $data['deficiency_id'] == '') {
             if (isset($data['deficiency_id'])) {
                 unset($data['deficiency_id']);
+            }
+            if ($type == 'edit') {
+                $data['deficiency_id'] = null;
+            }
+        }
+
+        if (isset($data['created_at'])) {
+            $date = \Datetime::createFromFormat('d/m/Y', $data['created_at']);
+            if($date) {
+                $data['created_at'] = $date->format('Y-m-d H:i:s');
+            } else {
+                if ($type == 'create') {
+                    $now = new \Datetime();
+                    $data['created_at'] = $now->format('Y-m-d H:i:s');
+                } else {
+                    unset($data['created_at']);
+                }
+            }
+        } else {
+            if($type == 'create') {
+                $now = new \Datetime();
+                $data['created_at'] = $now->format('Y-m-d H:i:s');
+            } else {
+                unset($data['created_at']);
             }
         }
 
@@ -125,11 +147,17 @@ class User extends Model implements AuthenticatableContract,
             if (isset($data['education_id'])) {
                 unset($data['education_id']);
             }
+            if ($type == 'edit') {
+                $data['education_id'] = null;
+            }
         }
 
         if (!isset($data['profession_id']) || $data['profession_id'] == '') {
             if (isset($data['profession_id'])) {
                 unset($data['profession_id']);
+            }
+            if ($type == 'edit') {
+                $data['profession_id'] = null;
             }
         }        
 

@@ -14,7 +14,6 @@ class ProfileSeeder extends Seeder
         DB::statement('SET FOREIGN_KEY_CHECKS = 0');
         \App\Profile::truncate();
         $users = \App\User::where('id', '>', 1)->limit(10)->orderBy('name')->get();
-        $roles = \App\Role::where('id', '>', 1)->get();
         $profiles = [];
         $profiles[] = [
         	'user_id' => 1,
@@ -23,7 +22,7 @@ class ProfileSeeder extends Seeder
         foreach($users as $user) {
         	$profiles[] = [
         		'user_id' => $user->id,
-        		'role_id' => $roles->random(1)->id
+        		'role_id' => 2
         	];
         }
         \App\Profile::insert($profiles);
