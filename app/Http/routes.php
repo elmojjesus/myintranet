@@ -14,7 +14,7 @@
 Route::group(['middleware' => 'auth'], function() {
 
 	//Dashboard routes
-	Route::get('/', 'ReportsController@index');
+	Route::get('/', function () { return view('welcome.welcome'); });
 	Route::get('dashboard', 'ReportsController@index');
 
 	//Routes deficiencies
