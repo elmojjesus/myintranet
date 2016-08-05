@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace MyIntranet\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Http\Requests;
-use App\Http\Controllers\Controller;
-use App\Http\Requests\ImageRequest;
+use MyIntranet\Http\Requests;
+use MyIntranet\Http\Controllers\Controller;
+use MyIntranet\Http\Requests\ImageRequest;
 use File;
 use Flash;
 
@@ -90,7 +90,7 @@ class ImageController extends Controller
 
 
     public function userUpload ($id) {
-        $user = \App\User::find($id);
+        $user = \MyIntranet\User::find($id);
         return view('user.image.upload', compact('user'));
     }
 
@@ -99,13 +99,13 @@ class ImageController extends Controller
         unset($data['_token']);
         $file = $request->file('image');
         $flag = false;
-        $user = \App\User::find($data['id']);
+        $user = \MyIntranet\User::find($data['id']);
         if (!$file) {
             Flash::success('Alterações realizadas com sucesso!');
         } else {
             while(!$flag){
                 $name = substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, 70) . '.' . $file->getClientOriginalExtension();
-                $verify = \App\User::where('image', $name)->count();    
+                $verify = \MyIntranet\User::where('image', $name)->count();    
                 if($verify < 1){
                     $flag = true;
                 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace MyIntranet;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -32,28 +32,28 @@ class Athlete extends Model
     protected $dates = ['deleted_at'];
 
     public function athleteSport() {
-    	return $this->hasMany('\App\AthleteSport');
+    	return $this->hasMany('\MyIntranet\AthleteSport');
     }
 
     public function user(){
-        return $this->belongsTo('\App\User');
+        return $this->belongsTo('\MyIntranet\User');
     }
 
 
     public function status(){
-        return $this->belongsTo('\App\Status');
+        return $this->belongsTo('\MyIntranet\Status');
     }
 
     public function scopeAmountSports(){
-        $status = \App\Status::where('name', 'Inativo')->first();
-        return \App\AthleteSport::where(function($query) use($status){
+        $status = \MyIntranet\Status::where('name', 'Inativo')->first();
+        return \MyIntranet\AthleteSport::where(function($query) use($status){
             $query->where('athlete_id', $this->id);
             $query->where('status_id', '!=', $status->id);
         })->groupBy('sport_id')->count();
     }
 
     public static function ScopeSex($sex) {
-        return \App\Athlete::join('users', function ($join) use($sex) {
+        return \MyIntranet\Athlete::join('users', function ($join) use($sex) {
             $join->on('users.id', '=', 'athletes.user_id')
                  ->where('users.sex', '=', $sex);
         })

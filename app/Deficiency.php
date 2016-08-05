@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace MyIntranet;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -32,11 +32,11 @@ class Deficiency extends Model
     protected $dates = ['deleted_at'];
 
     public function users() {
-        return $this->hasMany('\App\User');
+        return $this->hasMany('\MyIntranet\User');
     }
 
     public function athletes($id) {
-        return \App\Athlete::join('users', function ($join) use($id) {
+        return \MyIntranet\Athlete::join('users', function ($join) use($id) {
             $join->on('users.id', '=', 'athletes.user_id')
                  ->where('users.deficiency_id', '=', $id);
         })

@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace MyIntranet\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Http\Requests;
-use App\Http\Controllers\Controller;
-use App\Http\Requests\DepartamentRequest;
+use MyIntranet\Http\Requests;
+use MyIntranet\Http\Controllers\Controller;
+use MyIntranet\Http\Requests\DepartamentRequest;
 use Flash;
 
 class DepartamentController extends Controller
@@ -18,7 +18,7 @@ class DepartamentController extends Controller
      */
     public function index()
     {
-        $departaments = \App\Departament::all();
+        $departaments = \MyIntranet\Departament::all();
         return view('departament.index', compact('departaments'));
     }
 
@@ -29,7 +29,7 @@ class DepartamentController extends Controller
      */
     public function create()
     {
-        $users = \App\User::orderBy('name')->get();
+        $users = \MyIntranet\User::orderBy('name')->get();
         return view('departament.create', compact('users'));
     }
 
@@ -43,7 +43,7 @@ class DepartamentController extends Controller
     {
         $data = $request->all();
         unset($data['_token']);
-        \App\Departament::insert($data);
+        \MyIntranet\Departament::insert($data);
         Flash::success('Departamento cadastrado com sucesso.');
         return redirect('departament');
     }
@@ -67,8 +67,8 @@ class DepartamentController extends Controller
      */
     public function edit($id)
     {
-        $departament = \App\Departament::find($id);
-        $users = \App\User::orderBy('name')->get();
+        $departament = \MyIntranet\Departament::find($id);
+        $users = \MyIntranet\User::orderBy('name')->get();
         return view('departament.edit', compact('departament', 'users'));
     }
 
@@ -83,13 +83,13 @@ class DepartamentController extends Controller
     {
         $data = $request->all();
         unset($data['_token']);
-        \App\Departament::where('id', $id)->update($data);
+        \MyIntranet\Departament::where('id', $id)->update($data);
         Flash::success('Departamento editado com sucesso.');
         return redirect('departament');
     }
 
     public function delete($id) {
-        $departament = \App\Departament::find($id);
+        $departament = \MyIntranet\Departament::find($id);
         return view('departament.delete', compact('departament'));
     }
 
@@ -101,7 +101,7 @@ class DepartamentController extends Controller
      */
     public function destroy($id)
     {
-        \App\Departament::where('id', $id)->delete($id);
+        \MyIntranet\Departament::where('id', $id)->delete($id);
         Flash::success('Departamento excluído com sucesso.');
         return redirect('departament');
     }

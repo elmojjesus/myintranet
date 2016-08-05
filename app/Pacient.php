@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace MyIntranet;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -33,19 +33,19 @@ class Pacient extends Model
     protected $dates = ['deleted_at'];
 
     public function user() {
-        return $this->belongsTo('\App\User');
+        return $this->belongsTo('\MyIntranet\User');
     }
 
     public function status() {
-        return $this->belongsTo('\App\Status');
+        return $this->belongsTo('\MyIntranet\Status');
     }
 
     public function pacientTherapy() {
-        return $this->hasMany('\App\PacientTherapy');
+        return $this->hasMany('\MyIntranet\PacientTherapy');
     }
 
     public static function ScopeSex($sex) {
-        return \App\Pacient::join('users', function ($join) use($sex) {
+        return \MyIntranet\Pacient::join('users', function ($join) use($sex) {
             $join->on('users.id', '=', 'pacients.user_id')
                  ->where('users.sex', '=', $sex);
         })

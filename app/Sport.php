@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace MyIntranet;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -32,6 +32,6 @@ class Sport extends Model
     protected $dates = ['deleted_at'];
 
     public function athleteSport() {
-    	return $this->hasMany('\App\AthleteSport');
+    	return $this->hasMany('\MyIntranet\AthleteSport');
     }
 }

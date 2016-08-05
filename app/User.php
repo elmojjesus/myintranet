@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace MyIntranet;
 
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
@@ -39,69 +39,69 @@ class User extends Model implements AuthenticatableContract,
     protected $hidden = ['password', 'remember_token'];
 
     public function deficiency() {
-        return $this->belongsTo('\App\Deficiency');
+        return $this->belongsTo('\MyIntranet\Deficiency');
     }
 
     public function education() {
-        return $this->belongsTo('\App\Education');
+        return $this->belongsTo('\MyIntranet\Education');
     } 
 
     public function profession() {
-        return $this->belongsTo('\App\Profession');
+        return $this->belongsTo('\MyIntranet\Profession');
     }
 
     public function athlete(){
-        return $this->hasOne('\App\Athlete');
+        return $this->hasOne('\MyIntranet\Athlete');
     }
 
     public function document(){
-        return $this->hasOne('\App\Document');
+        return $this->hasOne('\MyIntranet\Document');
     }
 
     public function address(){
-        return $this->hasOne('\App\Address');
+        return $this->hasOne('\MyIntranet\Address');
     }
 
     public function contact(){
-        return $this->hasOne('\App\Contact');
+        return $this->hasOne('\MyIntranet\Contact');
     }
 
     public function profile() {
-        return $this->hasOne('\App\Profile');
+        return $this->hasOne('\MyIntranet\Profile');
     }
 
     public static function notProfile() {
-        $profiles = \App\Profile::all();
+        $profiles = \MyIntranet\Profile::all();
         $ids = [];
         foreach ($profiles as $profile) {
             $ids[] = $profile->user->id;
         }
-        return \App\User::whereNotIn('id', $ids)->orderBy('name')->get();
+        return \MyIntranet\User::whereNotIn('id', $ids)->orderBy('name')->get();
     }
 
     public function pacient() {
-        return $this->hasOne('\App\Pacient');
+        return $this->hasOne('\MyIntranet\Pacient');
     }
 
     public static function notPacients() {
-        $pacients = \App\Pacient::All();
+        $pacients = \MyIntranet\Pacient::All();
         $ids = [];
         foreach ($pacients as $pacient) {
             $ids[] = $pacient->user->id;
         }
-        return \App\User::whereNotIn('id', $ids)->orderBy('name')->get();
+        return \MyIntranet\User::whereNotIn('id', $ids)->orderBy('name')->get();
     }
 
     public function status() {
-        return $this->belongsTo('App\Status');
+        return $this->belongsTo('MyIntranet\Status');
     }
 
     public function employee() {
-        return $this->hasOne('\App\Employee');
+        return $this->hasOne('\MyIntranet\Employee');
     }
 
     public function voluntareers() {
-        return $this->hasOne('\App\Volunteer');
+        return $this->hasOne('\MyIntranet\Volunteer');
     }
 
     public static function extrangeArray($data, $type = 'edit'){

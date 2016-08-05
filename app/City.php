@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace MyIntranet;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -28,11 +28,11 @@ class City extends Model
     protected $hidden = [];
     
 	public function state(){
-		return $this->belongsTo('\App\State');
+		return $this->belongsTo('\MyIntranet\State');
 	}
 
 	public function address(){
-		return $this->hasMany('\App\Address');
+		return $this->hasMany('\MyIntranet\Address');
 	}
 
 }

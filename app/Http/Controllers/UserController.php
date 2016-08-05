@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace MyIntranet\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Http\Requests;
-use App\Http\Controllers\Controller;
-use App\Http\Requests\UserRequest;
+use MyIntranet\Http\Requests;
+use MyIntranet\Http\Controllers\Controller;
+use MyIntranet\Http\Requests\UserRequest;
 use Flash;
 use Illuminate\Support\Facades\DB;
 
@@ -21,13 +21,13 @@ class UserController extends Controller
     {
         $query = $request->all();
         $users = $this->getUsersByQuery($request->all());
-        $deficiencies = \App\Deficiency::all();
-        $status = \App\Status::all();
+        $deficiencies = \MyIntranet\Deficiency::all();
+        $status = \MyIntranet\Status::all();
         return view('user.index', compact('users', 'deficiencies', 'status', 'query'));
     }
 
     public function getUsersByQuery($request) {
-        return \App\User::join('documents', 'documents.user_id', '=', 'users.id')
+        return \MyIntranet\User::join('documents', 'documents.user_id', '=', 'users.id')
                         ->select('users.*')
                         ->where(function($query) use($request) {
                 if (isset($request['cpf'])) {   
@@ -88,11 +88,11 @@ class UserController extends Controller
      */
     public function create()
     {
-        $deficiencies = \App\Deficiency::all();
-        $educations = \App\Education::all();
-        $professions = \App\Profession::all();
-        $status = \App\Status::all();
-        $states = \App\State::all();
+        $deficiencies = \MyIntranet\Deficiency::all();
+        $educations = \MyIntranet\Education::all();
+        $professions = \MyIntranet\Profession::all();
+        $status = \MyIntranet\Status::all();
+        $states = \MyIntranet\State::all();
         return view('user.create', compact('deficiencies', 'educations', 'professions', 'status', 'states'));
     }
 
@@ -107,7 +107,7 @@ class UserController extends Controller
         $data = $request->all();
         unset($data['_token']);
     
-        $document = \App\Document::extrangeArray($data);
+        $document = \MyIntranet\Document::extrangeArray($data);
         unset($data['rg'], $data['cpf'], $data['passport'], $data['emission_rg'], $data['emission_cpf'], $data['emission_passport']);
 
         if (isset($data['street'])) {
@@ -129,12 +129,12 @@ class UserController extends Controller
                 unset($data['deficiency_id']);
             }
         }
-        \App\User::insert(\App\User::extrangeArray($data, 'create'));
-        $user = \App\User::where('email', $data['email'])->first();
+        \MyIntranet\User::insert(\MyIntranet\User::extrangeArray($data, 'create'));
+        $user = \MyIntranet\User::where('email', $data['email'])->first();
         $document['user_id'] = $user->id;
         $address['user_id'] = $user->id;
-        \App\Document::insert($document);
-        \App\Address::insert($address);
+        \MyIntranet\Document::insert($document);
+        \MyIntranet\Address::insert($address);
         Flash::success('O usuário foi cadastrado com sucesso! Para complementar o usuário adicione uma foto de perfil ou clique em Lista de usuários para visualisar os usuários cadastrados.');
         return redirect('user/image/upload/' . $user->id);
     }
@@ -148,7 +148,7 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        $user = \App\User::find($id);
+        $user = \MyIntranet\User::find($id);
         return view('user.show', compact('user'));
     }
 
@@ -160,12 +160,12 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        $user = \App\User::find($id);
-        $deficiencies = \App\Deficiency::all();
-        $educations = \App\Education::all();
-        $professions = \App\Profession::all();
-        $status = \App\Status::all();
-        $states = \App\State::all();
+        $user = \MyIntranet\User::find($id);
+        $deficiencies = \MyIntranet\Deficiency::all();
+        $educations = \MyIntranet\Education::all();
+        $professions = \MyIntranet\Profession::all();
+        $status = \MyIntranet\Status::all();
+        $states = \MyIntranet\State::all();
         return view('user.edit', compact('user', 'deficiencies', 'educations', 'professions', 'status', 'states'));
     }
 
@@ -203,12 +203,12 @@ class UserController extends Controller
             unset($data['street'], $data['number'], $data['complement'], $data['codPostal'], $data['neighborhood'], $data['regional'], $data['city'], $data['state']);
         }
         if (isset($data['rg'])) {
-            $document = \App\Document::extrangeArray($data);
+            $document = \MyIntranet\Document::extrangeArray($data);
             unset($data['rg'], $data['cpf'], $data['passport'], $data['emission_rg'], $data['emission_cpf'], $data['emission_passport']);
         }
-        \App\User::where('id', $id)->update(\App\User::extrangeArray($data, 'edit'));
-        \App\Document::where('user_id', $id)->update($document);
-        \App\Address::where('user_id', $id)->update($address);
+        \MyIntranet\User::where('id', $id)->update(\MyIntranet\User::extrangeArray($data, 'edit'));
+        \MyIntranet\Document::where('user_id', $id)->update($document);
+        \MyIntranet\Address::where('user_id', $id)->update($address);
         Flash::success('Usuário editado com sucesso!');
         return redirect('user');
     }
@@ -221,7 +221,7 @@ class UserController extends Controller
      */
     public function delete($id)
     {
-        $user = \App\User::find($id);
+        $user = \MyIntranet\User::find($id);
         return view('user.delete', compact('user'));
     }
 
@@ -233,16 +233,16 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        $data['status_id'] = \App\Status::where('name', 'Inativo')->first()->id;
+        $data['status_id'] = \MyIntranet\Status::where('name', 'Inativo')->first()->id;
         
-        \App\User::where('id', $id)->update($data);
-        \App\Athlete::where('user_id', $id)->update($data);
-        \App\Employee::where('user_id', $id)->update($data);
-        \App\Pacient::where('user_id', $id)->update($data);
-        \App\Volunteer::where('user_id', $id)->update($data);
+        \MyIntranet\User::where('id', $id)->update($data);
+        \MyIntranet\Athlete::where('user_id', $id)->update($data);
+        \MyIntranet\Employee::where('user_id', $id)->update($data);
+        \MyIntranet\Pacient::where('user_id', $id)->update($data);
+        \MyIntranet\Volunteer::where('user_id', $id)->update($data);
 
         Flash::success('Usuário inativado com sucesso!');
-        /* \App\User::find($id)->delete(); */
+        /* \MyIntranet\User::find($id)->delete(); */
         return redirect('user');
     }
 
@@ -250,7 +250,7 @@ class UserController extends Controller
         $data = $request->all();
         unset($data['_token']);
         if (isset($data['email'])) {
-            if (\App\User::where('email', $data['email'])->count() > 0) {
+            if (\MyIntranet\User::where('email', $data['email'])->count() > 0) {
                 return ['response' => true];
             }
         }

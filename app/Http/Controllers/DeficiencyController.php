@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace MyIntranet\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Http\Requests;
-use App\Http\Controllers\Controller;
-use App\Http\Requests\DeficiencyRequest;
+use MyIntranet\Http\Requests;
+use MyIntranet\Http\Controllers\Controller;
+use MyIntranet\Http\Requests\DeficiencyRequest;
 use Flash;
 
 class DeficiencyController extends Controller
@@ -18,7 +18,7 @@ class DeficiencyController extends Controller
      */
     public function index()
     {
-        $deficiencies = \App\Deficiency::all();
+        $deficiencies = \MyIntranet\Deficiency::all();
         return view('deficiency.index', compact('deficiencies'));
     }
 
@@ -42,7 +42,7 @@ class DeficiencyController extends Controller
     {
         $data = $request->all();
         unset($data['_token']);
-        \App\Deficiency::insert($data);
+        \MyIntranet\Deficiency::insert($data);
         Flash::success('Deficiência cadastrada com sucesso!');
         return redirect('deficiency');
     }
@@ -66,7 +66,7 @@ class DeficiencyController extends Controller
      */
     public function edit($id)
     {
-        $deficiency = \App\Deficiency::find($id);
+        $deficiency = \MyIntranet\Deficiency::find($id);
         return view('deficiency.edit', compact('deficiency'));
     }
 
@@ -81,7 +81,7 @@ class DeficiencyController extends Controller
     {
         $data = $request->all();
         unset($data['_token']);
-        \App\Deficiency::where('id', $id)->update($data);
+        \MyIntranet\Deficiency::where('id', $id)->update($data);
         Flash::success('Deficiência editada com sucesso!');
         return redirect('deficiency');
     }
@@ -94,7 +94,7 @@ class DeficiencyController extends Controller
      */
     public function delete($id)
     {
-        $deficiency = \App\Deficiency::find($id);
+        $deficiency = \MyIntranet\Deficiency::find($id);
         return view('deficiency.delete', compact('deficiency'));
     }
 
@@ -106,7 +106,7 @@ class DeficiencyController extends Controller
      */
     public function destroy($id)
     {
-        \App\Deficiency::find($id)->delete();
+        \MyIntranet\Deficiency::find($id)->delete();
         Flash::success('Deficiência inativada com sucesso');
         return redirect('deficiency');
     }

@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace MyIntranet\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Http\Requests;
-use App\Http\Controllers\Controller;
-use App\Http\Requests\EmployeeRequest;
+use MyIntranet\Http\Requests;
+use MyIntranet\Http\Controllers\Controller;
+use MyIntranet\Http\Requests\EmployeeRequest;
 use Illuminate\Support\Facades\DB;
 use Flash;
 
@@ -33,8 +33,8 @@ class EmployeeController extends Controller
     public function index(Request $request)
     {
         $query = $request->all();
-        $status = \App\Status::all();
-        $departaments = \App\Departament::all();
+        $status = \MyIntranet\Status::all();
+        $departaments = \MyIntranet\Departament::all();
 
         $employees = DB::table('users as u')
             ->distinct()
@@ -96,8 +96,8 @@ class EmployeeController extends Controller
     /* Old method
     public function create()
     {
-        $users = \App\User::orderBy('name')->get();
-        $departaments = \App\Departament::orderBy('name')->get();
+        $users = \MyIntranet\User::orderBy('name')->get();
+        $departaments = \MyIntranet\Departament::orderBy('name')->get();
         return view('employee.create', compact('users', 'departaments'));
     }
     */
@@ -110,8 +110,8 @@ class EmployeeController extends Controller
     }
 
     public function createModal($id){
-        $user = \App\User::findorFail($id);
-        $departaments = \App\Departament::lists('name', 'id')->toArray();
+        $user = \MyIntranet\User::findorFail($id);
+        $departaments = \MyIntranet\Departament::lists('name', 'id')->toArray();
         return view('employee.createModal', compact('user', 'departaments'));
     }
 
@@ -127,7 +127,7 @@ class EmployeeController extends Controller
         $data['user_id'] = $id;
         #dd($data);
         unset($data['_token']);
-        $var = \App\Employee::insert($data);
+        $var = \MyIntranet\Employee::insert($data);
         #dd($var);
         Flash::success('Funcionário cadastrado com sucesso.');
         return redirect('employee/create');
@@ -152,9 +152,9 @@ class EmployeeController extends Controller
      */
     public function edit($id)
     {
-        $employee = \App\Employee::withTrashed()->find($id);
-        $status = \App\Status::all();
-        $departaments = \App\Departament::orderBy('name')->get();
+        $employee = \MyIntranet\Employee::withTrashed()->find($id);
+        $status = \MyIntranet\Status::all();
+        $departaments = \MyIntranet\Departament::orderBy('name')->get();
         return view('employee.edit', compact('employee', 'users', 'departaments', 'status'));
     }
 
@@ -171,12 +171,12 @@ class EmployeeController extends Controller
         $data = $request->all();
         unset($data['_token']);
 
-        $employee = \App\Employee::withTrashed()->find($id);
+        $employee = \MyIntranet\Employee::withTrashed()->find($id);
         if($request->status_id != 2 and $employee->status_id == 2){
             $data["deleted_at"] = null;
         }
         
-        \App\Employee::withTrashed()->where('id', $id)->update($data);
+        \MyIntranet\Employee::withTrashed()->where('id', $id)->update($data);
         $employeeName = $this->getEmployeeName($id);
 
         Flash::success( $employeeName . ' teve informações atualizadas.');
@@ -187,7 +187,7 @@ class EmployeeController extends Controller
 
 
     public function delete($id) {
-        $employee = \App\Employee::find($id);
+        $employee = \MyIntranet\Employee::find($id);
         return view('employee.delete', compact('employee'));
     }
 
@@ -199,7 +199,7 @@ class EmployeeController extends Controller
      */
     public function destroy($id)
     {
-        $employee = \App\Employee::find($id);
+        $employee = \MyIntranet\Employee::find($id);
 
         if($employee->delete()) { // If softdeleted
             DB::table('employees')->where('id', $employee->id)

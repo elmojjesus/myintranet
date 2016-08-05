@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace MyIntranet;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -30,14 +30,14 @@ class Volunteer extends Model
     protected $hidden = [];
 
     public function user() {
-        return $this->belongsTo('\App\User');
+        return $this->belongsTo('\MyIntranet\User');
     }
 
     public function departament() {
-        return $this->belongsTo('\App\Departament');
+        return $this->belongsTo('\MyIntranet\Departament');
     }
 
     public function status(){
-        return $this->belongsTo('\App\Status');
+        return $this->belongsTo('\MyIntranet\Status');
     }
 }

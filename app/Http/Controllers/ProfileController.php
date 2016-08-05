@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace MyIntranet\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Http\Requests;
-use App\Http\Controllers\Controller;
+use MyIntranet\Http\Requests;
+use MyIntranet\Http\Controllers\Controller;
 use Auth;
 use Flash;
 
@@ -19,13 +19,13 @@ class ProfileController extends Controller
     public function index(Request $request)
     {
         if (Auth::user()->profile->role->name == 'Diretor') {
-            $profiles = \App\Profile::paginate(15, ['*'], 'pagProfile');
-            $roles = \App\Role::orderBy('name')->paginate(5,['*'],'pagRole');
+            $profiles = \MyIntranet\Profile::paginate(15, ['*'], 'pagProfile');
+            $roles = \MyIntranet\Role::orderBy('name')->paginate(5,['*'],'pagRole');
         } else {
-            $profiles = \App\Profile::where('role_id', '>', 1)->paginate(15, ['*'], 'pagProfile');
-            $roles = \App\Role::where('id', '>', 1)->orderBy('name')->paginate(5,['*'],'pagRole');
+            $profiles = \MyIntranet\Profile::where('role_id', '>', 1)->paginate(15, ['*'], 'pagProfile');
+            $roles = \MyIntranet\Role::where('id', '>', 1)->orderBy('name')->paginate(5,['*'],'pagRole');
         }
-        $users = \App\User::notProfile();
+        $users = \MyIntranet\User::notProfile();
         $query = $request->all();
         return view('profile.index', compact('profiles', 'roles', 'query', 'users'));
     }
@@ -51,13 +51,13 @@ class ProfileController extends Controller
         $data = $request->all();
         $password = bcrypt($data['password']);
         unset($data['_token'], $data['password_confirm'], $data['password']);
-        if (\App\Profile::where('user_id', $data['user_id'])->count() > 0) {
-            \App\Profile::where('user_id', $data['user_id'])
+        if (\MyIntranet\Profile::where('user_id', $data['user_id'])->count() > 0) {
+            \MyIntranet\Profile::where('user_id', $data['user_id'])
                 ->update(['role_id' => $data['role_id']]);
         } else {
-            \App\Profile::insert($data);
+            \MyIntranet\Profile::insert($data);
         }
-        \App\User::where('id', $data['user_id'])->update(['password' => $password]);
+        \MyIntranet\User::where('id', $data['user_id'])->update(['password' => $password]);
         Flash::success('Acesso cadastrado com sucesso!');
         return redirect('profiles');
     }
@@ -82,11 +82,11 @@ class ProfileController extends Controller
     public function edit($id)
     {
         if (Auth::user()->profile->role->name == 'Diretor') {
-            $roles = \App\Role::orderBy('name')->get();
+            $roles = \MyIntranet\Role::orderBy('name')->get();
         } else {
-            $roles = \App\Role::where('id', '>', 1)->orderBy('name')->get();
+            $roles = \MyIntranet\Role::where('id', '>', 1)->orderBy('name')->get();
         }
-        $profile = \App\Profile::find($id);
+        $profile = \MyIntranet\Profile::find($id);
         return view('profile.edit', compact('roles', 'profile'));
     }
 
@@ -100,17 +100,17 @@ class ProfileController extends Controller
     public function update(Request $request, $id)
     {
         $data = $request->all();
-        $profile = \App\Profile::find($id);
+        $profile = \MyIntranet\Profile::find($id);
         if (isset($data['password']) && isset($data['password'])){
             if ($data['password'] != '' && $data['password_confirm'] != '') {
                 $password = bcrypt($data['password']);
-                \App\User::where('id', $profile->user->id)->update(['password' => $password]);
+                \MyIntranet\User::where('id', $profile->user->id)->update(['password' => $password]);
             }
             unset($data['password_confirm'], $data['password']);
         }
         
         if (isset($data['role_id']) && $data['role_id'] != '') {
-            \App\Profile::where('id', $profile->id)
+            \MyIntranet\Profile::where('id', $profile->id)
                 ->update(['role_id' => $data['role_id']]);
         }
         Flash::success('Acesso atualizado com sucesso!');
@@ -118,7 +118,7 @@ class ProfileController extends Controller
     }
 
     public function delete($id) {
-        $profile = \App\Profile::find($id);
+        $profile = \MyIntranet\Profile::find($id);
         return view('profile.delete', compact('profile'));
     }
 
@@ -130,9 +130,9 @@ class ProfileController extends Controller
      */
     public function destroy($id)
     {
-        $profile = \App\Profile::find($id);
-        \App\User::where('id', $profile->user->id)->update(['password' => null]);
-        \App\Profile::find($id)->delete();
+        $profile = \MyIntranet\Profile::find($id);
+        \MyIntranet\User::where('id', $profile->user->id)->update(['password' => null]);
+        \MyIntranet\Profile::find($id)->delete();
         Flash::success('Acesso deletado com sucesso');
         return redirect('profiles');
     }

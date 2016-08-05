@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace MyIntranet\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Http\Requests;
-use App\Http\Controllers\Controller;
-use App\Http\Requests\EducationRequest;
+use MyIntranet\Http\Requests;
+use MyIntranet\Http\Controllers\Controller;
+use MyIntranet\Http\Requests\EducationRequest;
 use Flash;
 
 
@@ -19,7 +19,7 @@ class EducationController extends Controller
      */
     public function index()
     {
-        $educations = \App\Education::all();
+        $educations = \MyIntranet\Education::all();
         return view('education.index', compact('educations'));
     }
 
@@ -43,7 +43,7 @@ class EducationController extends Controller
     {
         $data = $request->all();
         unset($data['_token']);
-        \App\Education::insert($data);
+        \MyIntranet\Education::insert($data);
         Flash::success('Educação cadastrada com sucesso!');
         return redirect('education');
     }
@@ -67,7 +67,7 @@ class EducationController extends Controller
      */
     public function edit($id)
     {
-        $education = \App\Education::find($id);
+        $education = \MyIntranet\Education::find($id);
         return view('education.edit', compact('education'));
     }
 
@@ -82,7 +82,7 @@ class EducationController extends Controller
     {
         $data = $request->all();
         unset($data['_token']);
-        \App\Education::where('id', $id)->update($data);
+        \MyIntranet\Education::where('id', $id)->update($data);
         Flash::success('Educação editada com sucesso!');
         return redirect('education');
 
@@ -96,7 +96,7 @@ class EducationController extends Controller
      */
     public function delete($id)
     {
-        $education = \App\Education::find($id);
+        $education = \MyIntranet\Education::find($id);
         return view('education.delete', compact('education'));
     }
 
@@ -108,7 +108,7 @@ class EducationController extends Controller
      */
     public function destroy($id)
     {
-        \App\Education::find($id)->delete();
+        \MyIntranet\Education::find($id)->delete();
         Flash::success('Educação excluída com sucesso!');
         return redirect('education');
     }

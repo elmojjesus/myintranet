@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace MyIntranet;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -33,10 +33,10 @@ class Profile extends Model
     protected $dates = ['deleted_at'];
 
     public function user() {
-        return $this->belongsTo('\App\User');
+        return $this->belongsTo('\MyIntranet\User');
     }
 
     public function role() {
-        return $this->belongsTo('\App\Role');
+        return $this->belongsTo('\MyIntranet\Role');
     }
 }

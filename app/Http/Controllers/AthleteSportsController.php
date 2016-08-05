@@ -1,13 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace MyIntranet\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Http\Requests;
-use App\Http\Controllers\Controller;
+use MyIntranet\Http\Requests;
+use MyIntranet\Http\Controllers\Controller;
 use DB;
 use Flash;
+use Carbon\Carbon;
 
 class AthleteSportsController extends Controller
 {
@@ -28,8 +29,8 @@ class AthleteSportsController extends Controller
      */
     public function create($id)
     {
-        $athlete = \App\Athlete::findorFail($id);
-        $sports = \App\Sport::lists('name', 'id')->toArray();
+        $athlete = \MyIntranet\Athlete::findorFail($id);
+        $sports = \MyIntranet\Sport::lists('name', 'id')->toArray();
         return view('athleteSports.create', compact('athlete', 'sports'));
     }
 
@@ -45,7 +46,7 @@ class AthleteSportsController extends Controller
             $input = array_unique($input);
             foreach ($input as $sport_id) {
                 if($sport_id != ''){
-                    \App\AthleteSport::insert(['athlete_id' => $athlete_id, 'sport_id' => $sport_id]);
+                    \MyIntranet\AthleteSport::insert(['athlete_id' => $athlete_id, 'sport_id' => $sport_id]);
                 }
             }
         }
@@ -85,13 +86,14 @@ class AthleteSportsController extends Controller
      */
     public function update(Request $request, $athlete_id)
     {
+        $now = Carbon::now();
         
         #Pega os inputs, somente esportes
         $sports = $request->only('sports');
      
 
         #Verifica se esportes requisitados, já estão atribuidos ao atleta.
-        $athleteSports = \App\AthleteSport::where('athlete_id', $athlete_id)
+        $athleteSports = \MyIntranet\AthleteSport::where('athlete_id', $athlete_id)
                         ->select('sport_id')->get()->toArray();
 
         foreach ($sports as $input) {
@@ -107,9 +109,9 @@ class AthleteSportsController extends Controller
         }
 
         #Se atleta estiver sem esporte e status inativo, ele muda pra ativo, e insere os novos esportes
-        $num = \App\AthleteSport::where('athlete_id', $athlete_id)->count();
+        $num = \MyIntranet\AthleteSport::where('athlete_id', $athlete_id)->count();
         if($num == 0){
-            $athlete = \App\Athlete::where('id', $athlete_id)->first();
+            $athlete = \MyIntranet\Athlete::where('id', $athlete_id)->first();
             if($athlete->status['name'] == "Inativo"){
                 $athlete->status_id = 1;
                 $athlete->save();
@@ -121,11 +123,13 @@ class AthleteSportsController extends Controller
             $input = array_unique($input);
             foreach ($input as $sport_id) {
                 if($sport_id != ''){
-                    \App\AthleteSport::insert(['athlete_id' => $athlete_id, 'sport_id' => $sport_id]);
+                    \MyIntranet\AthleteSport::insert(['athlete_id' => $athlete_id, 'sport_id' => $sport_id, 'created_at' => $now]);
                 }
             }
         }
 
+        \MyIntranet\Athlete::where('id', $athlete_id)->update(['updated_at' => $now]);
+        
         $athlete = new AthleteController();
         $athleteName = $athlete->getAthleteName($athlete_id);
 
@@ -146,7 +150,7 @@ class AthleteSportsController extends Controller
         foreach ($checked as $checkedBox) {
             foreach ($checkedBox as $sport_id) {
                 $sportsIds[] = $sport_id;
-                \App\AthleteSport::where('athlete_id', $athlete_id)
+                \MyIntranet\AthleteSport::where('athlete_id', $athlete_id)
                                     ->where('sport_id', $sport_id)
                                     ->forceDelete();
             }
@@ -157,10 +161,13 @@ class AthleteSportsController extends Controller
         $athleteName = $athlete->getAthleteName($athlete_id);
 
         #Se deletar todos os esportes, usuário fica inativo
-        $num = \App\AthleteSport::where('athlete_id', $athlete_id)->count();
+        $num = \MyIntranet\AthleteSport::where('athlete_id', $athlete_id)->count();
 
         if($num == 0){
-            \App\Athlete::where('id', $athlete_id)->update(['status_id' => 2]);
+            #Atleta recebe status de inativo
+            \MyIntranet\Athlete::where('id', $athlete_id)->update(['status_id' => 2]);
+            #Atleta recebe deleted at
+            \MyIntranet\Athlete::destroy($athlete_id);
             Flash::warning($athleteName . " não faz mais esportes, logo, seu status agora é inativo.");
             Flash::success($athleteName . " teve esportes excluídos.");
             return redirect('athlete');

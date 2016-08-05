@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace MyIntranet\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Http\Requests;
-use App\Http\Controllers\Controller;
-use App\Http\Requests\SportRequest;
+use MyIntranet\Http\Requests;
+use MyIntranet\Http\Controllers\Controller;
+use MyIntranet\Http\Requests\SportRequest;
 use Flash;
 
 class SportController extends Controller
@@ -21,7 +21,7 @@ class SportController extends Controller
     public function index()
     {
         
-        $sports = \App\Sport::all();
+        $sports = \MyIntranet\Sport::all();
         return view('sport.index', compact('sports'));
     }
 
@@ -32,7 +32,7 @@ class SportController extends Controller
      */
     public function create(Request $request)
     {
-        $sports = \App\Sport::all();
+        $sports = \MyIntranet\Sport::all();
         return view('sport.index', compact('sports')); 
     }
 
@@ -46,7 +46,7 @@ class SportController extends Controller
     {
         $data = $request->all();
         unset($data['_token']);
-        \App\Sport::insert($data);
+        \MyIntranet\Sport::insert($data);
         Flash::success('Esporte cadastrado com sucesso!');
         return redirect('sport');
     }
@@ -70,7 +70,7 @@ class SportController extends Controller
      */
     public function edit($id)
     {
-        $sport = \App\Sport::find($id);
+        $sport = \MyIntranet\Sport::find($id);
         #print_r($sport);
         return view('sport.edit', compact('sport'));
     }
@@ -84,7 +84,7 @@ class SportController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $sport = \App\Sport::findOrFail($id);
+        $sport = \MyIntranet\Sport::findOrFail($id);
         $sport->name = $request->input('name');
         $sport->save();
         Flash::success('Esporte editado com sucesso!');
