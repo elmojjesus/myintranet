@@ -1,11 +1,11 @@
 <?php
 
-namespace MyIntranet\Http\Controllers;
+namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use MyIntranet\Http\Requests;
-use MyIntranet\Http\Controllers\Controller;
+use App\Http\Requests;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 
 
@@ -20,14 +20,14 @@ class AthleteController extends Controller
     public function index(Request $request)
     {
         
-        $status = \MyIntranet\Status::all();
-        $deficiencies = \MyIntranet\Deficiency::all();
-        $sports = \MyIntranet\Sport::all();
+        $status = \App\Status::all();
+        $deficiencies = \App\Deficiency::all();
+        $sports = \App\Sport::all();
         
-        //$athlete = \MyIntranet\Athlete::find(1);
+        //$athlete = \App\Athlete::find(1);
         // Quantidade de esportes só chamar isso aqui-> $athlete->scopeAmountSports();
 
-        $users = \MyIntranet\User::with('athlete')
+        $users = \App\User::with('athlete')
                     ->select('users.*')
                     #->distinct()
                     ->join('athletes', 'athletes.user_id', '=', 'users.id')
@@ -116,8 +116,8 @@ class AthleteController extends Controller
     }
 
     public function createModal($id){
-        $user = \MyIntranet\User::findorFail($id);
-        $sports = \MyIntranet\Sport::lists('name', 'id')->toArray();
+        $user = \App\User::findorFail($id);
+        $sports = \App\Sport::lists('name', 'id')->toArray();
         return view('athlete.createModal', compact('user', 'sports'));
     }
 
@@ -131,14 +131,14 @@ class AthleteController extends Controller
     {
         $data = $request->all();
         unset($data['_token']);
-        #$athlete = \MyIntranet\User::findorFail($id);
-        $athlete = \MyIntranet\Athlete::where('user_id', $id)->first();
+        #$athlete = \App\User::findorFail($id);
+        $athlete = \App\Athlete::where('user_id', $id)->first();
         if (is_null($athlete)) {
-            \MyIntranet\Athlete::insert(['user_id' => $id]);
-            $athlete = \MyIntranet\Athlete::where('user_id', $id)->first();
+            \App\Athlete::insert(['user_id' => $id]);
+            $athlete = \App\Athlete::where('user_id', $id)->first();
         }
         $data['athlete_id'] = $athlete->id;
-        \MyIntranet\AthleteSport::insert($data);
+        \App\AthleteSport::insert($data);
         return redirect('athlete/create');
     }
 
@@ -150,7 +150,7 @@ class AthleteController extends Controller
      */
     public function show($id)
     {
-        $athlete = \MyIntranet\Athlete::find($id);
+        $athlete = \App\Athlete::find($id);
         return view('athlete.show', compact('athlete'));
     }
 
@@ -162,9 +162,9 @@ class AthleteController extends Controller
      */
     public function edit($id)
     {
-        $athlete = \MyIntranet\Athlete::find($id);
-        $status = \MyIntranet\Status::all();
-        $sports = \MyIntranet\Sport::all();
+        $athlete = \App\Athlete::find($id);
+        $status = \App\Status::all();
+        $sports = \App\Sport::all();
         return view('athlete.edit', compact('athlete', 'status', 'sports'));
     }
 
@@ -177,7 +177,7 @@ class AthleteController extends Controller
      */
     public function update(Request $request, $id)
     {
-        \MyIntranet\AthleteSport::where('athlete_id', $id)
+        \App\AthleteSport::where('athlete_id', $id)
                            ->where('sport_id', $request->input('sport_id'))
                            ->update(['status_id' => $request->input('status_id')]);
         return redirect('athlete');

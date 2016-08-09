@@ -1,11 +1,11 @@
 <?php
 
-namespace MyIntranet\Http\Controllers;
+namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use MyIntranet\Http\Requests;
-use MyIntranet\Http\Controllers\Controller;
+use App\Http\Requests;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Flash;
 
@@ -31,9 +31,9 @@ class PacientController extends Controller
     public function index(Request $request)
     {
         $query = $request->all();
-        $status = \MyIntranet\Status::all();
-        $deficiencies = \MyIntranet\Deficiency::all();
-        $therapies = \MyIntranet\Therapy::all();
+        $status = \App\Status::all();
+        $deficiencies = \App\Deficiency::all();
+        $therapies = \App\Therapy::all();
 
         $users = DB::table('users as u')
                     ->distinct()
@@ -101,9 +101,9 @@ class PacientController extends Controller
     }
 
     public function createModal($id){
-        $user = \MyIntranet\User::findorFail($id);
-        $status = \MyIntranet\Status::lists('name', 'id')->toArray();
-        $therapies = \MyIntranet\Therapy::lists('name', 'id')->toArray();
+        $user = \App\User::findorFail($id);
+        $status = \App\Status::lists('name', 'id')->toArray();
+        $therapies = \App\Therapy::lists('name', 'id')->toArray();
         return view('pacient.createModal', compact('user', 'therapies', 'status'));
     }
 
@@ -117,7 +117,7 @@ class PacientController extends Controller
     {
         $data = $request->all();
         unset($data['_token']);
-        \MyIntranet\Pacient::insert($data);
+        \App\Pacient::insert($data);
         Flash::success('Cadastrado com sucesso.');
         return redirect('pacient');
     }
@@ -130,7 +130,7 @@ class PacientController extends Controller
      */
     public function show($id)
     {
-        $pacient = \MyIntranet\Pacient::withTrashed()->find($id);
+        $pacient = \App\Pacient::withTrashed()->find($id);
         return view('pacient.show', compact('pacient'));
     }
 
@@ -142,9 +142,9 @@ class PacientController extends Controller
      */
     public function edit($id)
     {
-        $pacient = \MyIntranet\Pacient::withTrashed()->find($id);
-        $status = \MyIntranet\Status::all();
-        $therapies = \MyIntranet\Therapy::lists('name', 'id')->toArray();
+        $pacient = \App\Pacient::withTrashed()->find($id);
+        $status = \App\Status::all();
+        $therapies = \App\Therapy::lists('name', 'id')->toArray();
         return view('pacient.edit', compact('pacient', 'status', 'therapies'));
     }
 
@@ -159,17 +159,17 @@ class PacientController extends Controller
     {
         $pacientName = $this->getPacientName($id);
         
-        $num = \MyIntranet\PacientTherapy::where('pacient_id', $id)->count();
+        $num = \App\PacientTherapy::where('pacient_id', $id)->count();
         if($num == 0){
             Flash::error('O paciente ' . $pacientName . ' deve ter ao menos uma terapia cadastrada para ter seu status alterado novamente.');
             return redirect('pacient');
         }
 
-        $pacient = \MyIntranet\Pacient::withTrashed()->find($id);
+        $pacient = \App\Pacient::withTrashed()->find($id);
         if($request->status_id != 2 and $pacient->status_id == 2){
-            \MyIntranet\Pacient::withTrashed()->where('id', $id)->update(['status_id' => $request->input('status_id'), 'deleted_at' => null]);
+            \App\Pacient::withTrashed()->where('id', $id)->update(['status_id' => $request->input('status_id'), 'deleted_at' => null]);
         } else {
-            \MyIntranet\Pacient::where('id', $id)->update(['status_id' => $request->input('status_id')]);
+            \App\Pacient::where('id', $id)->update(['status_id' => $request->input('status_id')]);
         }
 
         Flash::success("Status do " . $pacientName . " alterado com sucesso.");
@@ -177,7 +177,7 @@ class PacientController extends Controller
     }
 
     public function delete($id) {
-        $pacient = \MyIntranet\Pacient::find($id);
+        $pacient = \App\Pacient::find($id);
         return view('pacient.delete', compact('pacient'));
     }
 
@@ -189,7 +189,7 @@ class PacientController extends Controller
      */
     public function destroy($id)
     {
-        $pacient = \MyIntranet\Pacient::find($id);
+        $pacient = \App\Pacient::find($id);
 
         if($pacient->delete()) { // If softdeleted
             DB::table('pacients')->where('id', $pacient->id)

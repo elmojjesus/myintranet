@@ -1,6 +1,6 @@
 <?php
 
-namespace MyIntranet;
+namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -28,11 +28,11 @@ class Regional extends Model
     protected $hidden = [];
 
     public function users() {
-        return $this->hasMany('\MyIntranet\User');
+        return $this->hasMany('\App\User');
     }
 
     public function athletes($id) {
-        return \MyIntranet\Athlete::join('users', function ($join) use($id) {
+        return \App\Athlete::join('users', function ($join) use($id) {
             $join->on('users.id', '=', 'athletes.user_id')
                  ->where('users.regional_id', '=', $id);
         })

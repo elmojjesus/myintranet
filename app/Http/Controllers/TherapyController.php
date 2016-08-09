@@ -1,11 +1,11 @@
 <?php
 
-namespace MyIntranet\Http\Controllers;
+namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use MyIntranet\Http\Requests;
-use MyIntranet\Http\Controllers\Controller;
+use App\Http\Requests;
+use App\Http\Controllers\Controller;
 use Flash;
 
 class TherapyController extends Controller
@@ -17,7 +17,7 @@ class TherapyController extends Controller
      */
     public function index()
     {
-        $therapies = \MyIntranet\Therapy::all();
+        $therapies = \App\Therapy::all();
         return view('therapy.index', compact('therapies'));
     }
 
@@ -41,7 +41,7 @@ class TherapyController extends Controller
     {
         $data = $request->all();
         unset($data['_token']);
-        \MyIntranet\Therapy::insert($data);
+        \App\Therapy::insert($data);
         Flash::success('Terapia cadastrada com sucesso!');
         return redirect('therapy');
     }
@@ -65,7 +65,7 @@ class TherapyController extends Controller
      */
     public function edit($id)
     {
-        $therapy = \MyIntranet\Therapy::find($id);
+        $therapy = \App\Therapy::find($id);
         return view('therapy.edit', compact('therapy'));
     }
 
@@ -80,12 +80,12 @@ class TherapyController extends Controller
     {
         $data = $request->all();
         unset($data['_token']);
-        \MyIntranet\Therapy::where('id', $id)->update($data);
+        \App\Therapy::where('id', $id)->update($data);
         return redirect('therapy');
     }
 
     public function delete($id) {
-        $therapy = \MyIntranet\Therapy::find($id);
+        $therapy = \App\Therapy::find($id);
         return view('therapy.delete', compact('therapy'));
     }
 
@@ -97,7 +97,7 @@ class TherapyController extends Controller
      */
     public function destroy($id)
     {
-        \MyIntranet\Therapy::find($id)->delete();
+        \App\Therapy::find($id)->delete();
         return redirect('therapies');
     }
 }

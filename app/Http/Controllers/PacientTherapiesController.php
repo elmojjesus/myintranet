@@ -1,11 +1,11 @@
 <?php
 
-namespace MyIntranet\Http\Controllers;
+namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use MyIntranet\Http\Requests;
-use MyIntranet\Http\Controllers\Controller;
+use App\Http\Requests;
+use App\Http\Controllers\Controller;
 use Flash;
 
 class PacientTherapiesController extends Controller
@@ -27,8 +27,8 @@ class PacientTherapiesController extends Controller
      */
     public function create($id)
     {
-        $pacient = \MyIntranet\Pacient::findorFail($id);
-        $therapies = \MyIntranet\Therapy::lists('name', 'id')->toArray();
+        $pacient = \App\Pacient::findorFail($id);
+        $therapies = \App\Therapy::lists('name', 'id')->toArray();
         return view('pacientTherapies.create', compact('pacient', 'therapies'));
     }
 
@@ -44,7 +44,7 @@ class PacientTherapiesController extends Controller
             $input = array_unique($input);
             foreach ($input as $therapy_id) {
                 if($therapy_id != ''){
-                    \MyIntranet\PacientTherapy::insert(['pacient_id' => $pacient_id, 'therapy_id' => $therapy_id]);
+                    \App\PacientTherapy::insert(['pacient_id' => $pacient_id, 'therapy_id' => $therapy_id]);
                 }
             }
         }
@@ -89,7 +89,7 @@ class PacientTherapiesController extends Controller
      
 
         #Verifica se terapias requisitadas, já estão atribuidas ao paciente.
-        $pacientTherapies = \MyIntranet\PacientTherapy::where('pacient_id', $pacient_id)
+        $pacientTherapies = \App\PacientTherapy::where('pacient_id', $pacient_id)
                         ->select('therapy_id')->get()->toArray();
 
         foreach ($therapies as $input) {
@@ -104,9 +104,9 @@ class PacientTherapiesController extends Controller
         }
 
         
-        $num = \MyIntranet\PacientTherapy::where('pacient_id', $pacient_id)->count();
+        $num = \App\PacientTherapy::where('pacient_id', $pacient_id)->count();
         if($num == 0){
-            $pacient = \MyIntranet\Pacient::where('id', $pacient_id)->first();
+            $pacient = \App\Pacient::where('id', $pacient_id)->first();
             if($pacient->status['name'] == "Inativo"){
                 $pacient->status_id = 1;
                 $pacient->save();
@@ -118,7 +118,7 @@ class PacientTherapiesController extends Controller
             $input = array_unique($input);
             foreach ($input as $therapy_id) {
                 if($therapy_id != ''){
-                    \MyIntranet\PacientTherapy::insert(['pacient_id' => $pacient_id, 'therapy_id' => $therapy_id]);
+                    \App\PacientTherapy::insert(['pacient_id' => $pacient_id, 'therapy_id' => $therapy_id]);
                 }
             }
         }
@@ -143,7 +143,7 @@ class PacientTherapiesController extends Controller
         foreach ($checked as $checkedBox) {
             foreach ($checkedBox as $therapy_id) {
                 $therapiesIds[] = $therapy_id;
-                \MyIntranet\PacientTherapy::where('pacient_id', $pacient_id)
+                \App\PacientTherapy::where('pacient_id', $pacient_id)
                                     ->where('therapy_id', $therapy_id)
                                     ->forceDelete();
             }
@@ -154,10 +154,10 @@ class PacientTherapiesController extends Controller
         $pacientName = $pacient->getPacientName($pacient_id);
 
        
-        $num = \MyIntranet\PacientTherapy::where('pacient_id', $pacient_id)->count();
+        $num = \App\PacientTherapy::where('pacient_id', $pacient_id)->count();
 
         if($num == 0){
-            \MyIntranet\Pacient::where('id', $pacient_id)->update(['status_id' => 2]);
+            \App\Pacient::where('id', $pacient_id)->update(['status_id' => 2]);
             Flash::warning($pacientName . " não faz mais terapias, logo, seu status agora é inativo.");
             Flash::success($pacientName . " teve terapias excluídas.");
             return redirect('pacient');

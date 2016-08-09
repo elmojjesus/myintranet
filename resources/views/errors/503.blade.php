@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Be right back.</title>
+        <title>Voltamos logo - MyIntranet</title>
 
         <link href="https://fonts.googleapis.com/css?family=Lato:100" rel="stylesheet" type="text/css">
 
@@ -16,7 +16,7 @@
                 width: 100%;
                 color: #B0BEC5;
                 display: table;
-                font-weight: 100;
+                font-weight: bold;
                 font-family: 'Lato';
             }
 
@@ -40,7 +40,8 @@
     <body>
         <div class="container">
             <div class="content">
-                <div class="title">Be right back.</div>
+                <div class="title">Voltamos logo.</div>
+		<h3>Estamos trabalhando duro para deixar tudo pertfeito para você. </h3>	
             </div>
         </div>
     </body>

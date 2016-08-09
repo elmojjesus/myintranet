@@ -1,6 +1,6 @@
 <?php
 
-namespace MyIntranet;
+namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -33,6 +33,6 @@ class Departament extends Model
 
 
     public function user(){
-        return $this->belongsTo('\MyIntranet\User');
+        return $this->belongsTo('\App\User');
     }
 }

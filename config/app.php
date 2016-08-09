@@ -26,7 +26,7 @@ return [
     |
     */
 
-    'url' => 'http://www.adfp.com',
+    'url' => 'http://localhost',
 
     /*
     |--------------------------------------------------------------------------
@@ -140,10 +140,10 @@ return [
         /*
          * Application Service Providers...
          */
-        MyIntranet\Providers\AppServiceProvider::class,
-        MyIntranet\Providers\AuthServiceProvider::class,
-        MyIntranet\Providers\EventServiceProvider::class,
-        MyIntranet\Providers\RouteServiceProvider::class,
+        App\Providers\AppServiceProvider::class,
+        App\Providers\AuthServiceProvider::class,
+        App\Providers\EventServiceProvider::class,
+        App\Providers\RouteServiceProvider::class,
 
         /*
          * 

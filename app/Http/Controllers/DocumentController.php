@@ -1,11 +1,11 @@
 <?php
 
-namespace MyIntranet\Http\Controllers;
+namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use MyIntranet\Http\Requests\DocumentRequest;
-use MyIntranet\Http\Requests;
-use MyIntranet\Http\Controllers\Controller;
+use App\Http\Requests\DocumentRequest;
+use App\Http\Requests;
+use App\Http\Controllers\Controller;
 use Flash;
 
 class DocumentController extends Controller
@@ -27,7 +27,7 @@ class DocumentController extends Controller
      */
     public function create($id)
     {
-        $user = \MyIntranet\User::find($id);
+        $user = \App\User::find($id);
 
         return view('document.create', compact('user'));
     }
@@ -42,7 +42,7 @@ class DocumentController extends Controller
     {
         $data = $request->all();
         unset($data['_token']);
-        \MyIntranet\Document::insert($data);
+        \App\Document::insert($data);
         Flash::success('Usuário criado com sucesso.');
         return redirect('user/image/upload/' . $data['user_id']);
     }

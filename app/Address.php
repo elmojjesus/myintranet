@@ -1,21 +1,21 @@
 <?php
 
-namespace MyIntranet;
+namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
 class Address extends Model
 {
     public function user(){
-    	return $this->belongsTo('\MyIntranet\User');
+    	return $this->belongsTo('\App\User');
     }
 
     public function city(){
-    	return $this->belongsTo('\MyIntranet\City');
+    	return $this->belongsTo('\App\City');
     }
 
     public function state() {
-    	return $this->belongsTo('\MyIntranet\State');
+    	return $this->belongsTo('\App\State');
     }
 
     public function first(){

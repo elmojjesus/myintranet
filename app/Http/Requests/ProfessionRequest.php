@@ -1,8 +1,8 @@
 <?php
 
-namespace MyIntranet\Http\Requests;
+namespace App\Http\Requests;
 
-use MyIntranet\Http\Requests\Request;
+use App\Http\Requests\Request;
 
 class ProfessionRequest extends Request
 {

@@ -1,11 +1,11 @@
 <?php
 
-namespace MyIntranet\Http\Controllers;
+namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use MyIntranet\Http\Requests;
-use MyIntranet\Http\Controllers\Controller;
+use App\Http\Requests;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Flash;
 use Carbon\Carbon;
@@ -34,9 +34,9 @@ class AthleteController extends Controller
     {
         #DB::connection()->enableQueryLog();
         $query = $request->all();
-        $status = \MyIntranet\Status::all();
-        $deficiencies = \MyIntranet\Deficiency::all();
-        $sports = \MyIntranet\Sport::all();
+        $status = \App\Status::all();
+        $deficiencies = \App\Deficiency::all();
+        $sports = \App\Sport::all();
 
         $users = DB::table('users as u')
                     ->distinct()
@@ -115,9 +115,9 @@ class AthleteController extends Controller
     }
 
     public function createModal($id){
-        $user = \MyIntranet\User::findorFail($id);
-        $status = \MyIntranet\Status::lists('name', 'id')->toArray();
-        $sports = \MyIntranet\Sport::lists('name', 'id')->toArray();
+        $user = \App\User::findorFail($id);
+        $status = \App\Status::lists('name', 'id')->toArray();
+        $sports = \App\Sport::lists('name', 'id')->toArray();
         return view('athlete.createModal', compact('user', 'sports', 'status'));
     }
 
@@ -135,12 +135,12 @@ class AthleteController extends Controller
         #dd($now->toDateTimeString());
         #$data["created_at"] = $now;->toDateTimeString(); 
         
-        $athlete = \MyIntranet\Athlete::where('user_id', $id)->first();
+        $athlete = \App\Athlete::where('user_id', $id)->first();
         if (is_null($athlete)) {
-            \MyIntranet\Athlete::insert(
+            \App\Athlete::insert(
                         ['user_id' => $id, 'status_id' => $data['status_id'], 'created_at' => $now]
                     );
-            $athlete = \MyIntranet\Athlete::where('user_id', $id)->first();
+            $athlete = \App\Athlete::where('user_id', $id)->first();
         }
         
         $sports = $request->only('sports');
@@ -161,7 +161,7 @@ class AthleteController extends Controller
      */
     public function show($id)
     {
-        $athlete = \MyIntranet\Athlete::withTrashed()->find($id);
+        $athlete = \App\Athlete::withTrashed()->find($id);
         return view('athlete.show', compact('athlete'));
     }
 
@@ -173,9 +173,9 @@ class AthleteController extends Controller
      */
     public function edit($id)
     {
-        $athlete = \MyIntranet\Athlete::withTrashed()->find($id);
-        $status = \MyIntranet\Status::all();
-        $sports = \MyIntranet\Sport::lists('name', 'id')->toArray();
+        $athlete = \App\Athlete::withTrashed()->find($id);
+        $status = \App\Status::all();
+        $sports = \App\Sport::lists('name', 'id')->toArray();
         return view('athlete.edit', compact('athlete', 'status', 'sports'));
     }
 
@@ -190,19 +190,19 @@ class AthleteController extends Controller
     {
         $athleteName = $this->getAthleteName($id);
         
-        $num = \MyIntranet\AthleteSport::where('athlete_id', $id)->count();
+        $num = \App\AthleteSport::where('athlete_id', $id)->count();
         if($num == 0){
             Flash::error('O atleta ' . $athleteName . ' deve ter ao menos um esporte cadastrado para ter seu status alterado novamente.');
             return redirect('athlete');
         }
 
-        $athlete = \MyIntranet\Athlete::withTrashed()->find($id);
+        $athlete = \App\Athlete::withTrashed()->find($id);
         #Se o status la no front NÃO for inativo, e o status do cara for inativo, então ele atualiza o status tbm.
         #Se não, o cara ja ta inativo, e o status escolhido la no front não mudou
         if($request->status_id != 2 and $athlete->status_id == 2){
-            \MyIntranet\Athlete::withTrashed()->where('id', $id)->update(['status_id' => $request->input('status_id'), 'deleted_at' => null]);
+            \App\Athlete::withTrashed()->where('id', $id)->update(['status_id' => $request->input('status_id'), 'deleted_at' => null]);
         } else {
-            \MyIntranet\Athlete::where('id', $id)->update(['status_id' => $request->input('status_id')]);
+            \App\Athlete::where('id', $id)->update(['status_id' => $request->input('status_id')]);
         }
 
         Flash::success("Status do " . $athleteName . " alterado com sucesso.");
@@ -217,7 +217,7 @@ class AthleteController extends Controller
      */
     public function delete($id)
     {
-        $athlete = \MyIntranet\Athlete::find($id);
+        $athlete = \App\Athlete::find($id);
         return view('athlete.delete', compact('athlete'));
     }
 
@@ -229,7 +229,7 @@ class AthleteController extends Controller
      */
     public function destroy($id)
     {
-        $athlete = \MyIntranet\Athlete::find($id);
+        $athlete = \App\Athlete::find($id);
 
         if($athlete->delete()) { // If softdeleted
             DB::table('athletes')->where('id', $athlete->id)

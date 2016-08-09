@@ -1,6 +1,6 @@
 <?php
 
-namespace MyIntranet;
+namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -33,10 +33,10 @@ class PacientTherapy extends Model
     protected $dates = ['deleted_at'];
 
     public function pacient() {
-        return $this->belongsTo('\MyIntranet\Pacient');
+        return $this->belongsTo('\App\Pacient');
     }
 
     public function therapy() {
-        return $this->belongsTo('\MyIntranet\Therapy');
+        return $this->belongsTo('\App\Therapy');
     }
 }

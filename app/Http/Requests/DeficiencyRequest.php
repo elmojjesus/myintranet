@@ -1,8 +1,8 @@
 <?php
 
-namespace MyIntranet\Http\Requests;
+namespace App\Http\Requests;
 
-use MyIntranet\Http\Requests\Request;
+use App\Http\Requests\Request;
 use Validator;
 
 class DeficiencyRequest extends Request
