@@ -22,6 +22,10 @@
                             <td> <h3> {{ $athlete->user->name }} </h3> </td>
                         </tr>
                         <tr>
+                            <td> <label class="right"> Id: </label> </td>
+                            <td> {{ $athlete->user->id }} </td>
+                        </tr>
+                        <tr>
                             <td> <label class="right"> Status: </label> </td>
                             <td> {{ $athlete->status['name'] }} </td>
                         </tr>
