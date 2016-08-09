@@ -37,24 +37,6 @@ class AthleteController extends Controller
         $status = \App\Status::all();
         $deficiencies = \App\Deficiency::all();
         $sports = \App\Sport::all();
-/*
-        $users = DB::table('users as u')
-                ->join('athletes as a', 'u.id', '=', 'a.user_id')
-                ->distinct()->paginate(10);
-        
-        foreach($users as $user){
-            $usersFinal[$user->id]['name'] = $user->name;
-            $usersFinal[$user->id]['athlete_id'] = $user->id;
-        
-            $usersFinal[$user->id]['sports'] = 
-                    DB::table('athlete_sports as ats')
-                    ->where('athlete_id', $user->id)
-                    ->count();
-            
-        }
-                
-        dd($usersFinal);
-        */
         
         $users = DB::table('users as u')
                     ->distinct()
@@ -107,18 +89,8 @@ class AthleteController extends Controller
                     ->orderBy('u.id')
                     ->groupBy('u.id')
                     ->paginate(10);
-                    
         
-                    
-                    #->get();
-        #dd($users);
-        #dd(DB::getQueryLog());        
-        
-        #$users = DB::select('select * from users where status_id = ?', [1]);
-
-
         #dd(DB::getQueryLog());
-
 
         return view('athlete.index', compact('users', 'status', 'deficiencies', 'sports', 'query'));
 
