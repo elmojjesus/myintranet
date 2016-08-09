@@ -1,12 +1,12 @@
 <?php
 
-namespace MyIntranet\Http\Controllers;
+namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use MyIntranet\Http\Requests;
-use MyIntranet\Http\Controllers\Controller;
-use MyIntranet\Http\Requests\ProfessionRequest;
+use App\Http\Requests;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\ProfessionRequest;
 use Flash;
 
 class ProfessionController extends Controller
@@ -18,7 +18,7 @@ class ProfessionController extends Controller
      */
     public function index()
     {
-        $professions = \MyIntranet\Profession::all();
+        $professions = \App\Profession::all();
         return view('profession.index', compact('professions'));
     }
 
@@ -42,7 +42,7 @@ class ProfessionController extends Controller
     {
         $data = $request->all();
         unset($data['_token']);
-        \MyIntranet\Profession::insert($data);
+        \App\Profession::insert($data);
         Flash::success('Profissão cadastrada com sucesso');
         return redirect('profession');
 
@@ -67,7 +67,7 @@ class ProfessionController extends Controller
      */
     public function edit($id)
     {
-        $profession = \MyIntranet\Profession::find($id);
+        $profession = \App\Profession::find($id);
         return view('profession.edit', compact('profession'));
     }
 
@@ -82,7 +82,7 @@ class ProfessionController extends Controller
     {
         $data = $request->all();
         unset($data['_token']);
-        \MyIntranet\Profession::where('id', $id)->update($data);
+        \App\Profession::where('id', $id)->update($data);
         Flash::success('Profissão editada com sucesso');
         return redirect('profession');
     }
@@ -95,7 +95,7 @@ class ProfessionController extends Controller
      */
     public function delete($id)
     {
-        $profession = \MyIntranet\Profession::find($id);
+        $profession = \App\Profession::find($id);
         return view('profession.delete', compact('profession'));
     }
 
@@ -107,7 +107,7 @@ class ProfessionController extends Controller
      */
     public function destroy($id)
     {
-        \MyIntranet\Profession::find($id)->delete();
+        \App\Profession::find($id)->delete();
         Flash::success('Profissão excluída com sucesso');
         return redirect('profession');
     }

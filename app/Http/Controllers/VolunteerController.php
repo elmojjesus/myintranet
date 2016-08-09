@@ -1,11 +1,11 @@
 <?php
 
-namespace MyIntranet\Http\Controllers;
+namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use MyIntranet\Http\Requests;
-use MyIntranet\Http\Controllers\Controller;
+use App\Http\Requests;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon as Carbon;
 use Flash;
@@ -31,8 +31,8 @@ class VolunteerController extends Controller
     public function index(Request $request)
     {
         $query = $request->all();
-        $status = \MyIntranet\Status::all();
-        $departaments = \MyIntranet\Departament::all();
+        $status = \App\Status::all();
+        $departaments = \App\Departament::all();
 
         $volunteers = DB::table('users as u')
             ->distinct()
@@ -98,8 +98,8 @@ class VolunteerController extends Controller
     }
 
     public function createModal($id){
-        $user = \MyIntranet\User::findorFail($id);
-        $departaments = \MyIntranet\Departament::lists('name', 'id')->toArray();
+        $user = \App\User::findorFail($id);
+        $departaments = \App\Departament::lists('name', 'id')->toArray();
         return view('volunteer.createModal', compact('user', 'departaments'));
     }
 
@@ -114,7 +114,7 @@ class VolunteerController extends Controller
         $data = $request->all();
         $data['user_id'] = $id;
         unset($data['_token']);
-        $var = \MyIntranet\Volunteer::insert($data);
+        $var = \App\Volunteer::insert($data);
         #dd($var);
         Flash::success('Voluntário cadastrado com sucesso.');
         return redirect('volunteer/create');
@@ -139,9 +139,9 @@ class VolunteerController extends Controller
      */
     public function edit($id)
     {
-        $volunteer = \MyIntranet\Volunteer::withTrashed()->find($id);
-        $status = \MyIntranet\Status::all();
-        $departaments = \MyIntranet\Departament::orderBy('name')->get();
+        $volunteer = \App\Volunteer::withTrashed()->find($id);
+        $status = \App\Status::all();
+        $departaments = \App\Departament::orderBy('name')->get();
         return view('volunteer.edit', compact('volunteer', 'users', 'departaments', 'status'));
     }
 
@@ -157,12 +157,12 @@ class VolunteerController extends Controller
         $data = $request->all();
         unset($data['_token']);
 
-        $volunteer = \MyIntranet\Volunteer::withTrashed()->find($id);
+        $volunteer = \App\Volunteer::withTrashed()->find($id);
         if($request->status_id != 2 and $volunteer->status_id == 2){
             $data["deleted_at"] = null;
         }
         
-        \MyIntranet\Volunteer::withTrashed()->where('id', $id)->update($data);
+        \App\Volunteer::withTrashed()->where('id', $id)->update($data);
         $volunteerName = $this->getVolunteerName($id);
 
         Flash::success( $volunteerName . ' teve informações atualizadas.');
@@ -176,7 +176,7 @@ class VolunteerController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function delete($id) {
-        $volunteer = \MyIntranet\Volunteer::find($id);
+        $volunteer = \App\Volunteer::find($id);
         return view('volunteer.delete', compact('volunteer'));
     }
 
@@ -188,7 +188,7 @@ class VolunteerController extends Controller
      */
     public function destroy($id)
     {
-        $volunteer = \MyIntranet\Volunteer::find($id);
+        $volunteer = \App\Volunteer::find($id);
 
         if($volunteer->delete()) { // If softdeleted
             DB::table('volunteers')->where('id', $volunteer->id)

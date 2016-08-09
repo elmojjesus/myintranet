@@ -1,14 +1,14 @@
 <?php
 
-namespace MyIntranet\Http\Controllers\Auth;
+namespace App\Http\Controllers\Auth;
 
-use MyIntranet\User;
+use App\User;
 use Validator;
-use MyIntranet\Http\Controllers\Controller;
+use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 use Illuminate\Http\Request;
-use MyIntranet\Http\Requests;
+use App\Http\Requests;
 use Auth;
 
 
