@@ -27,7 +27,8 @@ class UserController extends Controller
     }
 
     public function getUsersByQuery($request) {
-        return \App\User::join('documents', 'documents.user_id', '=', 'users.id')
+       
+        return \App\User::leftJoin('documents', 'documents.user_id', '=', 'users.id')
                         ->select('users.*')
                         ->where(function($query) use($request) {
                 if (isset($request['cpf'])) {   
