@@ -21,10 +21,10 @@ class AthleteSeeder extends Seeder
 
        	\App\Athlete::truncate();
 
-       	foreach(range(0, 20) as $value) {
+       	foreach(range(0, 10) as $value) {
        		$athletes[] = [
        			'user_id' => $faker->unique()->numberBetween($min = 1, $max = $users),
-            'status_id' => $faker->numberBetween($min = 1, $max = $status),
+                        'status_id' => $faker->numberBetween($min = 1, $max = $status),
        		];
        	}
        	

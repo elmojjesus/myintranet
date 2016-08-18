@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Flash;
+use Carbon\Carbon;
 
 class TherapyController extends Controller
 {
@@ -41,6 +42,7 @@ class TherapyController extends Controller
     {
         $data = $request->all();
         unset($data['_token']);
+        $data['created_at'] = Carbon::now();
         \App\Therapy::insert($data);
         Flash::success('Terapia cadastrada com sucesso!');
         return redirect('therapy');
@@ -78,15 +80,15 @@ class TherapyController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $data = $request->all();
-        unset($data['_token']);
-        \App\Therapy::where('id', $id)->update($data);
+        $therapy = \App\Therapy::findOrFail($id);
+        $therapy->name = $request->input('name');
+        $therapy->save();
+        Flash::success('Terapia editada com sucesso!');
         return redirect('therapy');
     }
 
     public function delete($id) {
-        $therapy = \App\Therapy::find($id);
-        return view('therapy.delete', compact('therapy'));
+        //
     }
 
     /**
@@ -97,7 +99,6 @@ class TherapyController extends Controller
      */
     public function destroy($id)
     {
-        \App\Therapy::find($id)->delete();
-        return redirect('therapies');
+        //
     }
 }

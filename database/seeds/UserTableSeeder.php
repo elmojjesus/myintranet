@@ -13,7 +13,6 @@ class UserTableSeeder extends Seeder
      */
     public function run()
     {
-        
 
         $faker = Faker\Factory::create();
         DB::statement('SET FOREIGN_KEY_CHECKS = 0');
@@ -39,10 +38,12 @@ class UserTableSeeder extends Seeder
             'status_id' => 1,
             'regional_id' => $regionais->random(1)->id,
         ];
+        
         \App\User::insert($default);
-        foreach (range(0, 0) as $number) {
+        
+        foreach (range(0, 10) as $number) {            
             $now = new \DateTime();
-            $users[] = [
+           $id = DB::table('users')->insertGetId([
                 'email' => $faker->email,
                 'name' => $faker->name,
                 'nationality' => 'Brasileiro',
@@ -58,10 +59,16 @@ class UserTableSeeder extends Seeder
                 'status_id' => $status->random(1)->id,
                 'regional_id' => $regionais->random(1)->id,
                 'created_at' => $now->format('Y-m-d H:i:s'),
-            ];
+            ]);
+            
+            DB::table('documents')->insert([
+                'cpf' => '06693017959',
+                'rg' => '363620862',
+                'user_id' => $id
+            ]);
+            
         }
         
-        \App\User::insert($users);
         DB::statement('SET FOREIGN_KEY_CHECKS = 1');
 
     }

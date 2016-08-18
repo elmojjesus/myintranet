@@ -79,7 +79,7 @@ class UserController extends Controller
                     } 
                 })
                 ->orderBy('users.name')
-                ->paginate(10);
+                ->paginate(10);     
     }
 
     /**
@@ -180,6 +180,7 @@ class UserController extends Controller
     public function update(UserRequest $request, $id)
     {
         $data = $request->all();
+        
         unset($data['_token']);
         if (isset($data['password']) && $data['password'] != '') {
             $data['password'] = bcrypt($data['password']);
@@ -210,6 +211,13 @@ class UserController extends Controller
         \App\User::where('id', $id)->update(\App\User::extrangeArray($data, 'edit'));
         \App\Document::where('user_id', $id)->update($document);
         \App\Address::where('user_id', $id)->update($address);
+        
+        #Se o usuário voltar a ficar ativo (ou qualquer outro q n seja inativo)
+         #Recebe inativo em voluntário
+        if($data['status_id'] != 2){
+            \App\Volunteer::where('user_id', $id)->update(['status_id' => '2']);
+        }
+        
         Flash::success('Usuário editado com sucesso!');
         return redirect('user');
     }

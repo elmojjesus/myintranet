@@ -137,7 +137,7 @@
 
                 <div class="row right">
                     <div class="col-lg-12">
-                        <button class="btn btn-primary plus" onclick="addSport()">+</button>
+                        <button class="btn btn-primary plus" onclick="addOneMore('Sports')">+</button>
                         <button class="btn btn-primary" onclick=" return validaEsporteInclusao();">Salvar esportes</button>
                     </div>
                 </div>

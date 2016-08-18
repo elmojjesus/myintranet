@@ -30,6 +30,10 @@ class CreatePacientsTable extends Migration
      */
     public function down()
     {
+        Schema::table('pacients', function(Blueprint $table){
+            $table->dropForeign(['status_id']);
+        });
+
         Schema::dropIfExists('pacients');
     }
 }

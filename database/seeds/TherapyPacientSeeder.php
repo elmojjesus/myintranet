@@ -23,7 +23,6 @@ class TherapyPacientSeeder extends Seeder
             $pacientTherapy[] = [
                 'therapy_id' => $therapies->random(1)->id,
                 'pacient_id' => $pacients->random(1)->id,
-                'status_id' => $status->random(1)->id
             ];
             $i++;
         }

@@ -43,7 +43,7 @@ class AthleteController extends Controller
                     ->join('athletes as a', 'u.id', '=', 'a.user_id')
                     ->leftJoin('athlete_sports as ats', 'ats.athlete_id', '=', 'a.id')
                     ->join('status as s', 's.id', '=', 'a.status_id')
-                    ->join('deficiencies as d', 'd.id', '=', 'u.deficiency_id')
+                    ->leftJoin('deficiencies as d', 'd.id', '=', 'u.deficiency_id')
                     ->select(
                         array(
                                   'u.id as user_id', 
@@ -126,8 +126,6 @@ class AthleteController extends Controller
         $data = $request->all();
         unset($data['_token']);
         $now = Carbon::now();
-        #dd($now->toDateTimeString());
-        #$data["created_at"] = $now;->toDateTimeString(); 
         
         $athlete = \App\Athlete::where('user_id', $id)->first();
         if (is_null($athlete)) {
@@ -192,9 +190,13 @@ class AthleteController extends Controller
 
         $athlete = \App\Athlete::withTrashed()->find($id);
         #Se o status la no front NÃO for inativo, e o status do cara for inativo, então ele atualiza o status tbm.
+        #Se o cara for inativado, atualiza status e recebe deleted_at
         #Se não, o cara ja ta inativo, e o status escolhido la no front não mudou
-        if($request->status_id != 2 and $athlete->status_id == 2){
+        if($request->status_id != 2 and $athlete->deleted_at != null){
             \App\Athlete::withTrashed()->where('id', $id)->update(['status_id' => $request->input('status_id'), 'deleted_at' => null]);
+        } elseif ($request->status_id == 2 and $athlete->deleted_at == null) {
+            \App\Athlete::withTrashed()->where('id', $id)->update(['status_id' => $request->input('status_id')]);
+            \App\Athlete::destroy($id);
         } else {
             \App\Athlete::where('id', $id)->update(['status_id' => $request->input('status_id')]);
         }

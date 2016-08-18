@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\EmployeeRequest;
 use Illuminate\Support\Facades\DB;
 use Flash;
+use Carbon\Carbon;
 
 class EmployeeController extends Controller
 {
@@ -39,7 +40,7 @@ class EmployeeController extends Controller
         $employees = DB::table('users as u')
             ->distinct()
             ->join('employees as e', 'u.id', '=', 'e.user_id')
-            ->join('documents as doc', 'u.id', '=', 'doc.user_id')
+            ->leftJoin('documents as doc', 'u.id', '=', 'doc.user_id')
             ->join('status as s', 's.id', '=', 'e.status_id')
             ->join('departaments as d', 'd.id', '=', 'e.departament_id')
             ->select(
@@ -92,15 +93,6 @@ class EmployeeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    
-    /* Old method
-    public function create()
-    {
-        $users = \App\User::orderBy('name')->get();
-        $departaments = \App\Departament::orderBy('name')->get();
-        return view('employee.create', compact('users', 'departaments'));
-    }
-    */
 
     public function create(Request $request)
     {
@@ -125,10 +117,9 @@ class EmployeeController extends Controller
     {
         $data = $request->all();
         $data['user_id'] = $id;
-        #dd($data);
+        $data['created_at'] = Carbon::now();
         unset($data['_token']);
         $var = \App\Employee::insert($data);
-        #dd($var);
         Flash::success('Funcionário cadastrado com sucesso.');
         return redirect('employee/create');
     }
@@ -172,8 +163,11 @@ class EmployeeController extends Controller
         unset($data['_token']);
 
         $employee = \App\Employee::withTrashed()->find($id);
+        #Se ele estiver inativo, mas receber outro status, deleted recebe nulo
         if($request->status_id != 2 and $employee->status_id == 2){
             $data["deleted_at"] = null;
+        } elseif($request->status_id == 2){
+            $this->destroy($employee->id);
         }
         
         \App\Employee::withTrashed()->where('id', $id)->update($data);

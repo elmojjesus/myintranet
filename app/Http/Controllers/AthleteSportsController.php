@@ -111,9 +111,10 @@ class AthleteSportsController extends Controller
         #Se atleta estiver sem esporte e status inativo, ele muda pra ativo, e insere os novos esportes
         $num = \App\AthleteSport::where('athlete_id', $athlete_id)->count();
         if($num == 0){
-            $athlete = \App\Athlete::where('id', $athlete_id)->first();
-            if($athlete->status['name'] == "Inativo"){
+            $athlete = \App\Athlete::withTrashed()->where('id', $athlete_id)->first();
+            if($athlete->deleted_at != null){
                 $athlete->status_id = 1;
+                $athlete->deleted_at = null;
                 $athlete->save();
             }
         }
@@ -128,7 +129,7 @@ class AthleteSportsController extends Controller
             }
         }
 
-        \App\Athlete::where('id', $athlete_id)->update(['updated_at' => $now]);
+        \App\Athlete::withTrashed()->where('id', $athlete_id)->update(['updated_at' => $now]);
         
         $athlete = new AthleteController();
         $athleteName = $athlete->getAthleteName($athlete_id);
@@ -145,6 +146,8 @@ class AthleteSportsController extends Controller
      */
     public function destroy(Request $request, $athlete_id)
     {
+        $now = Carbon::now();
+        
         #seleciona somente os esportes marcados e percorre o array, deletando um por um
         $checked = $request->only('sports');
         foreach ($checked as $checkedBox) {
@@ -172,6 +175,7 @@ class AthleteSportsController extends Controller
             Flash::success($athleteName . " teve esportes excluídos.");
             return redirect('athlete');
         } else {
+            \App\Athlete::withTrashed()->where('id', $athlete_id)->update(['updated_at' => $now]);
             Flash::success("O/a " . $athleteName . " teve esportes excluídos.");
             return redirect('athlete');
         }

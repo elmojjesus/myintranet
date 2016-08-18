@@ -37,7 +37,7 @@ class VolunteerController extends Controller
         $volunteers = DB::table('users as u')
             ->distinct()
             ->join('volunteers as v', 'u.id', '=', 'v.user_id')
-            ->join('documents as doc', 'u.id', '=', 'doc.user_id')
+            ->leftJoin('documents as doc', 'u.id', '=', 'doc.user_id')
             ->join('status as s', 's.id', '=', 'v.status_id')
             ->join('departaments as d', 'd.id', '=', 'v.departament_id')
             ->select(
@@ -111,11 +111,21 @@ class VolunteerController extends Controller
      */
     public function store(Request $request, $id)
     {
+        #Insere voluntário
         $data = $request->all();
         $data['user_id'] = $id;
+        $data['created_at'] = Carbon::now();
         unset($data['_token']);
         $var = \App\Volunteer::insert($data);
-        #dd($var);
+        
+        #Inativa todos os outros atendimentos, se não estiver sendo cadastrado como inativo
+        if($request['status_id'] != 2){
+            \App\User::where('id', $id)->update(['status_id' => '2']);
+            \App\Athlete::where('user_id', $id)->update(['status_id' => '2']);
+            \App\Employee::where('user_id', $id)->update(['status_id' => '2']);
+            \App\Pacient::where('user_id', $id)->update(['status_id' => '2']);   
+        }
+        
         Flash::success('Voluntário cadastrado com sucesso.');
         return redirect('volunteer/create');
     }
@@ -158,8 +168,11 @@ class VolunteerController extends Controller
         unset($data['_token']);
 
         $volunteer = \App\Volunteer::withTrashed()->find($id);
+        #Se ele estiver inativo, mas receber outro status, deleted recebe nulo
         if($request->status_id != 2 and $volunteer->status_id == 2){
             $data["deleted_at"] = null;
+        } elseif($request->status_id == 2){
+            $this->destroy($volunteer->id);
         }
         
         \App\Volunteer::withTrashed()->where('id', $id)->update($data);

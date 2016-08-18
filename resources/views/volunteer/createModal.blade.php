@@ -1,6 +1,7 @@
 
+
 <div class="data-title">
-    <h3> Torando o usuário um voluntário <i class="fa fa-heart"></i> </h3>
+    <h3> Tornando o usuário um voluntário <i class="fa fa-heart"></i> </h3>
 </div>
 
 
@@ -10,6 +11,14 @@
 
     <br>
     <br>    
+    
+    <!-- Warning -->
+    <div class="alert alert-warning">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        Lembre-se: todos os outros atendimentos ficarão inativos para o voluntário, se o mesmo não estiver sendo inserido como inativo.
+    </div>
+    <!-- Warning -->
+   
     <div id="erros" class="col-md-12 hidden">
         <div class="form-group">
         <label style="color:#ff0000; text-align: center;">Campo obrigatório não preenchido, por favor verifique!</label>

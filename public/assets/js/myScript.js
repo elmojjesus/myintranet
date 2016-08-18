@@ -2,7 +2,7 @@ function formSubmit(formName){
 	$(formName).submit();
 }
 
-function addSport(){
+function addOneMore($class){
 	var html = $('.template').html();
-	$(".manySports").append("<br>" + html);
+	$(".many" + $class).append("<br>" + html);
 }

@@ -82,6 +82,9 @@
                             <li>
                                 {!! HTML::link('profession', 'Profissões', true) !!}
                             </li>
+                            <li>
+                                {!! HTML::link('profiles', 'Perfis de acesso', true) !!}
+                            </li>
                         </ul>
                     </li>
                     <li>
@@ -148,12 +151,6 @@
                             </li>
                         </ul>
                     </li>
-                    <li>
-                        <a href="/profiles">
-                            <i class="fa fa-low-vision"></i>
-                            Perfis de Acesso
-                        </a>
-                    </li>
                 </ul>
             </div>
         </nav>
@@ -174,12 +171,12 @@
 	                        </ul>
                         @endif
                     	@if (Session::has('flash_notification.message'))
-						    <div class="alert alert-{{ Session::get('flash_notification.level') }}">
-						        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-
-						        {{ Session::get('flash_notification.message') }}
-						    </div>
-						@endif
+                            <div class="alert alert-{{ Session::get('flash_notification.level') }}">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                {{ Session::get('flash_notification.message') }}
+                            </div>
+                        @endif
+                        
                         <h1 class="page-header">
                             @yield('title')
                         </h1>

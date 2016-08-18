@@ -8,6 +8,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Flash;
+use Carbon\Carbon;
 
 class PacientController extends Controller
 {
@@ -40,7 +41,7 @@ class PacientController extends Controller
                     ->join('pacients as p', 'u.id', '=', 'p.user_id')
                     ->leftJoin('pacient_therapies as pt', 'pt.pacient_id', '=', 'p.id')
                     ->join('status as s', 's.id', '=', 'p.status_id')
-                    ->join('deficiencies as d', 'd.id', '=', 'u.deficiency_id')
+                    ->leftJoin('deficiencies as d', 'd.id', '=', 'u.deficiency_id')
                     ->select(
                         array(
                                   'u.id as user_id', 
@@ -52,7 +53,7 @@ class PacientController extends Controller
                                   'd.name as deficiency_name',
                                   'p.deleted_at',
                                   'p.updated_at',
-                                  DB::raw('count(pt.therapy_id) as therapies')
+                                  DB::raw("(select count(therapy_id) from pacient_therapies where pacient_therapies.pacient_id = p.id) as therapies")
                               )
                             )
                     ->where(function ($query) use($request){
@@ -113,13 +114,28 @@ class PacientController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $id)
     {
         $data = $request->all();
         unset($data['_token']);
-        \App\Pacient::insert($data);
-        Flash::success('Cadastrado com sucesso.');
-        return redirect('pacient');
+        $now = Carbon::now();
+        
+        $patient = \App\Pacient::where('user_id', $id)->first();
+        if (is_null($patient)) {
+            \App\Pacient::insert(
+                        ['user_id' => $id, 'status_id' => $data['status_id'], 'created_at' => $now]
+                    );
+            $patient = \App\Pacient::where('user_id', $id)->first();
+        }
+        
+        $therapies = $request->only('therapies');
+        $patientTherapy = new PacientTherapiesController();
+        $patientTherapy->store($therapies, $patient->id);
+
+        $patientName = $this->getPacientName($patient->id);
+        
+        Flash::success($patientName . " agora é um(a) paciente.");
+        return redirect('pacient/create');
     }
 
     /**
@@ -166,8 +182,11 @@ class PacientController extends Controller
         }
 
         $pacient = \App\Pacient::withTrashed()->find($id);
-        if($request->status_id != 2 and $pacient->status_id == 2){
+        if($request->status_id != 2 and $pacient->deleted_at != null){
             \App\Pacient::withTrashed()->where('id', $id)->update(['status_id' => $request->input('status_id'), 'deleted_at' => null]);
+        } elseif ($request->status_id == 2 and $pacient->deleted_at == null) {
+            \App\Pacient::withTrashed()->where('id', $id)->update(['status_id' => $request->input('status_id')]);
+            \App\Pacient::destroy($id);
         } else {
             \App\Pacient::where('id', $id)->update(['status_id' => $request->input('status_id')]);
         }

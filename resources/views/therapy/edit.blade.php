@@ -1,59 +1,50 @@
-<form method="POST" action="/therapy/update/{{ $therapy->id }}">
-
 <div class="data-title">
-    <h3> Editar terapia <i class="fa fa-trophy"></i> </h3>
+  <h3>Editando uma terapia</h3>
 </div>
 
- <div class="row">
-    <div class="col-lg-12">
-    <div id="erros" class="col-md-12 hidden">
-        <div class="form-group">
+<div id="erros" class="col-md-12 hidden">
+    <div class="form-group">
         <label style="color:#ff0000; text-align: center;">Campo Nome é obrigatório, por favor verifique!</label>
-        </div>
-    </div> 
-                <label>Nome</label>
-				<input type="name" id="name" name="name" class="form-control" value="{{ $therapy->name }}">
     </div>
+</div>
+       
+{!! Form::open(array('method' => 'post', 'action' => array('TherapyController@update', $therapy->id), 'name' => 'updateTherapyForm' )) !!}
+
+    <div class="row">
+        <div class="col-lg-12">
+
+          Terapia:
+          {!! Form::text('name', $therapy->name, $attributes = array('class' => 'form-control', 'id' => 'name')) !!}
+
+        </div>
+    </div>
+ 
+  <div class="data-footer">
+    <button class="btn btn-primary" onclick="return validaCampo();"> Salvar </button>
   </div>
-
-<div class="data-footer">
-    <input class="btn btn-primary" onclick="return validaCampo();" type="submit" value="Editar">
-  </div>  
 	
-</form>
+{!! Form::close() !!}
 
-    <script type="text/javascript">
-        
-        function validaCampo() {
-        var isSalvar = true;
-        var objCadastro = { name: '#name' };
+<script type="text/javascript">
 
-        for (var i in objCadastro) {
-            verificaCampo(objCadastro[i]);
-            if (verificaCampo(objCadastro[i])) {
-                isSalvar = false;
-            }
-        }
+function validaCampo() {
 
-        if (!isSalvar) {
-            $("#erros").removeClass('hidden');
-        }
-        return isSalvar;
-    }
+       $('#name').removeClass('danger');
+       $('#erros').addClass('hidden');
 
-
-    function verificaCampo(campo) {
-        if ($(campo).val() == " " || $(campo).val() == "" || $(campo).val() == undefined ||
-            $(campo).val() == "Selecione") {
-            $(campo).addClass('danger');
+        var Nome = $('#name').val();
+        if (Nome == null || Nome == "" || Nome == " ") 
+        {
+          $('#name').addClass('danger');
+          $('#erros').removeClass('hidden');
+          return false;
+        }else
+        {
+            formSubmit(updateTherapyForm);
             return true;
-        } else {
-            $(campo).removeClass('danger');
-            return false;
         }
     }
 
+</script>
 
-    </script>
-        
 		

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Flash;
+use Carbon\Carbon;
 
 class PacientTherapiesController extends Controller
 {
@@ -84,6 +85,8 @@ class PacientTherapiesController extends Controller
      */
     public function update(Request $request, $pacient_id)
     {
+        $now = Carbon::now();
+        
         #Pega os inputs, somente terapias
         $therapies = $request->only('therapies');
      
@@ -103,12 +106,13 @@ class PacientTherapiesController extends Controller
             }
         }
 
-        
+        #Se paciente estiver sem terapia e status inativo, ele muda pra ativo, e insere as novas terapias
         $num = \App\PacientTherapy::where('pacient_id', $pacient_id)->count();
         if($num == 0){
-            $pacient = \App\Pacient::where('id', $pacient_id)->first();
-            if($pacient->status['name'] == "Inativo"){
+            $pacient = \App\Pacient::withTrashed()->where('id', $pacient_id)->first();
+            if($pacient->deleted_at != null){
                 $pacient->status_id = 1;
+                $pacient->deleted_at = null;
                 $pacient->save();
             }
         }
@@ -118,11 +122,13 @@ class PacientTherapiesController extends Controller
             $input = array_unique($input);
             foreach ($input as $therapy_id) {
                 if($therapy_id != ''){
-                    \App\PacientTherapy::insert(['pacient_id' => $pacient_id, 'therapy_id' => $therapy_id]);
+                    \App\PacientTherapy::insert(['pacient_id' => $pacient_id, 'therapy_id' => $therapy_id, 'created_at' => $now]);
                 }
             }
         }
 
+        \App\Pacient::withTrashed()->where('id', $pacient_id)->update(['updated_at' => $now]);
+            
         $pacient = new PacientController();
         $pacientName = $pacient->getPacientName($pacient_id);
 
@@ -138,6 +144,7 @@ class PacientTherapiesController extends Controller
      */
     public function destroy(Request $request, $pacient_id)
     {
+        $now = Carbon::now();
         
         $checked = $request->only('therapies');
         foreach ($checked as $checkedBox) {
@@ -157,11 +164,15 @@ class PacientTherapiesController extends Controller
         $num = \App\PacientTherapy::where('pacient_id', $pacient_id)->count();
 
         if($num == 0){
+            #Paciente recebe status de inativo
             \App\Pacient::where('id', $pacient_id)->update(['status_id' => 2]);
+            #Paciente recebe deleted at
+            \App\Pacient::destroy($pacient_id);
             Flash::warning($pacientName . " não faz mais terapias, logo, seu status agora é inativo.");
             Flash::success($pacientName . " teve terapias excluídas.");
             return redirect('pacient');
         } else {
+            \App\Pacient::withTrashed()->where('id', $pacient_id)->update(['updated_at' => $now]);
             Flash::success("O/a " . $pacientName . " teve terapias excluídas.");
             return redirect('pacient');
         }

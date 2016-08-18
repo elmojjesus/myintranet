@@ -100,7 +100,7 @@ class User extends Model implements AuthenticatableContract,
         return $this->hasOne('\App\Employee');
     }
 
-    public function voluntareers() {
+    public function volunteers() {
         return $this->hasOne('\App\Volunteer');
     }
 

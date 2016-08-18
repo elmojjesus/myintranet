@@ -1,11 +1,12 @@
 <div class="data-title">
   <h3>Editando um esporte</h3>
 </div>
- <div id="erros" class="col-md-12 hidden">
+ 
+<div id="erros" class="col-md-12 hidden">
       <div class="form-group">
         <label style="color:#ff0000; text-align: center;">Campo Nome é obrigatório, por favor verifique!</label>
       </div>
-  </div> 
+</div> 
 
 {!! Form::open(array('method' => 'post', 'action' => array('SportController@update', $sport->id), 'name' => 'updateSportForm' )) !!}
 

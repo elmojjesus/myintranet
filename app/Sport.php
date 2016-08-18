@@ -28,7 +28,9 @@ class Sport extends Model
      * @var array
      */
     protected $hidden = [];
-
+    
+    public $timestamps = true;
+    
     protected $dates = ['deleted_at'];
 
     public function athleteSport() {

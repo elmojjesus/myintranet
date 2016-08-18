@@ -189,7 +189,7 @@
 										{{ $user->status->name }}
 									</td>
 									<td>
-										@if(!is_null($user->voluntareers) && $user->volunteers->status->name != 'Inativo')
+										@if(!is_null($user->volunteers) && $user->volunteers->status->name != 'Inativo')
 											<i class="fa fa-check" style="color: green"></i>
 										@else
 											<i class="fa fa-times" style="color: red"></i>

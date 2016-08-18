@@ -56,7 +56,7 @@
 
     <!-- ver favoritos salvo para resolver formSubmit(tornarAtletaForm) -->
     <div class="data-footer"> 
-        <button class="btn btn-primary plus" onclick="addSport()">Adicionar mais um esporte</button>
+        <button class="btn btn-primary plus" onclick="addOneMore('Sports')">Adicionar mais um esporte</button>
         <button class="btn btn-primary" onclick="validaEsporte();">Cadastrar atleta</button>  
     </div>
 

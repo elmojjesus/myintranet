@@ -56,7 +56,7 @@
 
     <!-- ver favoritos salvo para resolver formSubmit(tornarPacienteForm) -->
     <div class="data-footer"> 
-        <button class="btn btn-primary plus" onclick="addTherapy()">Adicionar mais uma terapia</button>
+        <button class="btn btn-primary plus" onclick="addOneMore('Therapies');">Adicionar mais uma terapia</button>
         <button class="btn btn-primary" onclick="validaTerapia();">Cadastrar paciente</button>  
     </div>
 

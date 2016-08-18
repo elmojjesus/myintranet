@@ -8,6 +8,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SportRequest;
 use Flash;
+use Carbon\Carbon;
 
 class SportController extends Controller
 {
@@ -20,7 +21,6 @@ class SportController extends Controller
 
     public function index()
     {
-        
         $sports = \App\Sport::all();
         return view('sport.index', compact('sports'));
     }
@@ -46,6 +46,7 @@ class SportController extends Controller
     {
         $data = $request->all();
         unset($data['_token']);
+        $data['created_at'] = Carbon::now();
         \App\Sport::insert($data);
         Flash::success('Esporte cadastrado com sucesso!');
         return redirect('sport');

@@ -32,6 +32,8 @@ class Therapy extends Model
 
     protected $dates = ['deleted_at'];
 
+    public $timestamps = true;
+    
     public function pacientTherapy() {
         return $this->hasMany('\App\PacientTherapy');
     }

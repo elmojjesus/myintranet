@@ -8,6 +8,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\DepartamentRequest;
 use Flash;
+use Carbon\Carbon;
 
 class DepartamentController extends Controller
 {
@@ -43,6 +44,7 @@ class DepartamentController extends Controller
     {
         $data = $request->all();
         unset($data['_token']);
+        $data['created_at'] = Carbon::now();
         \App\Departament::insert($data);
         Flash::success('Departamento cadastrado com sucesso.');
         return redirect('departament');

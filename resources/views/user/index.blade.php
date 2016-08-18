@@ -162,7 +162,7 @@
 											</td>
 											<td> 
 												<center>
-													@if($user->voluntareers && $user->voluntareers->status->name != 'Inativo')
+													@if($user->volunteers && $user->volunteers->status->name != 'Inativo')
 														<i class="fa fa-check" style="color: green"></i>
 													@else
 														<i class="fa fa-times" style="color: red"></i>
