@@ -1,9 +1,12 @@
 @extends('layouts.layout')
 
 @section('title')
+    Funcionários 
+@stop
 
-	 Funcionários da ADFP <i class="fa fa-star"></i><small> / Funcionários / Buscar - Listar </small>
-
+@section('main_title')
+    <i class="fa fa-star"></i>
+    <small> / Funcionários / Buscar - Listar </small>
 @stop
 
 
@@ -100,8 +103,8 @@
 			<div class="panel-body">
 
 				<div style="overflow-x:auto;">
-
-	@if($employees)
+                               
+	@if($employees['items'])
 		<table class="table table-hover table-bordered">
 			<thead>
 				<tr>
@@ -171,7 +174,7 @@
             </div>
         </div>
 	@else
-		<div class="alert alert-danger">Nenhum funcionário cadastrado</div>
+		<div class="alert alert-danger">Nenhum funcionário cadastrado.</div>
 	@endif
 		</div>
 

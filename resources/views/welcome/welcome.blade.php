@@ -1,7 +1,7 @@
 @extends('layouts.layout')
 
 @section('title')
-    <i style="color: #08698A">Olá, bem vindo ao MyIntranet!</i>
+    Olá, bem vindo ao MyIntranet ADFP!
 @stop
 
 @section('content')

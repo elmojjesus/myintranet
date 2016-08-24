@@ -1,8 +1,12 @@
 @extends('layouts.layout')
 
 @section('title')
-	 Cadastre um usuário <i class="fa fa-user"></i>
-	 <small> / Usuários / Cadastrar </small>
+    Cadastre um usuário 
+@stop
+
+@section('main_title')
+    <i class="fa fa-user"></i>
+    <small> / Usuários / Cadastrar </small>
 @stop
 
 @section('content')

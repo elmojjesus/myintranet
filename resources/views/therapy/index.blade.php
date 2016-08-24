@@ -1,8 +1,13 @@
 @extends('layouts.layout')
 
 @section('title')
-    Controle de terapia <small> / Pacientes / Terapia </small>
+    Controle de terapias  
 @stop
+
+@section('main_title')
+    <small> / Pacientes / Terapias </small>
+@stop
+
 
 @section('content')
 <div class="row">
@@ -39,10 +44,6 @@
                     <div class="table-responsive">
                         
                         <table class="table table-striped table-bordered table-hover">
-                            <tr>
-                                <th> Terapia </th>
-                                <th>  </th>
-                            </tr>
                             @if($therapies->count() > 0)
                                 @foreach ($therapies as $therapy)
                                     <tr>
@@ -51,7 +52,7 @@
                                     </tr>
                                 @endforeach  
                             @else
-                                Vazio.  
+                                Ainda não há terapias cadastradas.
                             @endif
                         </table>
 

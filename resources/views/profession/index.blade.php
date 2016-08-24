@@ -1,7 +1,11 @@
 @extends('layouts.layout')
 
 @section('title')
-    Controle de profissão <small> / Usuário / Profissão </small>
+    Controle de profissão
+@stop
+
+@section('main_title')
+    <small> / Usuário / Profissão </small>
 @stop
 
 @section('content')
@@ -37,10 +41,7 @@
                     <div class="table-responsive">
                         
                         <table class="table table-striped table-bordered table-hover">
-                            <tr>
-                                <th width="60%">Profissão</th>
-                                <th width="20%">Editar</th>
-                            </tr>
+                            @if($professions->count() > 0)
                                 @foreach($professions as $profession)
                                     <tr>
                                         <td>{{ $profession->name }}</td>
@@ -52,7 +53,10 @@
                                             </center>
                                         </td>
                                     </tr>
-                                @endforeach 
+                                @endforeach
+                             @else
+                                Ainda não há profissões cadastradas.  
+                            @endif
                        </table>
 
                     </div>

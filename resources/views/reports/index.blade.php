@@ -1,7 +1,12 @@
 @extends('layouts.layout')
 
 @section('title')
-    Dashboard <small> / Dashboard </small>
+    Dashboard 
+@stop
+
+@section('main_title')
+    <i class="fa fa-bar-chart-o"></i>
+    <small> / Dashboard </small>
 @stop
 
 @section('content') 

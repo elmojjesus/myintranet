@@ -1,7 +1,11 @@
 @extends('layouts.layout')
 
 @section('title')
-    Controle de deficiência <small> / Usuário / Deficiências </small>
+    Controle de deficiência
+@stop
+
+@section('main_title')
+    <small> / Usuário / Deficiências </small>
 @stop
 
 @section('content')
@@ -37,10 +41,6 @@
                     <div class="table-responsive">
                         
                         <table class="table table-striped table-bordered table-hover">
-                            <tr>
-                                <th width="60%">Deficiência</th>
-                                <th width="20%">Editar</th>                      
-                            </tr>
                                 @if($deficiencies->count() > 0)
                                     @foreach($deficiencies as $deficiency)
                                         <tr>
@@ -55,7 +55,7 @@
                                     @endforeach
                                 @else
                                     <div class="alert alert-danger">
-                                        Nenhuma deficiência cadastrada
+                                        Ainda não há deficiências cadastradas.
                                     </div>
                                 @endif
                         </table>

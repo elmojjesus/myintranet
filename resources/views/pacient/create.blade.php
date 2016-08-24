@@ -1,9 +1,14 @@
 @extends('layouts.layout')
 
 @section('title')
-    Cadastre um paciente <i class="fa fa-wheelchair"></i>
+    Cadastre um paciente 
+@stop
+
+@section('main_title')
+    <i class="fa fa-wheelchair"></i>
     <small> / Pacientes / Cadastrar </small>
 @stop
+
 
 @section('content')
 <div class="row">

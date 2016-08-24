@@ -1,9 +1,13 @@
 @extends('layouts.layout')
 
 @section('title')
-	 Voluntários da ADFP <i class="fa fa-heart"></i><small> / Voluntários / Buscar - Listar </small>
+    Voluntários 
 @stop
 
+@section('main_title')
+    <i class="fa fa-heart"></i>
+    <small> / Voluntários / Buscar - Listar </small>
+@stop
 
 @section('content')
 
@@ -99,7 +103,7 @@
 
 				<div style="overflow-x:auto;">
 
-	@if($volunteers)
+	@if($volunteers['items'])
 		<table class="table table-hover table-bordered">
 			<thead>
 				<tr>

@@ -1,10 +1,14 @@
 @extends('layouts.layout')
 
 @section('title')
-     Atletas da ADFP <i class="fa fa-trophy"></i>
-    <small> / Atletas / Buscar - Listar </small>
+    Atletas 
 @stop
 
+@section('main_title')
+    <i class="fa fa-trophy"></i>
+    <small> / Atletas / Buscar - Listar </small>
+@stop
+    
 @section('content')
 
 <!-- FILTROS DO ATLETA -->
@@ -106,6 +110,7 @@
 
                 <div style="overflow-x:auto;">
                     
+                    @if($users->count() > 0)
                     <table class="table table-hover table-bordered">
                         <tr>
                             <th> ID               </th>
@@ -185,7 +190,9 @@
                             </div>
                         </div>
                     </div>
-
+                    @else
+                            <div class="alert alert-danger">Nenhum atleta cadastrado.</div>
+                    @endif
                 </div>
 
             </div>

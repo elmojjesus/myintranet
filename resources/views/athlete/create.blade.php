@@ -1,7 +1,11 @@
 @extends('layouts.layout')
 
 @section('title')
-    Cadastre um atleta <i class="fa fa-trophy"></i>
+    Cadastre um atleta
+@stop
+
+@section('main_title')
+    <i class="fa fa-trophy"></i>
     <small> / Atletas / Cadastrar </small>
 @stop
 

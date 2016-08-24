@@ -1,7 +1,11 @@
 @extends('layouts.layout')
 
 @section('title')
-     Pacientes da ADFP <i class="fa fa-wheelchair"></i>
+    Pacientes 
+@stop
+
+@section('main_title')
+    <i class="fa fa-wheelchair"></i>
     <small> / Pacientes / Buscar - Listar </small>
 @stop
 
@@ -106,6 +110,7 @@
 
                 <div style="overflow-x:auto;">
                     
+                    @if($users['items'])
                     <table class="table table-hover table-bordered">
                         <tr>
                             <th> ID               </th>
@@ -185,25 +190,14 @@
                             </div>
                         </div>
                     </div>
-
+                    @else
+                        <div class="alert alert-danger">Nenhum paciente cadastrado.</div>
+                    @endif
                 </div>
 
             </div>
         </div>
     </div>
 </div>
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js" type="text/javascript"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.2.43/jquery.form-validator.min.js" type="text/javascript"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.0/jquery.mask.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-    
-    jQuery('.numeric').keyup(function () { 
-    this.value = this.value.replace(/[^0-9\.]/g,'');
-});
-
-
-</script>
 
 @stop

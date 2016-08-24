@@ -1,8 +1,12 @@
 @extends('layouts.layout')
 
 @section('title')
-     Relatórios de Atletas <i class="fa fa-tasks"></i>
-     <small> / Relatórios / Atletas </small>
+    Estatísticas dos atletas 
+@stop
+
+@section('main_title')
+    <i class="fa fa-bar-chart-o"></i>
+    <small> / Ir para Dashboard / Atletas </small>
 @stop
 
 @section('content')

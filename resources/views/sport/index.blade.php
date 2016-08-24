@@ -1,7 +1,11 @@
 @extends('layouts.layout')
 
 @section('title')
-    Controle de esportes <small> / Atletas / Esportes </small>
+    Controle de esportes  
+@stop
+
+@section('main_title')
+    <small> / Atletas / Esportes </small>
 @stop
 
 @section('content')

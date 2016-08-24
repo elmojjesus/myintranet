@@ -1,8 +1,13 @@
 @extends('layouts.layout')
 
 @section('title')
-    Controle de departamento <small> / Funcionários / Departamento </small>
+    Controle de departamento
 @stop
+
+@section('main_title')
+    <small> / Funcionários / Departamento </small>
+@stop
+
 
 @section('content')
     
@@ -38,17 +43,11 @@
                         
                         <table class="table table-striped table-bordered table-hover">
 
-                            <tr>
-                                <th width="60%">Departamento</th>
-                                <th width="20%">Editar</th>
-                            </tr>
-
                             @if($departaments->count() > 0)
                                 @foreach ($departaments as $departament)
                                     <tr>
                                         <td> {!! $departament->name !!} </td>
                                         <td style="text-align: center;"> <a class="modal-ajax-link" data-mfp-src="/departament/edit/{{ $departament->id }}"> <i class="fa fa-pencil"></i> </a> </td>
-
                                     </tr>
                                 @endforeach  
                             @else

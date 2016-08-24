@@ -3,7 +3,10 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ADFP - @yield('title')</title>
+    <link rel="shortcut icon" type="image/x-icon" href="{{ URL::asset('assets/img/intranet_icon.png') }}" />
+    <title>
+        @yield('title')
+    </title>
     <!-- Bootstrap Styles-->
     <link href="{{ URL::asset('assets/css/bootstrap.css') }}" rel="stylesheet" />
      <!-- FontAwesome Styles-->
@@ -179,6 +182,7 @@
                         
                         <h1 class="page-header">
                             @yield('title')
+                            @yield('main_title')
                         </h1>
 
                         @yield('content')
@@ -189,10 +193,11 @@
             </div>
              <!-- /. PAGE INNER  -->
         </div>
-        <!-- /. PAGE WRAPPER  -->
-        <div class="footer">
+        <!-- /. PAGE WRAPPER - FOOTER  -->
+        <div class="back-footer-blue text-center">         
+            <a  href="http://www.movasoft.com.br"><font color="white">MovaSoft © - All rights reserved</font></a>
+        </div>
         
-    </div>
     </div>
      <!-- /. WRAPPER  -->
 
@@ -211,30 +216,8 @@
     <script src="{{ URL::asset('assets/js/custom-scripts.js') }}"></script>
       <!-- MyScript -->
     <script src="{{ URL::asset('assets/js/myScript.js') }}"></script>
-
    
 </body>
-<footer>
-<div class="row">
-    <div clas="col-md-12">
 
-    <div  style="text-align: left;"class="col-md-6">
-<a  href="http://www.movasoft.com.br"><font color="white">MovaSoft © - All rights reserved</font></a>
-
-  </div>
-
-</div>
-  </div>
-</footer>
-
-<style type="text/css">
-footer {
-
-    bottom: 0px; 
-    width: 100%; 
-    height: 25x; 
-    background-color: #08698A;
-}
-</style>
-
+    
 </html>

@@ -1,10 +1,13 @@
 @extends('layouts.layout')
 
 @section('title')
-     Relatórios de Usuários <i class="fa fa-tasks"></i>
-     <small> / Relatórios / Usuários </small>
+    Estatísticas dos usuários 
 @stop
 
+@section('main_title')
+    <i class="fa fa-bar-chart-o"></i>
+    <small> / Ir para Dashboard / Usuários </small>
+@stop
 
 @section('content')
 	<script src="{{ URL::asset('assets/js/jquery-1.10.2.js') }}"></script>

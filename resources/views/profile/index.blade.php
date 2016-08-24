@@ -1,7 +1,13 @@
 @extends('layouts.layout')
+
 @section('title')
-	 Perfis de Acesso <small> / Perfis de Acesso </small>
+    Perfis de Acesso  
 @stop
+
+@section('main_title')
+    <small> / Perfis de Acesso </small>
+@stop
+
 @section('content')
 	<div class="row">
 	    <div clas="col-lg-12">

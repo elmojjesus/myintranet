@@ -1,9 +1,12 @@
 @extends('layouts.layout')
 
 @section('title')
+    Usuários 
+@stop
 
-	 Usuários da ADFP <i class="fa fa-user"></i> <small> / Usuários / Buscar - Listar </small>
-
+@section('main_title')
+    <i class="fa fa-user"></i>
+    <small> / Usuários / Buscar - Listar </small>
 @stop
 
 @section('content')
@@ -208,7 +211,7 @@
 							</div>
 							
 						@else
-							<div class="alert alert-danger">Nenhum usuário encontrado.</div>
+							<div class="alert alert-danger">Nenhum usuário cadastrado.</div>
 						@endif
 
 			</div>

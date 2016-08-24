@@ -1,9 +1,14 @@
 @extends('layouts.layout')
 
 @section('title')
-    Cadastre um Voluntário <i class="fa fa-heart"></i>
+    Cadastre um Voluntário
+@stop
+
+@section('main_title')
+    <i class="fa fa-heart"></i>
     <small> / Voluntários / Cadastrar </small>
 @stop
+
 
 @section('content')
 <div class="row">

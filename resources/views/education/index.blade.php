@@ -1,7 +1,11 @@
 @extends('layouts.layout')
 
 @section('title')
-    Controle de educação <small> / Usuário / Educação </small>
+    Controle de educação
+@stop
+
+@section('main_title')
+    <small> / Usuário / Educação </small>
 @stop
 
 @section('content')
@@ -54,7 +58,7 @@
                             </table>
                         @else
                             <div class="alert alert-danger">
-                                Nenhuma deficiência cadastrada.
+                                Ainda não há níveis de educação cadastrados.
                             </div>
                         @endif
                     </div>
