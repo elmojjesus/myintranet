@@ -104,7 +104,7 @@
 
 				<div style="overflow-x:auto;">
                                
-	@if($employees['items'])
+	@if($employees->count() > 0)
 		<table class="table table-hover table-bordered">
 			<thead>
 				<tr>

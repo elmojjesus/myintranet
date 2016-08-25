@@ -97,7 +97,8 @@ class EmployeeController extends Controller
     public function create(Request $request)
     {
         $userCon = new UserController();
-        $users = $userCon->getCommonUsers($request, 'employees');
+        #Parametro 3 - False - trás usuários com e sem deficiência.
+        $users = $userCon->getCommonUsers($request, 'employees', false);
         return view('employee.create', compact('users'));        
     }
 
@@ -116,10 +117,14 @@ class EmployeeController extends Controller
     public function store(Request $request, $id)
     {
         $data = $request->all();
+        unset($data['_token']);
         $data['user_id'] = $id;
         $data['created_at'] = Carbon::now();
-        unset($data['_token']);
-        $var = \App\Employee::insert($data);
+        #Se funcionário já estiver sendo inserido como inativo, recebe deleted_at
+        if($request->status_id == 2){
+            $data['deleted_at'] = Carbon::now();
+        }
+        \App\Employee::insert($data);
         Flash::success('Funcionário cadastrado com sucesso.');
         return redirect('employee/create');
     }

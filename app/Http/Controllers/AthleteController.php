@@ -43,7 +43,7 @@ class AthleteController extends Controller
                     ->join('athletes as a', 'u.id', '=', 'a.user_id')
                     ->leftJoin('athlete_sports as ats', 'ats.athlete_id', '=', 'a.id')
                     ->join('status as s', 's.id', '=', 'a.status_id')
-                    ->leftJoin('deficiencies as d', 'd.id', '=', 'u.deficiency_id')
+                    ->join('deficiencies as d', 'd.id', '=', 'u.deficiency_id')
                     ->select(
                         array(
                                   'u.id as user_id', 
@@ -104,7 +104,8 @@ class AthleteController extends Controller
     public function create(Request $request)
     {
         $userCon = new UserController();
-        $users = $userCon->getCommonUsers($request, 'athletes');
+        #Parametro 3 - True - trás somente os usuários com deficiencia.
+        $users = $userCon->getCommonUsers($request, 'athletes', true);
         return view('athlete.create', compact('users'));        
     }
 
@@ -123,23 +124,30 @@ class AthleteController extends Controller
      */
     public function store(Request $request, $id)
     {
-        $data = $request->all();
-        unset($data['_token']);
-        $now = Carbon::now();
-        
         $athlete = \App\Athlete::where('user_id', $id)->first();
+        
         if (is_null($athlete)) {
-            \App\Athlete::insert(
-                        ['user_id' => $id, 'status_id' => $data['status_id'], 'created_at' => $now]
-                    );
-            $athlete = \App\Athlete::where('user_id', $id)->first();
+        
+            $data = [
+                        'user_id' => $id, 
+                        'status_id' => $request->status_id, 
+                        'created_at' => Carbon::now()
+                    ];
+            
+            #Se atleta já estiver sendo inserido como inativo, recebe deleted_at
+            if($request->status_id == 2){
+                $data['deleted_at'] = Carbon::now();
+            }
+            
+            $athleteId = DB::table('athletes')->insertGetId($data);
         }
         
+        #Insere esportes
         $sports = $request->only('sports');
         $athleteSport = new AthleteSportsController();
-        $athleteSport->store($sports, $athlete->id);
+        $athleteSport->store($sports, $athleteId);
 
-        $athleteName = $this->getAthleteName($athlete->id);
+        $athleteName = $this->getAthleteName($athleteId);
         
         Flash::success($athleteName . " agora é um(a) atleta.");
         return redirect('athlete/create');

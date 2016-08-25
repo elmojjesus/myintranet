@@ -6,7 +6,8 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Intranet ADFP</title>
+        <link rel="shortcut icon" type="image/x-icon" href="{{ URL::asset('assets/img/intranet_icon.png') }}" />
+        <title>MyIntranet ADFP</title>
 
         <!-- CSS -->
         <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500">
@@ -32,7 +33,7 @@
     </head>
 
     <body>
-
+        
         <!-- Top content -->
         <div class="top-content">
         	
@@ -41,40 +42,50 @@
                     <div class="row">
                         <div class="col-sm-6 col-sm-offset-3 text">
                             <img src="{{ asset('assets/img/logo2.png') }}" >
-                            <h4> Centralize, Agilize, Economize </h4>
+                            <h4> Agilize, Centralize, Mova </h4>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-6 col-sm-offset-3 form-box">
-                        	<div class="form-top">
-                        		<div class="form-top-left">
-                        			<h3>Bem vindo a sua intranet</h3>
-                            		<p>Digite seu email e senha para entrar:</p>
-                        		</div>
-                        		<div class="form-top-right">
-                        			<i class="fa fa-lock"></i>
-                        		</div>
+                            <div class="form-top">
+                                    <div class="form-top-left">
+                                        <h3>Bem vindo a sua intranet</h3>
+                                        <p>Digite seu email e senha para entrar:</p>
+                                    </div>
+                                    <div class="form-top-right">
+                                            <i class="fa fa-lock"></i>
+                                    </div>
                             </div>
                             
+                            <!------------ LOGIN ---->
+                            
                             <div class="form-bottom">
-			                    <form role="form" method="post" class="login-form">
+			        <form role="form" method="post" class="login-form">
 
                                     <input type="hidden" name="_token" value="{{ csrf_token() }}" />
-			                    	
+
                                     <div class="form-group">
-			                    		<label class="sr-only" for="email">Email</label>
-			                        	<input type="text" name="email" placeholder="Email..." class="form-username form-control" id="email">
-			                        </div>
-			                        
+                                        <label class="sr-only" for="email">Email</label>
+                                        <input type="text" name="email" placeholder="Email..." class="form-username form-control" id="email">
+                                    </div>
+
                                     <div class="form-group">
-			                        	<label class="sr-only" for="form-password">Senha</label>
-			                        	<input type="password" name="password" placeholder="Senha..." class="form-password form-control" id="password">
-			                        </div>
-			                        
+                                        <label class="sr-only" for="form-password">Senha</label>
+                                        <input type="password" name="password" placeholder="Senha..." class="form-password form-control" id="password">
+                                    </div>
+                                    
+                                    <!---------- ERRO LOGIN ---->
+                                    @if (Session::has('flash_notification.message'))
+                                        <div class="alert alert-{{ Session::get('flash_notification.level') }}">
+                                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                            <center>{{ Session::get('flash_notification.message') }}</center>
+                                        </div>
+                                    @endif
+                                    
                                     <button type="submit" class="btn" type="submit">Entrar!</button>
 
-			                    </form>
-		                    </div>
+                                </form>
+		            </div>
 
                         </div>
                     </div>

@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\UserRequest;
 use Flash;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class UserController extends Controller
 {
@@ -28,7 +29,7 @@ class UserController extends Controller
 
     public function getUsersByQuery($request) {
        
-        return \App\User::leftJoin('documents', 'documents.user_id', '=', 'users.id')
+        return \App\User::withTrashed()->leftJoin('documents', 'documents.user_id', '=', 'users.id')
                         ->select('users.*')
                         ->where(function($query) use($request) {
                 if (isset($request['cpf'])) {   
@@ -59,14 +60,19 @@ class UserController extends Controller
 
     }
 
-    public function getCommonUsers($request, $table){
-        $GLOBALS['tableGCU'] = $table;
-        return $users = DB::table('users')
-                ->leftJoin($table, function ($join) {
-                    $join->on('users.id', '=', $GLOBALS['tableGCU'] . '.user_id');
-                         /*->where('athletes.id', '=', null);*/
-                })
-                ->select('users.*')
+    public function getCommonUsers($request, $table, $withDeficiency){
+        
+        $users = DB::table('users')
+                ->leftJoin($table, function ($join) use ($table){
+                    $join->on('users.id', '=', $table . '.user_id');
+                }); 
+                
+        if($withDeficiency == true){
+            $users = $users->join('deficiencies as d', 'd.id', '=', 'users.deficiency_id');
+        }
+        
+        $users = 
+        $users->select('users.*')
                 ->whereNull($table . '.id')
                 ->where('users.status_id', '!=', 2)
                 ->where(function($query) use($request){
@@ -79,7 +85,9 @@ class UserController extends Controller
                     } 
                 })
                 ->orderBy('users.name')
-                ->paginate(10);     
+                ->paginate(10);   
+                
+                return $users;
     }
 
     /**
@@ -130,8 +138,14 @@ class UserController extends Controller
                 unset($data['deficiency_id']);
             }
         }
+        
+        if($request->status_id == 2){
+            $data['deleted_at'] = Carbon::now();
+        }
+        
         \App\User::insert(\App\User::extrangeArray($data, 'create'));
-        $user = \App\User::where('email', $data['email'])->first();
+        
+        $user = \App\User::withTrashed()->where('email', $data['email'])->first();
         $document['user_id'] = $user->id;
         $address['user_id'] = $user->id;
         \App\Document::insert($document);
@@ -149,7 +163,7 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        $user = \App\User::find($id);
+        $user = \App\User::withTrashed()->find($id);
         return view('user.show', compact('user'));
     }
 
@@ -161,7 +175,7 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        $user = \App\User::find($id);
+        $user = \App\User::withTrashed()->find($id);
         $deficiencies = \App\Deficiency::all();
         $educations = \App\Education::all();
         $professions = \App\Profession::all();
@@ -208,14 +222,18 @@ class UserController extends Controller
             $document = \App\Document::extrangeArray($data);
             unset($data['rg'], $data['cpf'], $data['passport'], $data['emission_rg'], $data['emission_cpf'], $data['emission_passport']);
         }
-        \App\User::where('id', $id)->update(\App\User::extrangeArray($data, 'edit'));
+        \App\User::withTrashed()->where('id', $id)->update(\App\User::extrangeArray($data, 'edit'));
         \App\Document::where('user_id', $id)->update($document);
         \App\Address::where('user_id', $id)->update($address);
         
         #Se o usuário voltar a ficar ativo (ou qualquer outro q n seja inativo)
          #Recebe inativo em voluntário
         if($data['status_id'] != 2){
-            \App\Volunteer::where('user_id', $id)->update(['status_id' => '2']);
+            \App\Volunteer::where('user_id', $id)->update(['status_id' => '2', 'deleted_at' => Carbon::now()]);
+            \App\User::withTrashed()->where('id', $id)->update(['deleted_at' => null]);
+        } else { 
+            #Se o usuário ficar inativo, recebe deleted_at e é inativado em todos os outros setores
+            $this->destroy($id);
         }
         
         Flash::success('Usuário editado com sucesso!');
@@ -243,13 +261,14 @@ class UserController extends Controller
     public function destroy($id)
     {
         $data['status_id'] = \App\Status::where('name', 'Inativo')->first()->id;
+        $data['deleted_at'] = Carbon::now();
         
         \App\User::where('id', $id)->update($data);
+        \App\User::withTrashed()->where('id', $id)->update(['deleted_at' => Carbon::now()]);
         \App\Athlete::where('user_id', $id)->update($data);
         \App\Employee::where('user_id', $id)->update($data);
         \App\Pacient::where('user_id', $id)->update($data);
-        \App\Volunteer::where('user_id', $id)->update($data);
-
+        
         Flash::success('Usuário inativado com sucesso!');
         /* \App\User::find($id)->delete(); */
         return redirect('user');

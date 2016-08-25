@@ -110,7 +110,7 @@
 
                 <div style="overflow-x:auto;">
                     
-                    @if($users['items'])
+                    @if($users->count() > 0)
                     <table class="table table-hover table-bordered">
                         <tr>
                             <th> ID               </th>

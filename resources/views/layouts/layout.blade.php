@@ -57,11 +57,11 @@
                 <ul class="nav" id="main-menu">
                     <li>
                         <a href="#"><i class="fa fa-bar-chart-o"></i>
-                            Dashboard<span class="fa arrow"></span>
+                            Estatísticas<span class="fa arrow"></span>
                         </a>
                         <ul class="nav nav-second-level">
                             <li>
-                                {!! HTML::link('dashboard', 'Ir para Dashboard', true) !!}   
+                                {!! HTML::link('dashboard', 'Ver estatísticas', true) !!}   
                             </li>
                         </ul>
                     </li>

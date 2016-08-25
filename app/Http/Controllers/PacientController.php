@@ -41,7 +41,7 @@ class PacientController extends Controller
                     ->join('pacients as p', 'u.id', '=', 'p.user_id')
                     ->leftJoin('pacient_therapies as pt', 'pt.pacient_id', '=', 'p.id')
                     ->join('status as s', 's.id', '=', 'p.status_id')
-                    ->leftJoin('deficiencies as d', 'd.id', '=', 'u.deficiency_id')
+                    ->join('deficiencies as d', 'd.id', '=', 'u.deficiency_id')
                     ->select(
                         array(
                                   'u.id as user_id', 
@@ -97,7 +97,8 @@ class PacientController extends Controller
     public function create(Request $request)
     {
         $userCon = new UserController();
-        $users = $userCon->getCommonUsers($request, 'pacients');
+        #Parametro 3 - True - trás somente os usuários com deficiencia.
+        $users = $userCon->getCommonUsers($request, 'pacients', true);
         return view('pacient.create', compact('users'));        
     }
 
@@ -116,23 +117,30 @@ class PacientController extends Controller
      */
     public function store(Request $request, $id)
     {
-        $data = $request->all();
-        unset($data['_token']);
-        $now = Carbon::now();
-        
         $patient = \App\Pacient::where('user_id', $id)->first();
+     
         if (is_null($patient)) {
-            \App\Pacient::insert(
-                        ['user_id' => $id, 'status_id' => $data['status_id'], 'created_at' => $now]
-                    );
-            $patient = \App\Pacient::where('user_id', $id)->first();
+            
+            $data = [
+                        'user_id' => $id, 
+                        'status_id' => $request->status_id, 
+                        'created_at' => Carbon::now()
+                    ];
+            
+            #Se atleta já estiver sendo inserido como inativo, recebe deleted_at
+            if($request->status_id == 2){
+                $data['deleted_at'] = Carbon::now();
+            }
+            
+            $patientId = DB::table('pacients')->insertGetId($data);
+           
         }
         
         $therapies = $request->only('therapies');
         $patientTherapy = new PacientTherapiesController();
-        $patientTherapy->store($therapies, $patient->id);
+        $patientTherapy->store($therapies, $patientId);
 
-        $patientName = $this->getPacientName($patient->id);
+        $patientName = $this->getPacientName($patientId);
         
         Flash::success($patientName . " agora é um(a) paciente.");
         return redirect('pacient/create');

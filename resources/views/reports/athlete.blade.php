@@ -6,7 +6,7 @@
 
 @section('main_title')
     <i class="fa fa-bar-chart-o"></i>
-    <small> / Ir para Dashboard / Atletas </small>
+    <small> / Ver estatísticas / Atletas </small>
 @stop
 
 @section('content')

@@ -10,7 +10,7 @@ use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use Auth;
-
+use Flash;
 
 class AuthController extends Controller
 {
@@ -74,7 +74,9 @@ class AuthController extends Controller
     public function postLogin (Request $request) {
         if (Auth::attempt(['email' => $request['email'], 'password' => $request['password']])) {
             return redirect('/');
+        } else {
+            Flash::error("Login ou senha inválido.");
+            return view('auth.login');
         }
-        return view('auth.login');
     }
 }

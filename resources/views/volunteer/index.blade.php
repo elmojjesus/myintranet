@@ -103,7 +103,7 @@
 
 				<div style="overflow-x:auto;">
 
-	@if($volunteers['items'])
+	@if($volunteers->count() > 0)
 		<table class="table table-hover table-bordered">
 			<thead>
 				<tr>

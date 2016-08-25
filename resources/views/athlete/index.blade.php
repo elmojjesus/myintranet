@@ -168,6 +168,7 @@
                                 </tr>
                             </tfoot>
                     </table>
+                    
                     <div class="row">
                         <div class="col-sm-6">
                             <div aria-relevant="all" aria-live="polite" role="alert" id="dataTables-example_info" class="dataTables_info">
@@ -190,6 +191,7 @@
                             </div>
                         </div>
                     </div>
+                    
                     @else
                             <div class="alert alert-danger">Nenhum atleta cadastrado.</div>
                     @endif

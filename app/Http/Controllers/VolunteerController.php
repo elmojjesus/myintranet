@@ -93,7 +93,8 @@ class VolunteerController extends Controller
     public function create(Request $request)
     {
         $userCon = new UserController();
-        $users = $userCon->getCommonUsers($request, 'volunteers');
+        #Parametro 3 - False - trás usuários com e sem deficiência.
+        $users = $userCon->getCommonUsers($request, 'volunteers', false);
         return view('volunteer.create', compact('users'));        
     }
 
@@ -113,18 +114,22 @@ class VolunteerController extends Controller
     {
         #Insere voluntário
         $data = $request->all();
+        unset($data['_token']);
         $data['user_id'] = $id;
         $data['created_at'] = Carbon::now();
-        unset($data['_token']);
-        $var = \App\Volunteer::insert($data);
         
         #Inativa todos os outros atendimentos, se não estiver sendo cadastrado como inativo
         if($request['status_id'] != 2){
-            \App\User::where('id', $id)->update(['status_id' => '2']);
-            \App\Athlete::where('user_id', $id)->update(['status_id' => '2']);
-            \App\Employee::where('user_id', $id)->update(['status_id' => '2']);
-            \App\Pacient::where('user_id', $id)->update(['status_id' => '2']);   
+            $now = Carbon::now();
+            \App\User::where('id', $id)->update(['status_id' => '2', 'deleted_at' => $now]);
+            \App\Athlete::where('user_id', $id)->update(['status_id' => '2', 'deleted_at' => $now]);
+            \App\Employee::where('user_id', $id)->update(['status_id' => '2', 'deleted_at' => $now]);
+            \App\Pacient::where('user_id', $id)->update(['status_id' => '2', 'deleted_at' => $now]);   
+        } else { #Se voluntário já estiver sendo inserido como inativo, apenas recebe deleted_at
+            $data['deleted_at'] = Carbon::now();
         }
+        
+        \App\Volunteer::insert($data);
         
         Flash::success('Voluntário cadastrado com sucesso.');
         return redirect('volunteer/create');
@@ -168,8 +173,10 @@ class VolunteerController extends Controller
         unset($data['_token']);
 
         $volunteer = \App\Volunteer::withTrashed()->find($id);
-        #Se ele estiver inativo, mas receber outro status, deleted recebe nulo
+        #Se ele estiver inativo, mas receber outro status, deleted recebe nulo e será inativado em usuário
         if($request->status_id != 2 and $volunteer->status_id == 2){
+            $userController = new UserController();
+            $userController->destroy($volunteer->user_id);
             $data["deleted_at"] = null;
         } elseif($request->status_id == 2){
             $this->destroy($volunteer->id);
