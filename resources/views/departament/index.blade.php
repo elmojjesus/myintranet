@@ -47,7 +47,13 @@
                                 @foreach ($departaments as $departament)
                                     <tr>
                                         <td> {!! $departament->name !!} </td>
-                                        <td style="text-align: center;"> <a class="modal-ajax-link" data-mfp-src="/departament/edit/{{ $departament->id }}"> <i class="fa fa-pencil"></i> </a> </td>
+                                        <td style="text-align: center;"> 
+                                            <a class="modal-ajax-link" data-mfp-src="/departament/edit/{{ $departament->id }}"> <i class="fa fa-pencil"></i> </a> 
+                                            <a class="modal-ajax-link" data-mfp-src="/departament/delete/{{ $departament->id }}">
+                                                <i class="fa fa-trash-o"></i>
+                                            </a>
+                                        </td>
+
                                     </tr>
                                 @endforeach  
                             @else
