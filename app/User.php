@@ -143,6 +143,27 @@ class User extends Model implements AuthenticatableContract,
             }
         }
 
+        if (isset($data['initial_registry'])) {
+            $date = \Datetime::createFromFormat('d/m/Y', $data['initial_registry']);
+            if($date) {
+                $data['initial_registry'] = $date->format('Y-m-d H:i:s');
+            } else {
+                if ($type == 'create') {
+                    $now = new \Datetime();
+                    $data['initial_registry'] = $now->format('Y-m-d H:i:s');
+                } else {
+                    unset($data['initial_registry']);
+                }
+            }
+        } else {
+            if($type == 'create') {
+                $now = new \Datetime();
+                $data['initial_registry'] = $now->format('Y-m-d H:i:s');
+            } else {
+                unset($data['initial_registry']);
+            }
+        }
+
         if (!isset($data['education_id']) || $data['education_id'] == '') {
             if (isset($data['education_id'])) {
                 unset($data['education_id']);

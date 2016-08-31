@@ -39,6 +39,7 @@ class CreateUsersTable extends Migration
             $table->foreign('regional_id')->references('id')->on('regionais')->onDelete('set null');
             $table->boolean('voluntary');
             $table->string('entry_port', 40)->nullable();
+            $table->datetime('initial_registry')->nullable();
             $table->softDeletes();
             $table->rememberToken();
             $table->timestamps();

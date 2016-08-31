@@ -52,7 +52,7 @@
 							<td> Porta de Entrada: {{ $user->entry_port != '' ? $user->entry_port : '-' }}</td>
 						</tr>
 						<tr>
-							<?php $created = \Datetime::createFromFormat('Y-m-d H:i:s', $user->created_at); ?>
+							<?php $created = \Datetime::createFromFormat('Y-m-d H:i:s', $user->initial_registry) ?>
 							<td> Cadastro Inicial: {{ $created ? $created->format('d/m/Y') : '-' }}</td>
 							
 						</tr>

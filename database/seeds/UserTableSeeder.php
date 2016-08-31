@@ -24,6 +24,7 @@ class UserTableSeeder extends Seeder
         $regionais = \App\Regional::all();
         $status = \App\Status::all();
         $sex = [0 => 'M', 1 => 'F'];
+        $now = new \Datetime();
         $default[] = [
             'email' => 'mail@mail.com',
             'password' => bcrypt('mail'),
@@ -37,12 +38,12 @@ class UserTableSeeder extends Seeder
             'sex' => 'M',
             'status_id' => 1,
             'regional_id' => $regionais->random(1)->id,
+            'initial_registry' => $now->format('Y-m-d H:i:s')
         ];
         
         \App\User::insert($default);
         
-        foreach (range(0, 10) as $number) {            
-            $now = new \DateTime();
+        foreach (range(0, 100) as $number) {            
            $id = DB::table('users')->insertGetId([
                 'email' => $faker->email,
                 'name' => $faker->name,
@@ -59,6 +60,7 @@ class UserTableSeeder extends Seeder
                 'status_id' => $status->random(1)->id,
                 'regional_id' => $regionais->random(1)->id,
                 'created_at' => $now->format('Y-m-d H:i:s'),
+                'initial_registry' => $now->format('Y-m-d H:i:s')
             ]);
             
             DB::table('documents')->insert([

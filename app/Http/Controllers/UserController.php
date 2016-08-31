@@ -119,6 +119,7 @@ class UserController extends Controller
         $document = \App\Document::extrangeArray($data);
         unset($data['rg'], $data['cpf'], $data['passport'], $data['emission_rg'], $data['emission_cpf'], $data['emission_passport']);
 
+
         if (isset($data['street'])) {
             $address = [
                 'street' => $data['street'],
@@ -142,6 +143,7 @@ class UserController extends Controller
         if($request->status_id == 2){
             $data['deleted_at'] = Carbon::now();
         }
+        
         
         \App\User::insert(\App\User::extrangeArray($data, 'create'));
         

@@ -145,12 +145,12 @@
     <div class="col-md-6">
         <div class="form-group">
         <label>Data de Cadastro Inicial:</label> 
-        <?php if($user->created_at != '0000-00-00'): ?>
-            <?php $created = \Datetime::createFromFormat('Y-m-d H:i:s', $user->created_at); ?>
+        <?php if($user->initial_registry != '0000-00-00'): ?>
+            <?php $created = \Datetime::createFromFormat('Y-m-d H:i:s', $user->initial_registry); ?>
         <?php else: ?>
             <?php $created = ''; ?>
         <?php endif; ?>
-        <input type="text" maxlength="10" placeholder="__/__/____" data-mask="00/00/0000" class="form-control" id="dataCadInicial" name="created_at" value="{{ $created ? $created->format('d/m/Y') : '' }}">
+        <input type="text" maxlength="10" placeholder="__/__/____" data-mask="00/00/0000" class="form-control" id="dataCadInicial" name="initial_registry" value="{{ $created ? $created->format('d/m/Y') : '' }}">
         </div>
     </div>
 

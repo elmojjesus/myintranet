@@ -141,7 +141,7 @@
 	<div class="col-md-6">
 		<div class="form-group">
 		<label>Data de Cadastro Inicial:</label> 
-		<input type="text" maxlength="10" placeholder="__/__/____" data-mask="00/00/0000" class="form-control" id="dataCadInicial" name="created_at">
+		<input type="text" maxlength="10" placeholder="__/__/____" data-mask="00/00/0000" class="form-control" id="dataCadInicial" name="initial_registry">
 		</div>
 	</div>
 
