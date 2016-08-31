@@ -173,7 +173,7 @@
             </div>
         </div>
 	@else
-		<div class="alert alert-danger">Nenhum voluntário cadastrado</div>
+		<div class="alert alert-danger">Nenhum voluntário encontrado.</div>
 	@endif
 		</div>
 
