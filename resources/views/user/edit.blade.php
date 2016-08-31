@@ -205,8 +205,8 @@
     <div class="col-md-6">
         <div class="form-group">
         <label>Emitido em:</label>
-         <?php if($user->document->passport != '0000-00-00'): ?>
-            <?php $emissionPassport = \Datetime::createFromFormat('Y-m-d', $user->document->passport); ?>
+         <?php if($user->document->emission_passport != '0000-00-00'): ?>
+            <?php $emissionPassport = \Datetime::createFromFormat('Y-m-d', $user->document->emission_passport); ?>
         <?php else: ?>
             <?php $emissionPassport = ''; ?>
         <?php endif; ?>
