@@ -14,14 +14,15 @@ class ProfessionSeeder extends Seeder
         $faker = Faker\Factory::create();
         DB::statement('SET FOREIGN_KEY_CHECKS = 0');
         \App\Profession::truncate();
+        /*
         $professions = [];
         foreach (range(1, 6) as $number) {
         	$professions[] = [
         		'name' => 'Profissão '. $number,
         	];
         }
-
-        \App\Profession::insert($professions);
+        */
+        \App\Profession::insert(['name' => 'Sem profissão']);
 
 		DB::statement('SET FOREIGN_KEY_CHECKS = 1'); 
     }

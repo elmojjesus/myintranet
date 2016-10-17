@@ -43,6 +43,7 @@ class UserTableSeeder extends Seeder
         
         \App\User::insert($default);
         
+        /*
         foreach (range(0, 100) as $number) {            
            $id = DB::table('users')->insertGetId([
                 'email' => $faker->email,
@@ -68,9 +69,9 @@ class UserTableSeeder extends Seeder
                 'rg' => '363620862',
                 'user_id' => $id
             ]);
-            
+           
         }
-        
+        */
         DB::statement('SET FOREIGN_KEY_CHECKS = 1');
 
     }

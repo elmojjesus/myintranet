@@ -14,14 +14,15 @@ class DeficiencySeeder extends Seeder
         $faker = Faker\Factory::create();
         DB::statement('SET FOREIGN_KEY_CHECKS = 0');
         \App\Deficiency::truncate();
+        /*
         $deficiencies = [];
         foreach (range(1, 6) as $number) {
         	$deficiencies[] = [
         		'name' => 'Deficiência '. $number,
         	];
         }
-
-        \App\Deficiency::insert($deficiencies);
+        */
+        \App\Deficiency::insert(['name'  => 'Sem deficiência']);
 
 		DB::statement('SET FOREIGN_KEY_CHECKS = 1');        
     }
